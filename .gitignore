@@ -54,3 +54,7 @@ functions/node_modules/
 /blob-report/
 /.lighthouseci/
 /.lighthouseci/
+
+# clés de compte de service Firebase (jamais dans Git)
+*service-account*.json
+*-firebase-adminsdk-*.json
