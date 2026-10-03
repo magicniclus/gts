@@ -85,7 +85,7 @@ export function PriceGrid({ initial, defaults, updatedAt, save }: Props) {
                         aria-label={`${PRICE_ROW_LABELS[k]}, ${b}`}
                         aria-invalid={err ? true : undefined}
                         title={err?.message}
-                        className={cx(fieldClasses, "w-[88px] text-right tabular-nums")}
+                        className={cx(fieldClasses, "w-[88px]! text-right tabular-nums")}
                         {...form.register(`grid.${k}.${i as 0 | 1 | 2 | 3 | 4}`, num)}
                       />
                     </td>
@@ -118,7 +118,7 @@ export function PriceGrid({ initial, defaults, updatedAt, save }: Props) {
                   min={0}
                   inputMode="numeric"
                   aria-invalid={err ? true : undefined}
-                  className={cx(fieldClasses, "w-[110px] text-right")}
+                  className={cx(fieldClasses, "w-[110px]! text-right")}
                   {...form.register(`rules.${r.key}`, num)}
                 />
                 <span className="text-text/65">{r.unit}</span>

@@ -25,7 +25,9 @@ test("brouillon absent du site, puis publié : liste, sitemap et page", async ({
   await expect(page.getByText("Modifications enregistrées.")).toBeVisible();
 
   await page.goto("/conseils");
-  await expect(page.getByRole("link", { name: /Diagnostic gaz : les points de contrôle/ })).toHaveCount(0);
+  await expect(
+    page.getByRole("link", { name: /Diagnostic gaz : les points de contrôle/ }),
+  ).toHaveCount(0);
   expect((await request.get("/conseils/diagnostic-gaz-les-points-de-controle")).status()).toBe(404);
 
   await page.goto("/espace-proprietaire/articles");
@@ -50,7 +52,9 @@ test("brouillon absent du site, puis publié : liste, sitemap et page", async ({
   page.once("dialog", (d) => d.accept());
   await page.getByRole("button", { name: "Supprimer l’article" }).click();
   await expect(page).toHaveURL(/\/espace-proprietaire\/articles$/);
-  await expect(page.getByRole("link", { name: "Modifier « Diagnostic gaz : les points de contrôle »" })).toHaveCount(0);
+  await expect(
+    page.getByRole("link", { name: "Modifier « Diagnostic gaz : les points de contrôle »" }),
+  ).toHaveCount(0);
 });
 
 test("adresse déjà utilisée refusée", async ({ page }) => {
