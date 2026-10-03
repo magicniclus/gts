@@ -60,5 +60,11 @@ export async function login(page: Page, path = "/espace-proprietaire/demandes") 
   await page.getByRole("button", { name: "Se connecter" }).click();
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   await expect(page).not.toHaveURL(/connexion/);
+  await hydrated(page);
   await expect(page.getByRole("heading", { name: "Connexion" })).toHaveCount(0);
+}
+
+/** Attend l’hydratation de l’espace propriétaire (sinon une saisie trop rapide peut être écrasée). */
+export async function hydrated(page: Page) {
+  await page.locator('html[data-hydrated="true"]').waitFor({ state: "attached" });
 }

@@ -48,9 +48,7 @@ export function ImageFrame({
       ) : (
         <div className="absolute inset-0 grid place-content-center justify-items-center gap-3 p-6 text-center">
           <Icon name={fallbackIcon} size={48} />
-          {fallbackLabel && (
-            <span className="text-sm font-semibold opacity-80">{fallbackLabel}</span>
-          )}
+          {fallbackLabel && <span className="text-sm font-semibold">{fallbackLabel}</span>}
         </div>
       )}
     </div>

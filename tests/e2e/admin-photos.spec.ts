@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { login } from "./helpers";
+import { hydrated, login } from "./helpers";
 
 test("envoyer un portrait → affiché dans « Qui suis-je »", async ({ page }) => {
   await login(page, "/espace-proprietaire/photos");
@@ -18,6 +18,8 @@ test("envoyer un portrait → affiché dans « Qui suis-je »", async ({ page })
   expect(await portrait.evaluate((img: HTMLImageElement) => img.naturalWidth)).toBeGreaterThan(0);
 
   await page.goto("/espace-proprietaire/photos");
+
+  await hydrated(page);
   await page
     .getByRole("region", { name: "Portrait de Guillaume" })
     .getByRole("button", { name: "Retirer" })

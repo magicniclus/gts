@@ -24,7 +24,7 @@ import { pageMetadata } from "@/lib/seo/metadata";
 export const metadata: Metadata = pageMetadata({
   title: "GTS Diagnostic, diagnostiqueur immobilier à Marseille",
   description:
-    "DPE, amiante, plomb, électricité, gaz à Marseille et 50 km autour. Guillaume Tilliet, diagnostiqueur certifié. Rapport sous 24 h, devis gratuit en 2 minutes.",
+    "DPE, amiante, plomb, électricité, gaz à Marseille et 50 km autour. Guillaume Tilliet, diagnostiqueur certifié. Rapport sous 24 h, devis gratuit en 2 min.",
   path: "/",
 });
 

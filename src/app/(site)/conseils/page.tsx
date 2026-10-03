@@ -10,7 +10,7 @@ import { pageMetadata } from "@/lib/seo/metadata";
 export const metadata: Metadata = pageMetadata({
   title: "Conseils diagnostics immobiliers | GTS Diagnostic",
   description:
-    "Réglementation 2026, obligations à la vente et à la location, particularités du bâti marseillais : les conseils de Guillaume Tilliet, diagnostiqueur certifié.",
+    "Réglementation 2026, obligations à la vente et à la location, bâti marseillais : les conseils de Guillaume Tilliet, diagnostiqueur certifié.",
   path: "/conseils",
 });
 

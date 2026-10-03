@@ -22,6 +22,16 @@ import { SavedLabel } from "./SavedLabel";
 import { useToast } from "./Toast";
 import { useSaveForm } from "./useSaveForm";
 
+/** Pendant la saisie : comme slugify, mais garde le tiret final (on peut taper « mon- »). */
+function slugDraft(v: string): string {
+  return v
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+/, "");
+}
+
 type Props = {
   article: Article;
   save: (i: { id: string; article: ArticleInput }) => Promise<ActionResult>;
@@ -105,8 +115,15 @@ export function ArticleEditor({ article, save, remove, uploadCover, removeCover 
                 {...slugField}
                 onChange={(ev) => {
                   setAutoSlug(false);
-                  ev.target.value = slugify(ev.target.value) || ev.target.value.toLowerCase();
+                  ev.target.value = slugDraft(ev.target.value);
                   void slugField.onChange(ev);
+                }}
+                onBlur={(ev) => {
+                  form.setValue("slug", slugify(ev.target.value), {
+                    shouldDirty: true,
+                    shouldValidate: true,
+                  });
+                  void slugField.onBlur(ev);
                 }}
               />
             </span>

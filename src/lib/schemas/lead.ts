@@ -16,11 +16,7 @@ const OBLIGATION_IDS = [
   "spanc",
 ] as const;
 
-export const LEAD_STATUSES = ["nouveau", "rappele", "devis_envoye", "gagne", "perdu"] as const;
-export type LeadStatus = (typeof LEAD_STATUSES)[number];
-
-export const CONSENT_TEXT =
-  "J’accepte que GTS Diagnostic utilise ces informations pour établir mon devis. Aucune revente, aucune prospection.";
+export { CONSENT_TEXT, LEAD_STATUSES, type LeadStatus } from "@/lib/leads/constants";
 
 const opt = <T extends z.ZodType>(schema: T) => schema.optional();
 

@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { login } from "./helpers";
+import { hydrated, login } from "./helpers";
 
 test("modifier le DPE < 30 m² met à jour la page DPE et le devis", async ({ page }) => {
   await login(page, "/espace-proprietaire/tarifs");
@@ -24,6 +24,7 @@ test("modifier le DPE < 30 m² met à jour la page DPE et le devis", async ({ pa
 
   // Remise en état pour les autres tests.
   await page.goto("/espace-proprietaire/tarifs");
+  await hydrated(page);
   await page.getByRole("button", { name: "Rétablir les tarifs par défaut" }).click();
   await page.getByRole("button", { name: "Enregistrer" }).click();
   await expect(page.getByText("Modifications enregistrées.")).toBeVisible();

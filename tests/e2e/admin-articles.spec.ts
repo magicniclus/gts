@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { login } from "./helpers";
+import { hydrated, login } from "./helpers";
 
 test("brouillon absent du site, puis publié : liste, sitemap et page", async ({
   page,
@@ -31,6 +31,8 @@ test("brouillon absent du site, puis publié : liste, sitemap et page", async ({
   expect((await request.get("/conseils/diagnostic-gaz-les-points-de-controle")).status()).toBe(404);
 
   await page.goto("/espace-proprietaire/articles");
+
+  await hydrated(page);
   await page
     .getByRole("link", { name: "Modifier « Diagnostic gaz : les points de contrôle »" })
     .click();
@@ -46,6 +48,8 @@ test("brouillon absent du site, puis publié : liste, sitemap et page", async ({
   expect(sitemap).toContain("/conseils/diagnostic-gaz-les-points-de-controle");
 
   await page.goto("/espace-proprietaire/articles");
+
+  await hydrated(page);
   await page
     .getByRole("link", { name: "Modifier « Diagnostic gaz : les points de contrôle »" })
     .click();

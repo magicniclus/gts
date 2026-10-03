@@ -4,16 +4,19 @@ import { cx } from "@/lib/cx";
 import { routes } from "@/lib/domain/routes";
 
 const SCALE = [
-  { l: "A", range: "≤ 70", cls: "bg-dpe-a text-white", status: null },
-  { l: "B", range: "71 – 110", cls: "bg-dpe-b text-white", status: null },
+  { l: "A", range: "≤ 70", cls: "bg-dpe-a text-text", status: null },
+  { l: "B", range: "71 – 110", cls: "bg-dpe-b text-text", status: null },
   { l: "C", range: "111 – 180", cls: "bg-dpe-c text-text", status: null },
   { l: "D", range: "181 – 250", cls: "bg-dpe-d text-text", status: null },
   { l: "E", range: "251 – 330", cls: "bg-dpe-e text-text", status: "Interdit en 2034" },
-  { l: "F", range: "331 – 420", cls: "bg-dpe-f text-white", status: "Interdit en 2028" },
+  { l: "F", range: "331 – 420", cls: "bg-dpe-f text-text", status: "Interdit en 2028" },
   { l: "G", range: "> 420", cls: "bg-dpe-g text-white", status: "Interdit depuis 2025" },
 ] as const;
 
-/** Focus DPE : texte + échelle A–G avec les interdictions de location. */
+/**
+ * Focus DPE : texte + échelle A–G avec les interdictions de location.
+ * Texte navy sur A à F (contraste ≥ 4,5:1), blanc sur G.
+ */
 export function DpeScale() {
   return (
     <section className="bg-surface">

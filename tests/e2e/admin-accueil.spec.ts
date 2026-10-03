@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { login } from "./helpers";
+import { hydrated, login } from "./helpers";
 
 test("changer le titre du hero → visible sur l’accueil", async ({ page }) => {
   await login(page, "/espace-proprietaire/accueil");
@@ -18,6 +18,8 @@ test("changer le titre du hero → visible sur l’accueil", async ({ page }) =>
   );
 
   await page.goto("/espace-proprietaire/accueil");
+
+  await hydrated(page);
   await page.getByLabel("Titre", { exact: true }).fill(before);
   await page.getByRole("button", { name: "Enregistrer" }).click();
   await expect(page.getByText("Modifications enregistrées.")).toBeVisible();

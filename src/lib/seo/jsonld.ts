@@ -1,8 +1,24 @@
+/**
+ * Données structurées schema.org, typées avec schema-dts (validation à la compilation).
+ */
+import type {
+  Article,
+  BreadcrumbList,
+  FAQPage,
+  ProfessionalService,
+  Service,
+  WithContext,
+} from "schema-dts";
 import { absoluteUrl } from "./site-url";
 
 type Crumb = { name: string; href?: string };
 
-export function breadcrumbList(items: readonly Crumb[], currentPath: string) {
+const businessId = () => `${absoluteUrl("/")}#entreprise`;
+
+export function breadcrumbList(
+  items: readonly Crumb[],
+  currentPath: string,
+): WithContext<BreadcrumbList> {
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -15,7 +31,7 @@ export function breadcrumbList(items: readonly Crumb[], currentPath: string) {
   };
 }
 
-export function faqPage(faq: readonly { q: string; a: string }[]) {
+export function faqPage(faq: readonly { q: string; a: string }[]): WithContext<FAQPage> {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -29,11 +45,11 @@ export function faqPage(faq: readonly { q: string; a: string }[]) {
 
 type Business = { phone: string; email: string; adresse: string };
 
-export function professionalService(s: Business) {
+export function professionalService(s: Business): WithContext<ProfessionalService> {
   return {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    "@id": `${absoluteUrl("/")}#entreprise`,
+    "@id": businessId(),
     name: "GTS Diagnostic",
     url: absoluteUrl("/"),
     logo: absoluteUrl("/logo-navy.png"),
@@ -70,7 +86,7 @@ export function serviceOffer({
   path: string;
   price: number;
   area: string;
-}) {
+}): WithContext<Service> {
   return {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -78,7 +94,7 @@ export function serviceOffer({
     description,
     url: absoluteUrl(path),
     serviceType: name,
-    provider: { "@id": `${absoluteUrl("/")}#entreprise` },
+    provider: { "@id": businessId() },
     areaServed: { "@type": "City", name: area },
     offers: {
       "@type": "Offer",
@@ -102,7 +118,7 @@ export function articleLd(a: {
   publishedAt: string;
   updatedAt: string | null;
   coverUrl: string | null;
-}) {
+}): WithContext<Article> {
   return {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -113,6 +129,6 @@ export function articleLd(a: {
     dateModified: a.updatedAt ?? a.publishedAt,
     ...(a.coverUrl ? { image: [a.coverUrl] } : {}),
     author: { "@type": "Person", name: "Guillaume Tilliet" },
-    publisher: { "@id": `${absoluteUrl("/")}#entreprise` },
+    publisher: { "@id": businessId() },
   };
 }

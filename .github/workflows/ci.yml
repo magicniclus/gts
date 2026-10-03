@@ -36,8 +36,8 @@ jobs:
         run: npm run lint && npm run format:check
       - name: Typecheck
         run: npm run typecheck && npm --prefix functions run typecheck
-      - name: Tests (unitaires, composants, règles)
-        run: npm test
+      - name: Tests (unitaires, composants, règles, intégration) et couverture
+        run: npm run coverage
       - name: Build (émulateur + seed)
         run: npm run build:emu
 
@@ -68,3 +68,30 @@ jobs:
         with:
           name: playwright-report
           path: playwright-report/
+
+  quality:
+    runs-on: ubuntu-latest
+    needs: checks
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/firebase/emulators
+          key: firebase-emulators-${{ hashFiles('package-lock.json') }}
+      - run: npm ci
+      - run: npm ci --prefix functions
+      - name: SEO, liens cassés, poids JS, Lighthouse
+        run: npm run quality
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lighthouse
+          path: .lighthouseci/

@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { login } from "./helpers";
+import { hydrated, login } from "./helpers";
 
 test("coordonnées : en-tête, pied de page et mentions légales mis à jour", async ({ page }) => {
   await login(page, "/espace-proprietaire/coordonnees");
@@ -18,6 +18,8 @@ test("coordonnées : en-tête, pied de page et mentions légales mis à jour", a
   await expect(page.getByText(/Téléphone : 07 11 22 33 44/)).toBeVisible();
 
   await page.goto("/espace-proprietaire/coordonnees");
+
+  await hydrated(page);
   await page.getByLabel("Téléphone").fill("06 12 34 56 78");
   await page.getByLabel("SIRET").fill("");
   await page.getByRole("button", { name: "Enregistrer" }).click();

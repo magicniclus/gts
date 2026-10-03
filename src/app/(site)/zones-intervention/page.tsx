@@ -8,7 +8,7 @@ import { pageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = pageMetadata({
   title: "Zones d’intervention — Marseille et 50 km | GTS Diagnostic",
-  description: `Diagnostics immobiliers dans ${COMMUNE_COUNT} communes : Marseille, Aubagne, Aix-en-Provence, La Ciotat, Martigues, Vitrolles et l’ouest du Var. Déplacement inclus jusqu’à 30 km.`,
+  description: `Diagnostics immobiliers dans ${COMMUNE_COUNT} communes : Marseille, Aubagne, Aix, La Ciotat, Martigues et l’ouest du Var. Déplacement inclus jusqu’à 30 km.`,
   path: "/zones-intervention",
 });
 

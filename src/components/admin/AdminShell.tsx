@@ -4,6 +4,7 @@ import { Icon } from "@/components/ui/Icon";
 import { Logo } from "@/components/site/Logo";
 import { AdminNav } from "./AdminNav";
 import { AdminSidebar } from "./AdminSidebar";
+import { HydrationMarker } from "./HydrationMarker";
 import { LogoutButton } from "./LogoutButton";
 import { ToastProvider } from "./Toast";
 
@@ -47,6 +48,7 @@ export function AdminShell({
       </AdminSidebar>
       <main id="contenu" className="min-w-0 flex-[1_1_560px] p-[clamp(24px,3.5vw,48px)]">
         <ToastProvider>{children}</ToastProvider>
+        <HydrationMarker />
       </main>
     </div>
   );

@@ -1,0 +1,49 @@
+{
+  "ci": {
+    "collect": {
+      "url": [
+        "http://localhost:3100/",
+        "http://localhost:3100/diagnostic-dpe-marseille",
+        "http://localhost:3100/diagnostic-dpe/aubagne",
+        "http://localhost:3100/devis",
+        "http://localhost:3100/conseils"
+      ],
+      "numberOfRuns": 3,
+      "settings": {
+        "chromeFlags": "--no-sandbox --headless=new"
+      }
+    },
+    "assert": {
+      "assertions": {
+        "categories:performance": [
+          "error",
+          {
+            "minScore": 0.95
+          }
+        ],
+        "categories:seo": [
+          "error",
+          {
+            "minScore": 1
+          }
+        ],
+        "categories:accessibility": [
+          "error",
+          {
+            "minScore": 0.95
+          }
+        ],
+        "categories:best-practices": [
+          "error",
+          {
+            "minScore": 0.95
+          }
+        ]
+      }
+    },
+    "upload": {
+      "target": "filesystem",
+      "outputDir": ".lighthouseci"
+    }
+  }
+}

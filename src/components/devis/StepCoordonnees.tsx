@@ -1,6 +1,6 @@
 import { Checkbox, Field, Input } from "@/components/ui/Field";
 import { PROFIL } from "@/lib/data/devis-options";
-import { CONSENT_TEXT } from "@/lib/schemas/lead";
+import { CONSENT_TEXT } from "@/lib/leads/constants";
 import { OptionGroup } from "./OptionGroup";
 import { StepHeading } from "./StepHeading";
 import type { DevisForm, SetField } from "./types";
