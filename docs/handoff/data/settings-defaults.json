@@ -1,0 +1,153 @@
+{
+  "phone": "06 12 34 56 78",
+  "email": "contact@gts-diagnostic.fr",
+  "hours": "Lun – sam · 8 h – 19 h",
+  "photos": {
+    "portrait": "",
+    "portraitAlt": "Guillaume Tilliet, diagnostiqueur immobilier à Marseille",
+    "logoNavy": "",
+    "logoWhite": ""
+  },
+  "hero": {
+    "kicker": "Diagnostiqueur indépendant · Marseille",
+    "t1": "Vos diagnostics immobiliers,",
+    "t2": "rapport en 24 h.",
+    "intro": "DPE, amiante, plomb, électricité, gaz : Guillaume Tilliet réalise chaque visite lui-même, à Marseille et dans {communes} communes à moins de 50 km."
+  },
+  "pr": {
+    "dpe": [
+      100,
+      115,
+      135,
+      155,
+      185
+    ],
+    "dpet": [
+      180,
+      220,
+      260,
+      320,
+      400
+    ],
+    "amiante": [
+      85,
+      95,
+      115,
+      135,
+      165
+    ],
+    "raat": [
+      220,
+      250,
+      290,
+      340,
+      400
+    ],
+    "plomb": [
+      100,
+      115,
+      140,
+      165,
+      195
+    ],
+    "electricite": [
+      80,
+      90,
+      100,
+      110,
+      125
+    ],
+    "gaz": [
+      80,
+      85,
+      90,
+      95,
+      100
+    ],
+    "carrez": [
+      45,
+      55,
+      65,
+      80,
+      100
+    ],
+    "termites": [
+      70,
+      80,
+      95,
+      110,
+      130
+    ],
+    "audit": [
+      450,
+      450,
+      490,
+      590,
+      690
+    ]
+  },
+  "rules": {
+    "maison": 15,
+    "annexe": 10,
+    "packPct": 15,
+    "packMin": 3,
+    "d30": 20,
+    "d40": 30
+  },
+  "articles": [
+    {
+      "id": "a1",
+      "slug": "dpe-2026-ce-qui-change",
+      "autoSlug": false,
+      "title": "DPE 2026 : ce qui change pour les logements chauffés à l’électricité",
+      "cat": "DPE",
+      "date": "2026-09-18",
+      "published": true,
+      "cover": "",
+      "excerpt": "Depuis le 1er janvier 2026, le coefficient de l’électricité passe de 2,3 à 1,9. De nombreux appartements marseillais gagnent une classe.",
+      "body": "## Un nouveau coefficient\nLe DPE convertit la consommation d’électricité en énergie primaire. Ce coefficient est passé de 2,3 à 1,9 au 1er janvier 2026 : à consommation égale, un logement chauffé à l’électricité affiche une note plus favorable.\n\n## Qui est concerné ?\nLes petits appartements équipés de convecteurs et de ballons électriques, très nombreux dans le centre de Marseille, sont les premiers gagnants. Certains logements classés F ou G remontent d’une classe.\n\n## Faut-il refaire son DPE ?\nUn DPE réalisé avant 2026 reste valable. Si votre logement est proche d’un seuil, notamment pour la location, un nouveau diagnostic peut changer sa classe. Guillaume vous dit si cela vaut la peine avant de se déplacer."
+    },
+    {
+      "id": "a2",
+      "slug": "vendre-appartement-avant-1949-marseille",
+      "autoSlug": false,
+      "title": "Vendre un appartement d’avant 1949 à Marseille : les diagnostics à prévoir",
+      "cat": "Conseils vente",
+      "date": "2026-09-04",
+      "published": true,
+      "cover": "",
+      "excerpt": "Trois-fenêtres, immeubles du Panier ou de la Belle de Mai : un bien ancien cumule plomb, amiante et termites. Le point complet.",
+      "body": "## Le socle commun\nDPE, mesurage Carrez, état des risques (ERP) et termites, obligatoire à chaque vente dans tout le département des Bouches-du-Rhône.\n\n## Les diagnostics liés à l’âge\nAvant 1949, le constat de risque d’exposition au plomb (CREP) s’ajoute. Le permis étant antérieur à juillet 1997, le repérage amiante est également exigé. Électricité et gaz s’ajoutent si les installations ont plus de 15 ans.\n\n## Combien de temps prévoir ?\nComptez 2 à 3 heures de visite pour un appartement de 60 m², et un rapport sous 24 heures. Le formulaire de devis calcule la liste exacte à partir de vos réponses."
+    },
+    {
+      "id": "a3",
+      "slug": "termites-bouches-du-rhone-obligations",
+      "autoSlug": false,
+      "title": "Termites dans les Bouches-du-Rhône : ce que dit la loi à la vente",
+      "cat": "Réglementation",
+      "date": "2026-08-21",
+      "published": true,
+      "cover": "",
+      "excerpt": "Tout le département est classé zone termites. L’état parasitaire est obligatoire à chaque vente et ne vaut que six mois.",
+      "body": "## Un département entièrement classé\nUn arrêté préfectoral classe l’ensemble des Bouches-du-Rhône en zone termites. Toutes les ventes sont concernées, maisons comme appartements.\n\n## Six mois de validité\nL’état relatif à la présence de termites doit dater de moins de six mois à la signature de l’acte. Mieux vaut le programmer avec les autres diagnostics, au moment du compromis.\n\n## En cas d’infestation\nLe propriétaire doit la déclarer en mairie et faire traiter le bâtiment. Le rapport localise précisément les zones touchées."
+    }
+  ],
+  "legal": {
+    "mentions": {
+      "title": "Mentions légales",
+      "body": "## Éditeur du site\nGTS Diagnostic — Guillaume Tilliet, entrepreneur individuel\nSIRET : {siret}\nAdresse : {adresse}\nTéléphone : {telephone} · E-mail : {email}\n\n## Directeur de la publication\nGuillaume Tilliet\n\n## Hébergement\nVercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis\n\n## Certification\nCertification : {certification}. Liste consultable sur l’annuaire officiel des diagnostiqueurs du ministère de la Transition écologique.\n\n## Assurance\nResponsabilité civile professionnelle souscrite auprès de {assurance}."
+    },
+    "cgv": {
+      "title": "Conditions générales de vente",
+      "body": "## Devis\nToute intervention fait l’objet d’un devis ferme, transmis par e-mail et accepté avant la visite. L’estimation affichée sur le site est indicative.\n\n## Tarifs et paiement\nLes prix sont exprimés en euros TTC. Le règlement intervient à la remise du rapport, par virement, carte bancaire ou chèque.\n\n## Rendez-vous et annulation\nUn rendez-vous peut être annulé sans frais jusqu’à 24 h avant la visite. Au-delà, un déplacement de [montant] € peut être facturé.\n\n## Remise des rapports\nLes rapports sont transmis par e-mail sous 24 h ouvrées après la visite, sous réserve d’accès à toutes les pièces et de paiement.\n\n## Médiation\nEn cas de litige, le client consommateur peut recourir gratuitement au médiateur de la consommation : [nom et coordonnées du médiateur]."
+    },
+    "confidentialite": {
+      "title": "Politique de confidentialité",
+      "body": "## Données collectées\nLe formulaire de devis recueille vos nom, téléphone, e-mail et les caractéristiques du bien. Ces données servent uniquement à établir votre devis et à réaliser les diagnostics.\n\n## Responsable du traitement\nGuillaume Tilliet, GTS Diagnostic — {email}\n\n## Durée de conservation\nTrois ans à compter du dernier contact pour les demandes sans suite ; dix ans pour les rapports, conformément aux obligations de la profession.\n\n## Vos droits\nVous disposez d’un droit d’accès, de rectification, d’effacement et d’opposition. Écrivez à {email}. Vous pouvez aussi saisir la CNIL (cnil.fr)."
+    }
+  },
+  "adresse": "",
+  "siret": "",
+  "certification": "",
+  "assurance": ""
+}

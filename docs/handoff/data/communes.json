@@ -1,0 +1,769 @@
+{
+  "secteurs": {
+    "mrs": "Marseille",
+    "est": "Huveaune & Garlaban",
+    "nord": "Étoile & bassin minier",
+    "aix": "Pays d’Aix",
+    "sud": "Calanques & littoral sud",
+    "ouest": "Côte Bleue & Étang de Berre",
+    "var": "Ouest Var"
+  },
+  "communes": [
+    {
+      "name": "Marseille 1er",
+      "cp": "13001",
+      "km": 0,
+      "secteur": "mrs",
+      "bati": "haussmann",
+      "slug": "marseille-1er",
+      "peb": false
+    },
+    {
+      "name": "Marseille 2e",
+      "cp": "13002",
+      "km": 0,
+      "secteur": "mrs",
+      "bati": "haussmann",
+      "slug": "marseille-2e",
+      "peb": false
+    },
+    {
+      "name": "Marseille 3e",
+      "cp": "13003",
+      "km": 0,
+      "secteur": "mrs",
+      "bati": "haussmann",
+      "slug": "marseille-3e",
+      "peb": false
+    },
+    {
+      "name": "Marseille 4e",
+      "cp": "13004",
+      "km": 0,
+      "secteur": "mrs",
+      "bati": "haussmann",
+      "slug": "marseille-4e",
+      "peb": false
+    },
+    {
+      "name": "Marseille 5e",
+      "cp": "13005",
+      "km": 0,
+      "secteur": "mrs",
+      "bati": "haussmann",
+      "slug": "marseille-5e",
+      "peb": false
+    },
+    {
+      "name": "Marseille 6e",
+      "cp": "13006",
+      "km": 0,
+      "secteur": "mrs",
+      "bati": "haussmann",
+      "slug": "marseille-6e",
+      "peb": false
+    },
+    {
+      "name": "Marseille 7e",
+      "cp": "13007",
+      "km": 0,
+      "secteur": "mrs",
+      "bati": "haussmann",
+      "slug": "marseille-7e",
+      "peb": false
+    },
+    {
+      "name": "Marseille 8e",
+      "cp": "13008",
+      "km": 0,
+      "secteur": "mrs",
+      "bati": "mrsmixte",
+      "slug": "marseille-8e",
+      "peb": false
+    },
+    {
+      "name": "Marseille 9e",
+      "cp": "13009",
+      "km": 0,
+      "secteur": "mrs",
+      "bati": "mrsmixte",
+      "slug": "marseille-9e",
+      "peb": false
+    },
+    {
+      "name": "Marseille 10e",
+      "cp": "13010",
+      "km": 0,
+      "secteur": "mrs",
+      "bati": "mrsmixte",
+      "slug": "marseille-10e",
+      "peb": false
+    },
+    {
+      "name": "Marseille 11e",
+      "cp": "13011",
+      "km": 0,
+      "secteur": "mrs",
+      "bati": "mrsmixte",
+      "slug": "marseille-11e",
+      "peb": false
+    },
+    {
+      "name": "Marseille 12e",
+      "cp": "13012",
+      "km": 0,
+      "secteur": "mrs",
+      "bati": "mrsmixte",
+      "slug": "marseille-12e",
+      "peb": false
+    },
+    {
+      "name": "Marseille 13e",
+      "cp": "13013",
+      "km": 0,
+      "secteur": "mrs",
+      "bati": "grandsens",
+      "slug": "marseille-13e",
+      "peb": true
+    },
+    {
+      "name": "Marseille 14e",
+      "cp": "13014",
+      "km": 0,
+      "secteur": "mrs",
+      "bati": "grandsens",
+      "slug": "marseille-14e",
+      "peb": true
+    },
+    {
+      "name": "Marseille 15e",
+      "cp": "13015",
+      "km": 0,
+      "secteur": "mrs",
+      "bati": "grandsens",
+      "slug": "marseille-15e",
+      "peb": true
+    },
+    {
+      "name": "Marseille 16e",
+      "cp": "13016",
+      "km": 0,
+      "secteur": "mrs",
+      "bati": "grandsens",
+      "slug": "marseille-16e",
+      "peb": true
+    },
+    {
+      "name": "Allauch",
+      "cp": "13190",
+      "km": 10,
+      "secteur": "est",
+      "bati": "mixte",
+      "slug": "allauch",
+      "peb": false
+    },
+    {
+      "name": "Plan-de-Cuques",
+      "cp": "13380",
+      "km": 10,
+      "secteur": "est",
+      "bati": "recent",
+      "slug": "plan-de-cuques",
+      "peb": false
+    },
+    {
+      "name": "La Penne-sur-Huveaune",
+      "cp": "13821",
+      "km": 13,
+      "secteur": "est",
+      "bati": "mixte",
+      "slug": "la-penne-sur-huveaune",
+      "peb": false
+    },
+    {
+      "name": "Aubagne",
+      "cp": "13400",
+      "km": 17,
+      "secteur": "est",
+      "bati": "mixte",
+      "slug": "aubagne",
+      "peb": false
+    },
+    {
+      "name": "Gémenos",
+      "cp": "13420",
+      "km": 22,
+      "secteur": "est",
+      "bati": "recent",
+      "slug": "gemenos",
+      "peb": false
+    },
+    {
+      "name": "Peypin",
+      "cp": "13124",
+      "km": 24,
+      "secteur": "est",
+      "bati": "recent",
+      "slug": "peypin",
+      "peb": false
+    },
+    {
+      "name": "Roquevaire",
+      "cp": "13360",
+      "km": 25,
+      "secteur": "est",
+      "bati": "ancien",
+      "slug": "roquevaire",
+      "peb": false
+    },
+    {
+      "name": "La Destrousse",
+      "cp": "13112",
+      "km": 25,
+      "secteur": "est",
+      "bati": "recent",
+      "slug": "la-destrousse",
+      "peb": false
+    },
+    {
+      "name": "La Bouilladisse",
+      "cp": "13720",
+      "km": 27,
+      "secteur": "est",
+      "bati": "mixte",
+      "slug": "la-bouilladisse",
+      "peb": false
+    },
+    {
+      "name": "Belcodène",
+      "cp": "13720",
+      "km": 28,
+      "secteur": "est",
+      "bati": "recent",
+      "slug": "belcodene",
+      "peb": false
+    },
+    {
+      "name": "Cuges-les-Pins",
+      "cp": "13780",
+      "km": 28,
+      "secteur": "est",
+      "bati": "recent",
+      "slug": "cuges-les-pins",
+      "peb": false
+    },
+    {
+      "name": "Auriol",
+      "cp": "13390",
+      "km": 30,
+      "secteur": "est",
+      "bati": "mixte",
+      "slug": "auriol",
+      "peb": false
+    },
+    {
+      "name": "Saint-Zacharie",
+      "cp": "83640",
+      "km": 35,
+      "secteur": "est",
+      "bati": "ancien",
+      "slug": "saint-zacharie",
+      "peb": false
+    },
+    {
+      "name": "Septèmes-les-Vallons",
+      "cp": "13240",
+      "km": 12,
+      "secteur": "nord",
+      "bati": "mixte",
+      "slug": "septemes-les-vallons",
+      "peb": false
+    },
+    {
+      "name": "Les Pennes-Mirabeau",
+      "cp": "13170",
+      "km": 15,
+      "secteur": "nord",
+      "bati": "recent",
+      "slug": "les-pennes-mirabeau",
+      "peb": true
+    },
+    {
+      "name": "Simiane-Collongue",
+      "cp": "13109",
+      "km": 20,
+      "secteur": "nord",
+      "bati": "recent",
+      "slug": "simiane-collongue",
+      "peb": false
+    },
+    {
+      "name": "Mimet",
+      "cp": "13105",
+      "km": 20,
+      "secteur": "nord",
+      "bati": "recent",
+      "slug": "mimet",
+      "peb": false
+    },
+    {
+      "name": "Bouc-Bel-Air",
+      "cp": "13320",
+      "km": 20,
+      "secteur": "nord",
+      "bati": "recent",
+      "slug": "bouc-bel-air",
+      "peb": false
+    },
+    {
+      "name": "Cadolive",
+      "cp": "13950",
+      "km": 22,
+      "secteur": "nord",
+      "bati": "recent",
+      "slug": "cadolive",
+      "peb": false
+    },
+    {
+      "name": "Saint-Savournin",
+      "cp": "13119",
+      "km": 22,
+      "secteur": "nord",
+      "bati": "ancien",
+      "slug": "saint-savournin",
+      "peb": false
+    },
+    {
+      "name": "Cabriès",
+      "cp": "13480",
+      "km": 22,
+      "secteur": "nord",
+      "bati": "recent",
+      "slug": "cabries",
+      "peb": true
+    },
+    {
+      "name": "Gréasque",
+      "cp": "13850",
+      "km": 24,
+      "secteur": "nord",
+      "bati": "mixte",
+      "slug": "greasque",
+      "peb": false
+    },
+    {
+      "name": "Gardanne",
+      "cp": "13120",
+      "km": 25,
+      "secteur": "nord",
+      "bati": "mixte",
+      "slug": "gardanne",
+      "peb": false
+    },
+    {
+      "name": "Meyreuil",
+      "cp": "13590",
+      "km": 26,
+      "secteur": "aix",
+      "bati": "recent",
+      "slug": "meyreuil",
+      "peb": false
+    },
+    {
+      "name": "Aix-en-Provence",
+      "cp": "13100",
+      "km": 30,
+      "secteur": "aix",
+      "bati": "ancien",
+      "slug": "aix-en-provence",
+      "peb": true
+    },
+    {
+      "name": "Fuveau",
+      "cp": "13710",
+      "km": 30,
+      "secteur": "aix",
+      "bati": "recent",
+      "slug": "fuveau",
+      "peb": false
+    },
+    {
+      "name": "Le Tholonet",
+      "cp": "13100",
+      "km": 32,
+      "secteur": "aix",
+      "bati": "recent",
+      "slug": "le-tholonet",
+      "peb": false
+    },
+    {
+      "name": "Ventabren",
+      "cp": "13122",
+      "km": 32,
+      "secteur": "aix",
+      "bati": "recent",
+      "slug": "ventabren",
+      "peb": false
+    },
+    {
+      "name": "Rousset",
+      "cp": "13790",
+      "km": 35,
+      "secteur": "aix",
+      "bati": "recent",
+      "slug": "rousset",
+      "peb": false
+    },
+    {
+      "name": "Peynier",
+      "cp": "13790",
+      "km": 35,
+      "secteur": "aix",
+      "bati": "recent",
+      "slug": "peynier",
+      "peb": false
+    },
+    {
+      "name": "Éguilles",
+      "cp": "13510",
+      "km": 35,
+      "secteur": "aix",
+      "bati": "recent",
+      "slug": "eguilles",
+      "peb": false
+    },
+    {
+      "name": "Saint-Marc-Jaumegarde",
+      "cp": "13100",
+      "km": 36,
+      "secteur": "aix",
+      "bati": "recent",
+      "slug": "saint-marc-jaumegarde",
+      "peb": false
+    },
+    {
+      "name": "Venelles",
+      "cp": "13770",
+      "km": 37,
+      "secteur": "aix",
+      "bati": "recent",
+      "slug": "venelles",
+      "peb": false
+    },
+    {
+      "name": "Trets",
+      "cp": "13530",
+      "km": 38,
+      "secteur": "aix",
+      "bati": "ancien",
+      "slug": "trets",
+      "peb": false
+    },
+    {
+      "name": "Rognes",
+      "cp": "13840",
+      "km": 45,
+      "secteur": "aix",
+      "bati": "ancien",
+      "slug": "rognes",
+      "peb": false
+    },
+    {
+      "name": "Pélissanne",
+      "cp": "13330",
+      "km": 48,
+      "secteur": "aix",
+      "bati": "ancien",
+      "slug": "pelissanne",
+      "peb": false
+    },
+    {
+      "name": "Carnoux-en-Provence",
+      "cp": "13470",
+      "km": 18,
+      "secteur": "sud",
+      "bati": "recent",
+      "slug": "carnoux-en-provence",
+      "peb": false
+    },
+    {
+      "name": "Cassis",
+      "cp": "13260",
+      "km": 22,
+      "secteur": "sud",
+      "bati": "littoral",
+      "slug": "cassis",
+      "peb": false
+    },
+    {
+      "name": "Roquefort-la-Bédoule",
+      "cp": "13830",
+      "km": 24,
+      "secteur": "sud",
+      "bati": "recent",
+      "slug": "roquefort-la-bedoule",
+      "peb": false
+    },
+    {
+      "name": "La Ciotat",
+      "cp": "13600",
+      "km": 32,
+      "secteur": "sud",
+      "bati": "littoral",
+      "slug": "la-ciotat",
+      "peb": false
+    },
+    {
+      "name": "Ceyreste",
+      "cp": "13600",
+      "km": 33,
+      "secteur": "sud",
+      "bati": "recent",
+      "slug": "ceyreste",
+      "peb": false
+    },
+    {
+      "name": "Le Rove",
+      "cp": "13740",
+      "km": 17,
+      "secteur": "ouest",
+      "bati": "recent",
+      "slug": "le-rove",
+      "peb": false
+    },
+    {
+      "name": "Saint-Victoret",
+      "cp": "13730",
+      "km": 20,
+      "secteur": "ouest",
+      "bati": "recent",
+      "slug": "saint-victoret",
+      "peb": true
+    },
+    {
+      "name": "Gignac-la-Nerthe",
+      "cp": "13180",
+      "km": 20,
+      "secteur": "ouest",
+      "bati": "recent",
+      "slug": "gignac-la-nerthe",
+      "peb": true
+    },
+    {
+      "name": "Marignane",
+      "cp": "13700",
+      "km": 22,
+      "secteur": "ouest",
+      "bati": "mixte",
+      "slug": "marignane",
+      "peb": true
+    },
+    {
+      "name": "Vitrolles",
+      "cp": "13127",
+      "km": 22,
+      "secteur": "ouest",
+      "bati": "recent",
+      "slug": "vitrolles",
+      "peb": true
+    },
+    {
+      "name": "Ensuès-la-Redonne",
+      "cp": "13820",
+      "km": 22,
+      "secteur": "ouest",
+      "bati": "littoral",
+      "slug": "ensues-la-redonne",
+      "peb": false
+    },
+    {
+      "name": "Châteauneuf-les-Martigues",
+      "cp": "13220",
+      "km": 25,
+      "secteur": "ouest",
+      "bati": "mixte",
+      "slug": "chateauneuf-les-martigues",
+      "peb": true
+    },
+    {
+      "name": "Carry-le-Rouet",
+      "cp": "13620",
+      "km": 27,
+      "secteur": "ouest",
+      "bati": "littoral",
+      "slug": "carry-le-rouet",
+      "peb": false
+    },
+    {
+      "name": "Rognac",
+      "cp": "13340",
+      "km": 28,
+      "secteur": "ouest",
+      "bati": "mixte",
+      "slug": "rognac",
+      "peb": true
+    },
+    {
+      "name": "Velaux",
+      "cp": "13880",
+      "km": 28,
+      "secteur": "ouest",
+      "bati": "recent",
+      "slug": "velaux",
+      "peb": true
+    },
+    {
+      "name": "Sausset-les-Pins",
+      "cp": "13960",
+      "km": 30,
+      "secteur": "ouest",
+      "bati": "littoral",
+      "slug": "sausset-les-pins",
+      "peb": false
+    },
+    {
+      "name": "Berre-l’Étang",
+      "cp": "13130",
+      "km": 30,
+      "secteur": "ouest",
+      "bati": "mixte",
+      "slug": "berre-l-etang",
+      "peb": true
+    },
+    {
+      "name": "Coudoux",
+      "cp": "13111",
+      "km": 33,
+      "secteur": "ouest",
+      "bati": "recent",
+      "slug": "coudoux",
+      "peb": false
+    },
+    {
+      "name": "Martigues",
+      "cp": "13500",
+      "km": 35,
+      "secteur": "ouest",
+      "bati": "mixte",
+      "slug": "martigues",
+      "peb": false
+    },
+    {
+      "name": "La Fare-les-Oliviers",
+      "cp": "13580",
+      "km": 36,
+      "secteur": "ouest",
+      "bati": "recent",
+      "slug": "la-fare-les-oliviers",
+      "peb": false
+    },
+    {
+      "name": "Port-de-Bouc",
+      "cp": "13110",
+      "km": 40,
+      "secteur": "ouest",
+      "bati": "mixte",
+      "slug": "port-de-bouc",
+      "peb": false
+    },
+    {
+      "name": "Saint-Chamas",
+      "cp": "13250",
+      "km": 40,
+      "secteur": "ouest",
+      "bati": "ancien",
+      "slug": "saint-chamas",
+      "peb": false
+    },
+    {
+      "name": "Saint-Mitre-les-Remparts",
+      "cp": "13920",
+      "km": 42,
+      "secteur": "ouest",
+      "bati": "ancien",
+      "slug": "saint-mitre-les-remparts",
+      "peb": false
+    },
+    {
+      "name": "Istres",
+      "cp": "13800",
+      "km": 45,
+      "secteur": "ouest",
+      "bati": "mixte",
+      "slug": "istres",
+      "peb": true
+    },
+    {
+      "name": "Fos-sur-Mer",
+      "cp": "13270",
+      "km": 48,
+      "secteur": "ouest",
+      "bati": "mixte",
+      "slug": "fos-sur-mer",
+      "peb": false
+    },
+    {
+      "name": "Miramas",
+      "cp": "13140",
+      "km": 48,
+      "secteur": "ouest",
+      "bati": "mixte",
+      "slug": "miramas",
+      "peb": true
+    },
+    {
+      "name": "Saint-Cyr-sur-Mer",
+      "cp": "83270",
+      "km": 38,
+      "secteur": "var",
+      "bati": "littoral",
+      "slug": "saint-cyr-sur-mer",
+      "peb": false
+    },
+    {
+      "name": "La Cadière-d’Azur",
+      "cp": "83740",
+      "km": 42,
+      "secteur": "var",
+      "bati": "ancien",
+      "slug": "la-cadiere-d-azur",
+      "peb": false
+    },
+    {
+      "name": "Le Castellet",
+      "cp": "83330",
+      "km": 42,
+      "secteur": "var",
+      "bati": "ancien",
+      "slug": "le-castellet",
+      "peb": false
+    },
+    {
+      "name": "Bandol",
+      "cp": "83150",
+      "km": 45,
+      "secteur": "var",
+      "bati": "littoral",
+      "slug": "bandol",
+      "peb": false
+    },
+    {
+      "name": "Le Beausset",
+      "cp": "83330",
+      "km": 45,
+      "secteur": "var",
+      "bati": "mixte",
+      "slug": "le-beausset",
+      "peb": false
+    },
+    {
+      "name": "Sanary-sur-Mer",
+      "cp": "83110",
+      "km": 50,
+      "secteur": "var",
+      "bati": "littoral",
+      "slug": "sanary-sur-mer",
+      "peb": false
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+[
+  {
+    "id": "L-1042",
+    "date": "2026-10-02T17:42:00",
+    "nom": "Sophie Marchetti",
+    "tel": "06 21 44 87 10",
+    "email": "s.marchetti@gmail.com",
+    "profil": "Particulier",
+    "commune": "Aubagne",
+    "adresse": "",
+    "projet": "Je vends mon bien",
+    "bien": "Maison · 100 – 150 m²",
+    "annee": "1949 – juin 1997",
+    "delai": "Cette semaine · Matin",
+    "diags": [
+      "DPE",
+      "Amiante",
+      "Électricité",
+      "Termites",
+      "ERP",
+      "Audit énergétique"
+    ],
+    "total": 925,
+    "status": "Nouveau",
+    "message": "Compromis prévu fin octobre, le notaire attend les diagnostics."
+  },
+  {
+    "id": "L-1041",
+    "date": "2026-10-02T09:15:00",
+    "nom": "Agence Prado Immobilier",
+    "tel": "04 91 22 18 40",
+    "email": "contact@prado-immo.fr",
+    "profil": "Agence immobilière",
+    "commune": "Marseille 8e",
+    "adresse": "",
+    "projet": "Je mets en location · Location vide",
+    "bien": "Appartement · 30 – 60 m²",
+    "annee": "Avant 1949",
+    "delai": "Au plus vite",
+    "diags": [
+      "DPE",
+      "Amiante (DAPP)",
+      "Plomb",
+      "Électricité",
+      "Mesurage loi Boutin",
+      "ERP"
+    ],
+    "total": 375,
+    "status": "Nouveau",
+    "message": ""
+  },
+  {
+    "id": "L-1039",
+    "date": "2026-09-30T14:03:00",
+    "nom": "Karim Belkacem",
+    "tel": "07 60 13 92 55",
+    "email": "k.belkacem@outlook.fr",
+    "profil": "Particulier",
+    "commune": "La Ciotat",
+    "adresse": "",
+    "projet": "Je vends mon bien",
+    "bien": "Appartement · 60 – 100 m²",
+    "annee": "1997 – 2012",
+    "delai": "Sous 15 jours",
+    "diags": [
+      "DPE",
+      "Mesurage loi Carrez",
+      "Termites",
+      "ERP"
+    ],
+    "total": 290,
+    "status": "Devis envoyé",
+    "message": ""
+  },
+  {
+    "id": "L-1036",
+    "date": "2026-09-27T11:20:00",
+    "nom": "Cabinet Rinaldi, notaires",
+    "tel": "04 42 70 33 12",
+    "email": "office@rinaldi-notaires.fr",
+    "profil": "Notaire",
+    "commune": "Aix-en-Provence",
+    "adresse": "",
+    "projet": "Je vends mon bien",
+    "bien": "Appartement · 60 – 100 m²",
+    "annee": "Avant 1949",
+    "delai": "Cette semaine",
+    "diags": [
+      "DPE",
+      "Amiante",
+      "Plomb",
+      "Électricité",
+      "Gaz",
+      "Mesurage loi Carrez",
+      "Termites",
+      "ERP"
+    ],
+    "total": 600,
+    "status": "Gagné",
+    "message": ""
+  }
+]

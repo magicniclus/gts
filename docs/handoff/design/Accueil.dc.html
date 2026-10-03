@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>GTS Diagnostic — Diagnostiqueur immobilier certifié à Marseille</title>
+<meta name="description" content="DPE, amiante, plomb, électricité, gaz à Marseille et 50 km autour. Guillaume Tilliet, diagnostiqueur certifié. Rapport sous 24 h, devis gratuit en 2 minutes.">
+<link rel="stylesheet" href="_ds/broadsheet-158321e5-ae38-4de9-bd95-ae149a3cad1b/styles.css">
+<script src="_ds/broadsheet-158321e5-ae38-4de9-bd95-ae149a3cad1b/_ds_bundle.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&amp;display=swap">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/duotone/style.css">
+<script src="./image-slot.js"></script>
+<style>
+:root {
+  --color-bg: #ffffff; --color-surface: #f2f5fb; --color-text: #0d1733; --color-divider: #dde3ef;
+  --color-accent: #2156e3; --color-accent-100: #eaf0fe; --color-accent-200: #d3e0fd; --color-accent-300: #a9c2fb; --color-accent-400: #7fa3f7; --color-accent-500: #4d7df0; --color-accent-600: #1b47c4; --color-accent-700: #16389c; --color-accent-800: #0f2766; --color-accent-900: #0a1a48;
+  --color-accent-2: #f5b841;
+  --font-heading: "Archivo", system-ui, sans-serif; --font-body: "Archivo", system-ui, sans-serif; --font-heading-weight: 800;
+  --radius-md: 10px; --radius-lg: 16px;
+}
+body { margin: 0; background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); -webkit-font-smoothing: antialiased; text-wrap: pretty; }
+a { color: var(--color-accent); text-decoration: none; }
+a:hover { color: var(--color-accent-600); }
+details > summary { list-style: none; cursor: pointer; }
+details > summary::-webkit-details-marker { display: none; }
+details[open] .ph-plus { transform: rotate(45deg); }
+</style>
+</helmet>
+
+<!-- Barre utilitaire -->
+<sc-if value="{{ showPromo }}" hint-placeholder-val="{{ true }}">
+<div style="background:var(--color-accent-900);color:color-mix(in srgb,#fff 82%,transparent);font-size:13px">
+<div style="max-width:1240px;margin:0 auto;padding:9px clamp(20px,4vw,48px);display:flex;flex-wrap:wrap;gap:6px 28px;align-items:center">
+<span style="display:inline-flex;gap:8px;align-items:center"><i class="ph-duotone ph-seal-check" style="font-size:16px;color:var(--color-accent-400)"></i>Diagnostiqueur certifié · organisme accrédité COFRAC</span>
+<span style="display:inline-flex;gap:8px;align-items:center"><i class="ph-duotone ph-clock" style="font-size:16px;color:var(--color-accent-400)"></i>{{ hours }}</span>
+<span style="flex:1"></span>
+<span style="display:inline-flex;gap:8px;align-items:center"><i class="ph-duotone ph-tag" style="font-size:16px;color:var(--color-accent-2)"></i><strong style="color:#fff;font-weight:600">{{ packPctLabel }}</strong> dès {{ packMinLabel }} diagnostics · ERP offert</span>
+</div>
+</div>
+</sc-if>
+
+<!-- Header -->
+<sc-if value="{{ notAdmin }}" hint-placeholder-val="{{ true }}">
+<header style="position:sticky;top:0;z-index:30;background:color-mix(in srgb,#fff 94%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--color-divider)">
+<div style="max-width:1240px;margin:0 auto;padding:10px clamp(20px,4vw,48px);display:flex;align-items:center;gap:12px 32px;flex-wrap:wrap">
+<a href="Accueil.dc.html" onClick="{{ nav.home.go }}" aria-label="GTS Diagnostic, accueil" style="display:block;flex:none">{{ img.logoNavyEl }}</a>
+<span style="flex:1"></span>
+<a href="tel:{{ phone }}" style="display:flex;align-items:center;gap:10px;color:var(--color-text);white-space:nowrap" style-hover="color:var(--color-accent)">
+<span style="width:40px;height:40px;border-radius:50%;background:var(--color-accent-100);display:grid;place-items:center"><i class="ph-duotone ph-phone" style="font-size:20px;color:var(--color-accent)"></i></span>
+<span style="display:grid;line-height:1.15"><span style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 65%,transparent)">Appel direct</span><span style="font-size:17px;font-weight:800;font-stretch:110%">{{ phone }}</span></span>
+</a>
+<a href="Devis.dc.html" onClick="{{ nav.devis.go }}" class="btn btn-primary" style="white-space:nowrap;min-height:46px;padding-inline:22px;font-size:15px;font-weight:700;text-decoration:none">Devis gratuit<i class="ph-duotone ph-arrow-right" style="font-size:18px"></i></a>
+</div>
+</header>
+</sc-if>
+
+<main>
+
+<!-- ================= ACCUEIL ================= -->
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<div data-screen-label="Accueil">
+
+<section style="background:radial-gradient(55% 70% at 88% 0%,color-mix(in srgb,var(--color-accent) 42%,transparent),transparent 70%),var(--color-accent-900);color:#fff">
+<div style="max-width:1240px;margin:0 auto;padding:clamp(48px,7vw,96px) clamp(20px,4vw,48px) clamp(56px,7vw,104px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:48px clamp(32px,5vw,80px);align-items:center">
+<div>
+<span style="display:inline-flex;align-items:center;gap:12px;font-size:13px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-accent-400)"><span style="width:28px;height:2px;background:currentColor"></span>{{ cfg.hero.kicker }}</span>
+<h1 style="font-size:clamp(38px,5.2vw,68px);line-height:1.02;font-weight:800;font-stretch:118%;letter-spacing:-0.025em;margin:22px 0 0;text-wrap:balance">{{ cfg.hero.t1 }} <span style="color:var(--color-accent-400)">{{ cfg.hero.t2 }}</span></h1>
+<p style="font-size:clamp(17px,1.5vw,19px);line-height:1.6;margin:24px 0 0;max-width:52ch;color:color-mix(in srgb,#fff 82%,transparent)">{{ heroIntro }}</p>
+<div style="display:grid;grid-template-columns:repeat(3,auto);justify-content:start;gap:12px clamp(20px,3vw,44px);margin-top:36px">
+<sc-for list="{{ heroStats }}" as="h" hint-placeholder-count="3">
+<div><div style="font-size:clamp(28px,3vw,38px);font-weight:800;font-stretch:120%;line-height:1">{{ h.v }}</div><div style="font-size:14px;line-height:1.35;margin-top:6px;white-space:pre-line;color:color-mix(in srgb,#fff 72%,transparent)">{{ h.k }}</div></div>
+</sc-for>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:36px;font-size:14px;color:color-mix(in srgb,#fff 80%,transparent)">
+<span style="display:inline-flex;gap:8px;align-items:center"><i class="ph-duotone ph-check-circle" style="font-size:18px;color:var(--color-accent-400)"></i>Certifications à jour</span>
+<span style="display:inline-flex;gap:8px;align-items:center"><i class="ph-duotone ph-check-circle" style="font-size:18px;color:var(--color-accent-400)"></i>Assurance RC Pro</span>
+<span style="display:inline-flex;gap:8px;align-items:center"><i class="ph-duotone ph-check-circle" style="font-size: 18px; color: var(--color-accent-400);"></i>Déplacement inclus jusqu’à 100 km</span>
+</div>
+</div>
+
+<div style="background:#fff;color:var(--color-text);border-radius:20px;padding:clamp(22px,2.4vw,32px);box-shadow:0 30px 80px -20px rgba(3,10,40,.55)">
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap">
+<h2 style="font-size:22px;font-weight:800;font-stretch:112%;margin:0;color:var(--color-accent-900)">Devis gratuit en 2 min</h2>
+<span style="font-size:13px;font-weight:600;color:var(--color-accent)">Étape 1 sur 6</span>
+</div>
+<div style="height:4px;border-radius:4px;background:var(--color-accent-100);margin:14px 0 22px"><div style="height:4px;width:16%;border-radius:4px;background:var(--color-accent)"></div></div>
+<div style="font-size:14px;font-weight:700;margin-bottom:10px">Votre projet</div>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px">
+<sc-for list="{{ o.projet }}" as="x" hint-placeholder-count="4">
+<button type="button" onClick="{{ x.pick }}" style="all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:12px;min-height:60px;padding:10px 14px;border-radius:12px;font-size:15px;font-weight:600;line-height:1.25;border:1.5px solid {{ x.bd }};background:{{ x.bg }};color:{{ x.fg }};transition:border-color .15s,background .15s" style-hover="border-color:var(--color-accent)"><i class="ph-duotone {{ x.icon }}" style="font-size:26px;color:var(--color-accent);flex:none"></i><span>{{ x.short }}</span></button>
+</sc-for>
+</div>
+<div style="font-size:14px;font-weight:700;margin:20px 0 10px">Type de bien</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px">
+<sc-for list="{{ o.type }}" as="x" hint-placeholder-count="4">
+<button type="button" onClick="{{ x.pick }}" style="all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border-radius:999px;font-size:14px;font-weight:600;white-space:nowrap;border:1.5px solid {{ x.bd }};background:{{ x.bg }};color:{{ x.fg }}" style-hover="border-color:var(--color-accent)"><i class="ph-duotone {{ x.icon }}" style="font-size:18px;color:var(--color-accent)"></i>{{ x.label }}</button>
+</sc-for>
+</div>
+<div style="font-size:14px;font-weight:700;margin:20px 0 10px">Commune du bien</div>
+<div style="position:relative">
+<i class="ph-duotone ph-map-pin" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:20px;color:var(--color-accent);pointer-events:none"></i>
+<select class="input" value="{{ f.commune }}" onChange="{{ inp.commune }}" aria-label="Commune du bien" style="min-height:50px;padding-left:44px;font-size:15px;border-radius:12px"><option value="">Choisir une commune…</option><sc-for list="{{ communeOpts }}" as="c" hint-placeholder-count="1"><option value="{{ c.name }}">{{ c.label }}</option></sc-for></select>
+</div>
+<button type="button" class="btn btn-primary btn-block" onClick="{{ heroGo }}" disabled="{{ heroDisabled }}" style="min-height:54px;margin-top:22px;font-size:16px;font-weight:700;border-radius:12px">Voir mes diagnostics obligatoires<i class="ph-duotone ph-arrow-right" style="font-size:20px"></i></button>
+<div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:12px;font-size:13px;color:color-mix(in srgb,var(--color-text) 68%,transparent)"><span>Sans engagement</span><span>·</span><span>Réponse sous 2 h ouvrées</span></div>
+</div>
+</div>
+</section>
+
+<section style="border-bottom:1px solid var(--color-divider)">
+<div style="max-width:1240px;margin:0 auto;padding:26px clamp(20px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:18px 32px">
+<sc-for list="{{ trust }}" as="t" hint-placeholder-count="4">
+<div style="display:flex;gap:14px;align-items:center"><span style="width:46px;height:46px;flex:none;border-radius:12px;background:var(--color-accent-100);display:grid;place-items:center"><i class="ph-duotone {{ t.icon }}" style="font-size:24px;color:var(--color-accent)"></i></span><span style="display:grid;gap:2px"><strong style="font-size:15px;font-weight:700">{{ t.t }}</strong><span style="font-size:13px;color:color-mix(in srgb,var(--color-text) 68%,transparent)">{{ t.p }}</span></span></div>
+</sc-for>
+</div>
+</section>
+
+<section id="diagnostics" style="max-width:1240px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(20px,4vw,48px)">
+<div style="display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap">
+<div style="max-width:680px">
+<span style="display:inline-flex;align-items:center;gap:12px;font-size:13px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-accent)"><span style="width:28px;height:2px;background:currentColor"></span>Nos diagnostics</span>
+<h2 style="font-size:clamp(30px,3.6vw,46px);line-height:1.06;font-weight:800;font-stretch:115%;letter-spacing:-0.02em;margin:16px 0 0;color:var(--color-accent-900)">Tous les diagnostics, <span style="color:var(--color-accent)">un seul expert</span>.</h2>
+</div>
+<a href="Devis.dc.html" onClick="{{ nav.devis.go }}" style="display:inline-flex;gap:8px;align-items:center;font-weight:700;font-size:15px;white-space:nowrap">Quels diagnostics pour mon bien ?<i class="ph-duotone ph-arrow-right"></i></a>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:14px;margin-top:36px">
+<sc-for list="{{ allCards }}" as="d" hint-placeholder-count="9">
+<a href="{{ d.href }}" onClick="{{ d.go }}" style="display:flex;flex-direction:column;padding:20px 20px 16px;border-radius:14px;border:1px solid var(--color-divider);background:#fff;color:var(--color-text);transition:border-color .2s,box-shadow .2s" style-hover="border-color:var(--color-accent-300);box-shadow:0 10px 28px -16px rgba(10,26,72,.3);color:var(--color-text)">
+<div style="display:flex;gap:14px;align-items:center">
+<i class="ph-duotone {{ d.icon }}" style="font-size:30px;color:var(--color-accent);flex:none"></i>
+<span style="font-size:17px;font-weight:700;line-height:1.25">{{ d.name }}</span>
+</div>
+<p style="font-size:14px;line-height:1.5;margin:10px 0 0;color:color-mix(in srgb,var(--color-text) 70%,transparent)">{{ d.when }}</p>
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:auto;padding-top:14px">
+<span style="font-size:14px;font-weight:700;color:var(--color-accent-700);white-space:nowrap">{{ d.priceLabel }}</span>
+<i class="ph-duotone ph-arrow-right" style="font-size:18px;color:var(--color-accent)"></i>
+</div>
+</a>
+</sc-for>
+</div>
+
+</section></div>
+
+
+<section style="background:var(--color-surface)">
+<div style="max-width:1240px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(20px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:48px clamp(32px,6vw,96px);align-items:center">
+<div>
+<span style="display:inline-flex;align-items:center;gap:12px;font-size:13px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-accent)"><span style="width:28px;height:2px;background:currentColor"></span>Focus DPE</span>
+<h2 style="font-size:clamp(30px,3.6vw,46px);line-height:1.06;font-weight:800;font-stretch:115%;letter-spacing:-0.02em;margin:16px 0 0;color:var(--color-accent-900)">Classé F ou G ? <span style="color:var(--color-accent)">Votre bail est en jeu.</span></h2>
+<p style="font-size:17px;line-height:1.65;margin:20px 0 0;max-width:52ch;color:color-mix(in srgb,var(--color-text) 80%,transparent)">Depuis le 1<sup>er</sup> janvier 2025, un logement classé <strong>G</strong> ne peut plus être mis en location. Les <strong>F</strong> suivront en 2028, les <strong>E</strong> en 2034. Un DPE juste, c’est la base de toute décision.</p>
+<div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:28px">
+<a href="{{ nav.dpe.href }}" onClick="{{ nav.dpe.go }}" class="btn btn-primary" style="white-space:nowrap;min-height:48px;padding-inline:20px;font-size:15px;font-weight:700;text-decoration:none">Tout savoir sur le DPE</a>
+<a href="{{ nav.audit.href }}" onClick="{{ nav.audit.go }}" class="btn btn-secondary" style="white-space:nowrap;min-height:48px;padding-inline:20px;font-size:15px;font-weight:700;text-decoration:none;color:var(--color-text);background:#fff">Audit énergétique</a>
+</div>
+</div>
+<div style="background:#fff;border-radius:20px;padding:clamp(20px,3vw,32px);box-shadow:0 18px 50px -24px rgba(10,26,72,.25)">
+<div style="display:flex;justify-content:space-between;font-size:13px;font-weight:600;color:color-mix(in srgb,var(--color-text) 65%,transparent);margin-bottom:14px"><span>Consommation (kWh/m²/an)</span><span>Location</span></div>
+<div style="display:grid;gap:7px">
+<sc-for list="{{ dpeScale }}" as="c" hint-placeholder-count="7">
+<div style="display:flex;align-items:center;gap:12px">
+<div style="width:{{ c.w }};min-width:120px;height:38px;background:{{ c.bg }};color:{{ c.fg }};clip-path:polygon(0 0,calc(100% - 16px) 0,100% 50%,calc(100% - 16px) 100%,0 100%);display:flex;align-items:center;justify-content:space-between;padding:0 26px 0 14px;box-sizing:border-box;font-size:13px;font-weight:600"><span>{{ c.range }}</span><strong style="font-size:20px;font-weight:900;font-stretch:120%">{{ c.l }}</strong></div>
+<span style="flex:1"></span>
+<span style="font-size:13px;font-weight:700;white-space:nowrap;color:{{ c.stc }}">{{ c.status }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(20px,4vw,48px)">
+<span style="display:inline-flex;align-items:center;gap:12px;font-size:13px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-accent)"><span style="width:28px;height:2px;background:currentColor"></span>Comment ça se passe</span>
+<h2 style="font-size:clamp(30px,3.6vw,46px);line-height:1.06;font-weight:800;font-stretch:115%;letter-spacing:-0.02em;margin:16px 0 0;color:var(--color-accent-900);max-width:20ch">Du devis au rapport en <span style="color:var(--color-accent)">4 étapes</span>.</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:32px;margin-top:48px">
+<sc-for list="{{ howSteps }}" as="h" hint-placeholder-count="4">
+<div style="position:relative">
+<div style="display:flex;align-items:center;gap:14px"><span style="width:52px;height:52px;border-radius:50%;background:var(--color-accent-900);color:#fff;display:grid;place-items:center;font-size:20px;font-weight:800;font-stretch:120%;flex:none">{{ h.n }}</span><span style="flex:1;height:2px;background:linear-gradient(90deg,var(--color-accent-300),transparent)"></span></div>
+<i class="ph-duotone {{ h.icon }}" style="display:block;font-size:30px;color:var(--color-accent);margin-top:22px"></i>
+<h3 style="font-size:20px;font-weight:800;font-stretch:108%;margin:12px 0 0">{{ h.t }}</h3>
+<p style="font-size:15px;line-height:1.6;margin:8px 0 0;color:color-mix(in srgb,var(--color-text) 75%,transparent)">{{ h.p }}</p>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section id="guillaume" style="background:var(--color-accent-900);color:#fff">
+<div style="max-width:1240px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(20px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:48px clamp(32px,6vw,96px);align-items:center">
+<div style="position:relative;aspect-ratio:4/5;max-width:460px;border-radius:20px;overflow:hidden;background:var(--color-accent-800)"><sc-if value="{{ img.hasPortrait }}" hint-placeholder-val="{{ false }}">{{ img.portraitEl }}</sc-if><sc-if value="{{ img.noPortrait }}" hint-placeholder-val="{{ true }}"><image-slot id="about-guillaume" shape="rect" placeholder="Photo : Guillaume Tilliet"></image-slot></sc-if></div>
+<div>
+<span style="display:inline-flex;align-items:center;gap:12px;font-size:13px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-accent-400)"><span style="width:28px;height:2px;background:currentColor"></span>Votre diagnostiqueur</span>
+<h2 style="font-size:clamp(30px,3.6vw,46px);line-height:1.06;font-weight:800;font-stretch:115%;letter-spacing:-0.02em;margin:16px 0 0">Guillaume Tilliet, <span style="color:var(--color-accent-400)">certifié sur tous les diagnostics</span>.</h2>
+<p style="font-size:19px;line-height:1.55;margin:24px 0 0;font-style:italic;color:color-mix(in srgb,#fff 88%,transparent);max-width:46ch">« Je fais moi-même chaque visite, je rédige chaque rapport et je réponds au téléphone. Pas de plateforme, pas de sous-traitance. »</p>
+<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:28px">
+<sc-for list="{{ certs }}" as="c" hint-placeholder-count="8"><span style="display:inline-flex;gap:6px;align-items:center;font-size:14px;font-weight:600;padding:8px 12px;border-radius:999px;background:color-mix(in srgb,#fff 9%,transparent);border:1px solid color-mix(in srgb,#fff 16%,transparent)"><i class="ph-duotone ph-seal-check" style="color:var(--color-accent-400)"></i>{{ c }}</span></sc-for>
+</div>
+<p style="font-size:14px;line-height:1.6;margin:22px 0 0;color:color-mix(in srgb,#fff 70%,transparent)">Certifications délivrées par un organisme accrédité COFRAC, vérifiables sur l’annuaire officiel des diagnostiqueurs du ministère.</p>
+</div>
+</div>
+</section>
+
+<section id="zones" style="max-width:1240px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(20px,4vw,48px)">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:24px 64px;align-items:end">
+<div>
+<span style="display:inline-flex;align-items:center;gap:12px;font-size:13px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-accent)"><span style="width:28px;height:2px;background:currentColor"></span>Zone d’intervention</span>
+<h2 style="font-size:clamp(30px,3.6vw,46px);line-height:1.06;font-weight:800;font-stretch:115%;letter-spacing:-0.02em;margin:16px 0 0;color:var(--color-accent-900)">Marseille et <span style="color:var(--color-accent)">50 km autour</span>.</h2>
+</div>
+<div style="position:relative">
+<i class="ph-duotone ph-magnifying-glass" style="position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:20px;color:var(--color-accent);pointer-events:none"></i>
+<input class="input" value="{{ q }}" onChange="{{ onQ }}" placeholder="Rechercher votre commune ou code postal" aria-label="Rechercher une commune" style="min-height:54px;padding-left:46px;font-size:16px;border-radius:12px">
+</div>
+</div>
+<sc-if value="{{ hasQ }}" hint-placeholder-val="{{ false }}">
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));gap:10px;margin-top:28px">
+<sc-for list="{{ qResults }}" as="c" hint-placeholder-count="3">
+<div style="padding:16px 18px;border-radius:14px;background:var(--color-surface)"><div style="font-weight:700">{{ c.name }} <span style="font-weight:400;font-size:14px;color:color-mix(in srgb,var(--color-text) 65%,transparent)">{{ c.cp }} · {{ c.kmLabel }}</span></div><div style="display:flex;gap:16px;margin-top:6px;font-size:14px;font-weight:600"><a href="{{ c.dpe.href }}" onClick="{{ c.dpe.go }}">DPE</a><a href="{{ c.amiante.href }}" onClick="{{ c.amiante.go }}">Amiante</a><a href="{{ c.plomb.href }}" onClick="{{ c.plomb.go }}">Plomb</a></div></div>
+</sc-for>
+</div>
+<sc-if value="{{ noQ }}" hint-placeholder-val="{{ false }}"><p style="margin-top:20px;font-size:15px">Commune hors liste ? Appelez le {{ phone }}, Guillaume étudie chaque demande.</p></sc-if>
+</sc-if>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));gap:36px 32px;margin-top:44px">
+<sc-for list="{{ sectors }}" as="s" hint-placeholder-count="7">
+<div>
+<h3 style="font-size:15px;font-weight:800;letter-spacing:0.02em;margin:0;padding-bottom:10px;border-bottom:2px solid var(--color-accent-900);display:flex;justify-content:space-between"><span>{{ s.label }}</span><span style="color:var(--color-accent);font-weight:700">{{ s.count }}</span></h3>
+<div style="display:grid;gap:2px;margin-top:12px;font-size:15px;line-height:1.75">
+<sc-for list="{{ s.cities }}" as="c" hint-placeholder-count="6"><a href="{{ c.href }}" onClick="{{ c.go }}" style="color:var(--color-text)" style-hover="color:var(--color-accent)">{{ c.name }}</a></sc-for>
+<sc-if value="{{ s.hasMore }}" hint-placeholder-val="{{ false }}"><a href="Zones.dc.html" onClick="{{ nav.zones.go }}" style="font-weight:700">{{ s.more }}</a></sc-if>
+</div>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section style="background:var(--color-surface)">
+<div style="max-width:1240px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(20px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:32px clamp(32px,6vw,96px);align-items:start">
+<div>
+<span style="display:inline-flex;align-items:center;gap:12px;font-size:13px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-accent)"><span style="width:28px;height:2px;background:currentColor"></span>Questions fréquentes</span>
+<h2 style="font-size:clamp(30px,3.6vw,46px);line-height:1.06;font-weight:800;font-stretch:115%;letter-spacing:-0.02em;margin:16px 0 0;color:var(--color-accent-900)">Vos questions, <span style="color:var(--color-accent)">nos réponses</span>.</h2>
+<p style="font-size:16px;line-height:1.6;margin:18px 0 0;color:color-mix(in srgb,var(--color-text) 75%,transparent)">Une autre question ? Guillaume répond directement au <a href="tel:{{ phone }}" style="font-weight:700;white-space:nowrap">{{ phone }}</a>.</p>
+</div>
+<div style="display:grid;gap:10px">
+<sc-for list="{{ homeFaq }}" as="q" hint-placeholder-count="4">
+<details style="background:#fff;border-radius:14px;padding:18px 22px;border:1px solid var(--color-divider)">
+<summary style="display:flex;justify-content:space-between;gap:20px;align-items:center;font-size:17px;font-weight:700;line-height:1.35"><span>{{ q.q }}</span><i class="ph-duotone ph-plus" style="font-size:20px;color:var(--color-accent);flex:none;transition:transform .2s"></i></summary>
+<p style="font-size:15px;line-height:1.65;margin:12px 0 0;color:color-mix(in srgb,var(--color-text) 78%,transparent)">{{ q.a }}</p>
+</details>
+</sc-for>
+</div>
+</div>
+</section>
+
+</sc-if>
+
+<!-- CTA commun (sauf devis) -->
+<sc-if value="{{ showCta }}" hint-placeholder-val="{{ true }}">
+<section style="max-width:1240px;margin:0 auto;padding:clamp(40px,5vw,72px) clamp(20px,4vw,48px)">
+<div style="background:radial-gradient(60% 120% at 100% 0%,color-mix(in srgb,var(--color-accent) 55%,transparent),transparent 70%),var(--color-accent-900);color:#fff;border-radius:24px;padding:clamp(32px,5vw,64px);display:flex;flex-wrap:wrap;gap:28px;align-items:center;justify-content:space-between">
+<div style="max-width:620px">
+<h2 style="font-size:clamp(28px,3.4vw,44px);line-height:1.06;font-weight:800;font-stretch:115%;letter-spacing:-0.02em;margin:0">Vous vendez ou louez ? <span style="color:var(--color-accent-400)">Sachez-le en 2 minutes.</span></h2>
+<p style="font-size:17px;line-height:1.6;margin:14px 0 0;color:color-mix(in srgb,#fff 80%,transparent)">Diagnostics obligatoires identifiés, estimation immédiate, devis ferme sous 2 h ouvrées.</p>
+</div>
+<div style="display:flex;gap:12px;flex-wrap:wrap">
+<a href="Devis.dc.html" onClick="{{ nav.devis.go }}" class="btn btn-primary" style="white-space:nowrap;min-height:54px;padding-inline:26px;font-size:16px;font-weight:700;text-decoration:none;border-radius:12px">Commencer mon devis<i class="ph-duotone ph-arrow-right" style="font-size:18px"></i></a>
+<a href="tel:{{ phone }}" class="btn" style="white-space:nowrap;min-height:54px;padding-inline:22px;font-size:16px;font-weight:700;text-decoration:none;color:#fff;border:1.5px solid color-mix(in srgb,#fff 35%,transparent);border-radius:12px" style-hover="background:color-mix(in srgb,#fff 10%,transparent);color:#fff"><i class="ph-duotone ph-phone" style="font-size:18px"></i>{{ phone }}</a>
+</div>
+</div>
+</section>
+</sc-if>
+</main>
+
+<sc-if value="{{ notAdmin }}" hint-placeholder-val="{{ true }}">
+<footer style="background:#070f2c;color:color-mix(in srgb,#fff 78%,transparent)">
+<div style="max-width:1240px;margin:0 auto;padding:clamp(48px,6vw,80px) clamp(20px,4vw,48px) 32px">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:40px 32px">
+<div>
+{{ img.logoWhiteLg }}
+<p style="font-size:14px;line-height:1.6;margin:18px 0 0">Guillaume Tilliet<br>Diagnostiqueur immobilier certifié<br>Marseille · 50 km autour</p>
+<a href="tel:{{ phone }}" style="display:inline-flex;gap:8px;align-items:center;margin-top:14px;font-size:17px;font-weight:800;color:#fff;white-space:nowrap"><i class="ph-duotone ph-phone" style="color:var(--color-accent-400)"></i>{{ phone }}</a>
+<a href="mailto:{{ email }}" style="display:flex;gap:8px;align-items:center;margin-top:8px;font-size:14px;color:color-mix(in srgb,#fff 78%,transparent)" style-hover="color:#fff"><i class="ph-duotone ph-envelope-simple" style="color:var(--color-accent-400)"></i>{{ email }}</a>
+</div>
+<sc-for list="{{ footerCols }}" as="col" hint-placeholder-count="4">
+<div>
+<h3 style="font-size:13px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#fff;margin:0 0 14px">{{ col.title }}</h3>
+<div style="display:grid;gap:6px;font-size:14px;line-height:1.5">
+<sc-for list="{{ col.links }}" as="l" hint-placeholder-count="8"><a href="{{ l.href }}" onClick="{{ l.go }}" style="color:color-mix(in srgb,#fff 72%,transparent)" style-hover="color:#fff">{{ l.name }}</a></sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px 28px;margin-top:56px;padding-top:24px;border-top:1px solid color-mix(in srgb,#fff 12%,transparent);font-size:13px;color:color-mix(in srgb,#fff 60%,transparent)">
+<span>© 2026 GTS Diagnostic · SIRET {{ siretLabel }}</span>
+<span style="display:flex;gap:20px;flex-wrap:wrap"><a href="Articles.dc.html" style="color:inherit">Conseils &amp; articles</a><a href="Zones.dc.html" onClick="{{ nav.zones.go }}" style="color:inherit">Plan du site</a><a href="{{ legalNav.mentions.href }}" onClick="{{ legalNav.mentions.go }}" style="color:inherit">Mentions légales</a><a href="{{ legalNav.cgv.href }}" onClick="{{ legalNav.cgv.go }}" style="color:inherit">CGV</a><a href="{{ legalNav.confidentialite.href }}" onClick="{{ legalNav.confidentialite.go }}" style="color:inherit">Confidentialité</a><a href="Espace-proprietaire.dc.html" onClick="{{ nav.admin.go }}" style="color:inherit">Espace propriétaire</a><a href="Architecture-SEO.dc.html" onClick="{{ nav.seo.go }}" style="color:inherit">Architecture Next.js</a></span>
+</div>
+</div>
+</footer>
+</sc-if>
+
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;phone&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;06 12 34 56 78&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;showPromo&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;showPrices&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;showSeoPreview&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { page: 'home', diag: 'dpe', city: null, art: null, editArt: null, step: 0, sent: false, ov: {}, q: '', tab: 'leads', legalTab: 'mentions', legal: 'mentions', openLead: null, cfg: null, leads: null, savedAt: 0,
+    f: { projet:'', type:'', commune:'', adresse:'', surface:'', pieces:'', copro:'', annee:'', gaz:'', elec:'', chauffage:'', annexes:[], loc:'', nature:'', egout:'', classe:'', deja:[], delai:'', creneau:'', acces:'', message:'', profil:'', nom:'', tel:'', email:'', consent:false } };
+
+  get DEF() {
+    if (this._def) return this._def;
+    return (this._def = {
+      phone: '06 12 34 56 78', email: 'contact@gts-diagnostic.fr', hours: 'Lun – sam · 8 h – 19 h', adresse: '', siret: '', certification: '', assurance: '', photos: { portrait: '', portraitAlt: 'Guillaume Tilliet, diagnostiqueur immobilier à Marseille', logoNavy: '', logoWhite: '' },
+      hero: { kicker: 'Diagnostiqueur indépendant · Marseille', t1: 'Vos diagnostics immobiliers,', t2: 'rapport en 24 h.', intro: 'DPE, amiante, plomb, électricité, gaz : Guillaume Tilliet réalise chaque visite lui-même, à Marseille et dans {communes} communes à moins de 50 km.' },
+      pr: { dpe:[100,115,135,155,185], dpet:[180,220,260,320,400], amiante:[85,95,115,135,165], raat:[220,250,290,340,400], plomb:[100,115,140,165,195], electricite:[80,90,100,110,125], gaz:[80,85,90,95,100], carrez:[45,55,65,80,100], termites:[70,80,95,110,130], audit:[450,450,490,590,690] },
+      rules: { maison: 15, annexe: 10, packPct: 15, packMin: 3, d30: 20, d40: 30 },
+      articles: [
+        { id:'a1', slug:'dpe-2026-ce-qui-change', autoSlug:false, title:'DPE 2026 : ce qui change pour les logements chauffés à l’électricité', cat:'DPE', date:'2026-09-18', published:true, cover:'', excerpt:'Depuis le 1er janvier 2026, le coefficient de l’électricité passe de 2,3 à 1,9. De nombreux appartements marseillais gagnent une classe.', body:'## Un nouveau coefficient\nLe DPE convertit la consommation d’électricité en énergie primaire. Ce coefficient est passé de 2,3 à 1,9 au 1er janvier 2026 : à consommation égale, un logement chauffé à l’électricité affiche une note plus favorable.\n\n## Qui est concerné ?\nLes petits appartements équipés de convecteurs et de ballons électriques, très nombreux dans le centre de Marseille, sont les premiers gagnants. Certains logements classés F ou G remontent d’une classe.\n\n## Faut-il refaire son DPE ?\nUn DPE réalisé avant 2026 reste valable. Si votre logement est proche d’un seuil, notamment pour la location, un nouveau diagnostic peut changer sa classe. Guillaume vous dit si cela vaut la peine avant de se déplacer.' },
+        { id:'a2', slug:'vendre-appartement-avant-1949-marseille', autoSlug:false, title:'Vendre un appartement d’avant 1949 à Marseille : les diagnostics à prévoir', cat:'Conseils vente', date:'2026-09-04', published:true, cover:'', excerpt:'Trois-fenêtres, immeubles du Panier ou de la Belle de Mai : un bien ancien cumule plomb, amiante et termites. Le point complet.', body:'## Le socle commun\nDPE, mesurage Carrez, état des risques (ERP) et termites, obligatoire à chaque vente dans tout le département des Bouches-du-Rhône.\n\n## Les diagnostics liés à l’âge\nAvant 1949, le constat de risque d’exposition au plomb (CREP) s’ajoute. Le permis étant antérieur à juillet 1997, le repérage amiante est également exigé. Électricité et gaz s’ajoutent si les installations ont plus de 15 ans.\n\n## Combien de temps prévoir ?\nComptez 2 à 3 heures de visite pour un appartement de 60 m², et un rapport sous 24 heures. Le formulaire de devis calcule la liste exacte à partir de vos réponses.' },
+        { id:'a3', slug:'termites-bouches-du-rhone-obligations', autoSlug:false, title:'Termites dans les Bouches-du-Rhône : ce que dit la loi à la vente', cat:'Réglementation', date:'2026-08-21', published:true, cover:'', excerpt:'Tout le département est classé zone termites. L’état parasitaire est obligatoire à chaque vente et ne vaut que six mois.', body:'## Un département entièrement classé\nUn arrêté préfectoral classe l’ensemble des Bouches-du-Rhône en zone termites. Toutes les ventes sont concernées, maisons comme appartements.\n\n## Six mois de validité\nL’état relatif à la présence de termites doit dater de moins de six mois à la signature de l’acte. Mieux vaut le programmer avec les autres diagnostics, au moment du compromis.\n\n## En cas d’infestation\nLe propriétaire doit la déclarer en mairie et faire traiter le bâtiment. Le rapport localise précisément les zones touchées.' }
+      ],
+      legal: {
+        mentions: { title: 'Mentions légales', body: '## Éditeur du site\nGTS Diagnostic — Guillaume Tilliet, entrepreneur individuel\nSIRET : {siret}\nAdresse : {adresse}\nTéléphone : {telephone} · E-mail : {email}\n\n## Directeur de la publication\nGuillaume Tilliet\n\n## Hébergement\nVercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis\n\n## Certification\nCertification : {certification}. Liste consultable sur l’annuaire officiel des diagnostiqueurs du ministère de la Transition écologique.\n\n## Assurance\nResponsabilité civile professionnelle souscrite auprès de {assurance}.' },
+        cgv: { title: 'Conditions générales de vente', body: '## Devis\nToute intervention fait l’objet d’un devis ferme, transmis par e-mail et accepté avant la visite. L’estimation affichée sur le site est indicative.\n\n## Tarifs et paiement\nLes prix sont exprimés en euros TTC. Le règlement intervient à la remise du rapport, par virement, carte bancaire ou chèque.\n\n## Rendez-vous et annulation\nUn rendez-vous peut être annulé sans frais jusqu’à 24 h avant la visite. Au-delà, un déplacement de [montant] € peut être facturé.\n\n## Remise des rapports\nLes rapports sont transmis par e-mail sous 24 h ouvrées après la visite, sous réserve d’accès à toutes les pièces et de paiement.\n\n## Médiation\nEn cas de litige, le client consommateur peut recourir gratuitement au médiateur de la consommation : [nom et coordonnées du médiateur].' },
+        confidentialite: { title: 'Politique de confidentialité', body: '## Données collectées\nLe formulaire de devis recueille vos nom, téléphone, e-mail et les caractéristiques du bien. Ces données servent uniquement à établir votre devis et à réaliser les diagnostics.\n\n## Responsable du traitement\nGuillaume Tilliet, GTS Diagnostic — {email}\n\n## Durée de conservation\nTrois ans à compter du dernier contact pour les demandes sans suite ; dix ans pour les rapports, conformément aux obligations de la profession.\n\n## Vos droits\nVous disposez d’un droit d’accès, de rectification, d’effacement et d’opposition. Écrivez à {email}. Vous pouvez aussi saisir la CNIL (cnil.fr).' }
+      }
+    });
+  }
+  get SEED() {
+    return this._seed || (this._seed = [
+      { id:'L-1042', date:'2026-10-02T17:42:00', nom:'Sophie Marchetti', tel:'06 21 44 87 10', email:'s.marchetti@gmail.com', profil:'Particulier', commune:'Aubagne', adresse:'', projet:'Je vends mon bien', bien:'Maison · 100 – 150 m²', annee:'1949 – juin 1997', delai:'Cette semaine · Matin', diags:['DPE','Amiante','Électricité','Termites','ERP','Audit énergétique'], total:925, status:'Nouveau', message:'Compromis prévu fin octobre, le notaire attend les diagnostics.' },
+      { id:'L-1041', date:'2026-10-02T09:15:00', nom:'Agence Prado Immobilier', tel:'04 91 22 18 40', email:'contact@prado-immo.fr', profil:'Agence immobilière', commune:'Marseille 8e', adresse:'', projet:'Je mets en location · Location vide', bien:'Appartement · 30 – 60 m²', annee:'Avant 1949', delai:'Au plus vite', diags:['DPE','Amiante (DAPP)','Plomb','Électricité','Mesurage loi Boutin','ERP'], total:375, status:'Nouveau', message:'' },
+      { id:'L-1039', date:'2026-09-30T14:03:00', nom:'Karim Belkacem', tel:'07 60 13 92 55', email:'k.belkacem@outlook.fr', profil:'Particulier', commune:'La Ciotat', adresse:'', projet:'Je vends mon bien', bien:'Appartement · 60 – 100 m²', annee:'1997 – 2012', delai:'Sous 15 jours', diags:['DPE','Mesurage loi Carrez','Termites','ERP'], total:290, status:'Devis envoyé', message:'' },
+      { id:'L-1036', date:'2026-09-27T11:20:00', nom:'Cabinet Rinaldi, notaires', tel:'04 42 70 33 12', email:'office@rinaldi-notaires.fr', profil:'Notaire', commune:'Aix-en-Provence', adresse:'', projet:'Je vends mon bien', bien:'Appartement · 60 – 100 m²', annee:'Avant 1949', delai:'Cette semaine', diags:['DPE','Amiante','Plomb','Électricité','Gaz','Mesurage loi Carrez','Termites','ERP'], total:600, status:'Gagné', message:'' }
+    ]);
+  }
+  componentDidMount() {
+    try {
+      const D = this.DEF, c = JSON.parse(localStorage.getItem('gts-cfg') || 'null'), l = JSON.parse(localStorage.getItem('gts-leads') || 'null'), st = {};
+      if (c) st.cfg = { ...D, ...c, hero: { ...D.hero, ...c.hero }, pr: { ...D.pr, ...c.pr }, rules: { ...D.rules, ...c.rules }, legal: { ...D.legal, ...c.legal }, photos: { ...D.photos, ...c.photos } };
+      if (l) st.leads = l;
+      const q = new URLSearchParams(location.search);
+      if (q.get('d')) st.diag = q.get('d'); if (q.get('ville')) st.city = q.get('ville'); if (q.get('a')) st.art = q.get('a');
+      if (this.state.page === 'devis') { let f = { ...this.state.f };
+        const dr = JSON.parse(sessionStorage.getItem('gts-draft') || 'null');
+        if (dr) { f = { ...f, ...dr }; sessionStorage.removeItem('gts-draft'); if (dr.projet) st.step = 1; }
+        if (q.get('commune')) f.commune = q.get('commune'); st.f = f; }
+      this.setState(st);
+    } catch (_) {}
+  }
+  saveLeads(fn) {
+    this.setState(st => { const L = fn((st.leads || this.SEED).slice()); try { localStorage.setItem('gts-leads', JSON.stringify(L)); } catch (_) {} return { leads: L }; });
+  }
+  adminVals(cfg, upd, bind) {
+    const s = this.state, leads = s.leads || this.SEED, tab = s.tab, lt = s.legalTab;
+    const SC = { 'Nouveau':['var(--color-accent)','#fff'], 'Rappelé':['var(--color-accent-100)','var(--color-accent-800)'], 'Devis envoyé':['#fdf0d3','#7a5200'], 'Gagné':['#e3f4ea','#146c3a'], 'Perdu':['var(--color-divider)','#4a5370'] };
+    const fmt = d => { const x = new Date(d); return x.toLocaleDateString('fr-FR', { day:'numeric', month:'short' }) + ' · ' + x.toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit' }); };
+    const nNew = leads.filter(l => l.status === 'Nouveau').length;
+    const pipe = leads.filter(l => l.status !== 'Perdu' && l.status !== 'Gagné').reduce((a, l) => a + (l.total || 0), 0);
+    const T = { leads:['Demandes de devis','Chaque formulaire envoyé arrive ici avec les diagnostics retenus et l’estimation affichée au client.'], hero:['Page d’accueil','Le texte du haut de page. Les modifications sont visibles immédiatement sur le site.'], tarifs:['Tarifs','Prix par tranche de surface et règles appliquées à l’estimation du formulaire.'], articles:['Articles','Rédigez vos conseils et actualités. Chaque article publié devient une page du site, utile pour le référencement.'], photos:['Photos & logos','Remplacez le portrait et les logos du site. Le changement est immédiat.'], contact:['Coordonnées','Téléphone, e-mail et horaires affichés sur tout le site.'], legal:['Pages légales','Mentions légales, conditions générales de vente et politique de confidentialité.'] };
+    const prNames = { dpe:'DPE logement', dpet:'DPE tertiaire', amiante:'Amiante (vente / DAPP)', raat:'Amiante avant travaux', plomb:'Plomb (CREP)', electricite:'Électricité', gaz:'Gaz', carrez:'Carrez / Boutin', termites:'Termites', audit:'Audit énergétique' };
+    const bands = ['< 30 m²','30 – 60 m²','60 – 100 m²','100 – 150 m²','> 150 m²'];
+    return { adm: {
+      tabs: [['leads','Demandes','ph-tray'],['hero','Page d’accueil','ph-layout'],['tarifs','Tarifs','ph-currency-eur'],['articles','Articles','ph-newspaper'],['photos','Photos & logos','ph-image'],['contact','Coordonnées','ph-address-book'],['legal','Pages légales','ph-scales']].map(([k, label, icon]) => ({ label, icon, hasBadge: k === 'leads' && nNew > 0, badge: String(nNew), bg: tab === k ? 'color-mix(in srgb,#fff 14%,transparent)' : 'transparent', fg: tab === k ? '#fff' : 'color-mix(in srgb,#fff 74%,transparent)', go: () => this.setState({ tab: k }) })),
+      title: T[tab][0], sub: T[tab][1], isLeads: tab === 'leads', isHero: tab === 'hero', isTarifs: tab === 'tarifs', isContact: tab === 'contact', isPhotos: tab === 'photos', isArticles: tab === 'articles',
+      ...(() => { const arts = (cfg.articles || []).slice().sort((a, b) => (b.date || '').localeCompare(a.date || '')), cur = arts.find(a => a.id === s.editArt), fd = d => { const x = new Date((d || '') + 'T12:00:00'); return isNaN(x) ? '' : x.toLocaleDateString('fr-FR', { day:'numeric', month:'short', year:'numeric' }); };
+        const cover = src => src ? React.createElement('img', { src, alt: '', style: { display:'block', width:'100%', height:'100%', objectFit:'cover' } }) : null;
+        const updArt = fn => upd(c => { c.articles = (c.articles || []).map(a => a.id === s.editArt ? fn({ ...a }) : a); });
+        const ba = k => e => { const v = k === 'published' ? e.target.checked : e.target.value; updArt(a => { a[k] = k === 'slug' ? this.slugify(v) : v; if (k === 'title' && a.autoSlug) a.slug = this.slugify(v); if (k === 'slug') a.autoSlug = false; return a; }); };
+        return { editing: !!cur, notEditing: !cur, cats: Object.keys(this.CAT_ICON), cur: cur || {}, curHasCover: !!(cur && cur.cover), curNoCover: !(cur && cur.cover), curCoverEl: cur ? cover(cur.cover) : null, curView: this.lk('article', { a: cur ? cur.slug : '' }),
+          arts: arts.map(a => ({ title: a.title, cat: a.cat, dateLabel: fd(a.date), icon: this.CAT_ICON[a.cat] || 'ph-newspaper', hasCover: !!a.cover, noCover: !a.cover, coverEl: cover(a.cover), stLabel: a.published ? 'Publié' : 'Brouillon', stBg: a.published ? '#e3f4ea' : 'var(--color-divider)', stFg: a.published ? '#146c3a' : '#4a5370', edit: () => this.setState({ editArt: a.id }) })),
+          newArt: () => { const id = 'a' + Date.now(); upd(c => { c.articles = [{ id, slug: 'nouvel-article-' + String(Date.now()).slice(-4), autoSlug: true, title: 'Nouvel article', cat: 'Conseils vente', date: new Date().toISOString().slice(0, 10), published: false, cover: '', excerpt: '', body: '' }, ...(c.articles || [])]; }); this.setState({ editArt: id }); },
+          closeArt: () => this.setState({ editArt: null }),
+          art: { title: ba('title'), slug: ba('slug'), cat: ba('cat'), date: ba('date'), excerpt: ba('excerpt'), body: ba('body'), published: ba('published'),
+            cover: e => this.readImg(e, 1600, 'image/jpeg', d => updArt(a => { a.cover = d; return a; })), noCover: () => updArt(a => { a.cover = ''; return a; }),
+            remove: () => { if (!window.confirm('Supprimer cet article ?')) return; upd(c => { c.articles = (c.articles || []).filter(a => a.id !== s.editArt); }); this.setState({ editArt: null }); } } }; })(), photoErr: s.photoErr || '',
+      portraitAlt: bind('photos.portraitAlt'),
+      photos: [['portrait','Portrait de Guillaume','Section « Qui suis-je » de la page d’accueil','4/5','var(--color-accent-800)',1400,'image/jpeg',''],
+        ['logoNavy','Logo, fond clair','En-tête du site','16/9','var(--color-surface)',800,'image/png','assets/gts-logo-navy.png'],
+        ['logoWhite','Logo, fond foncé','Pied de page et espace propriétaire','16/9','var(--color-accent-900)',800,'image/png','assets/gts-logo-white.png']].map(([k, label, where, ratio, bg, max, type, def]) => {
+        const cur = cfg.photos[k], src = cur || def, logo = k !== 'portrait';
+        return { label, where, ratio, bg, src, el: src ? React.createElement('img', { src, alt: '', style: { display:'block', maxWidth: logo ? '70%' : '100%', maxHeight: logo ? '60%' : '100%', width: logo ? 'auto' : '100%', height: logo ? 'auto' : '100%', objectFit: logo ? 'contain' : 'cover' } }) : null, has: !!src, empty: !src, custom: !!cur, isPortrait: !logo, resetLabel: logo ? 'Logo d’origine' : 'Retirer',
+          w: logo ? 'auto' : '100%', h: logo ? 'auto' : '100%', fitW: logo ? '70%' : '100%', fitH: logo ? '60%' : '100%', fit: logo ? 'contain' : 'cover',
+          reset: () => upd(c => { c.photos[k] = ''; }),
+          upload: e => { const file = e.target.files && e.target.files[0]; e.target.value = ''; if (!file) return;
+            const rd = new FileReader(); rd.onload = () => { const im = new Image(); im.onload = () => {
+              const sc = Math.min(1, max / Math.max(im.width, im.height)), cv = document.createElement('canvas');
+              cv.width = Math.round(im.width * sc); cv.height = Math.round(im.height * sc); cv.getContext('2d').drawImage(im, 0, 0, cv.width, cv.height);
+              const data = cv.toDataURL(type, 0.85);
+              if (data.length > 3500000) { this.setState({ photoErr: 'Image trop lourde, essayez une version plus légère.' }); return; }
+              this.setState({ photoErr: '' }); upd(c => { c.photos[k] = data; }); };
+              im.onerror = () => this.setState({ photoErr: 'Ce fichier n’a pas pu être lu.' }); im.src = rd.result; }; rd.readAsDataURL(file); } }; }), isLegal: tab === 'legal',
+      savedLabel: s.savedAt ? 'Enregistré à ' + new Date(s.savedAt).toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit' }) : 'Enregistrement automatique',
+      stats: [{ v: String(nNew), k:'Nouvelles demandes' }, { v: String(leads.length), k:'Demandes au total' }, { v: pipe + ' €', k:'Estimé en cours (hors gagnés)' }],
+      statuses: Object.keys(SC), noLeads: leads.length === 0,
+      leads: leads.map(l => { const open = s.openLead === l.id;
+        return { ...l, open, dateLabel: fmt(l.date), nDiag: l.diags.length + ' diag.', totalLabel: l.total ? l.total + ' €' : 'Sur devis', stBg: SC[l.status][0], stFg: SC[l.status][1], bd: open ? 'var(--color-accent)' : 'transparent', hasMessage: !!l.message,
+          facts: [{ k:'Profil', v: l.profil || '—' }, { k:'Bien', v: l.bien || '—' }, { k:'Construction', v: l.annee || '—' }, { k:'Rendez-vous', v: l.delai || '—' }, { k:'Adresse', v: l.adresse || l.commune }, { k:'E-mail', v: l.email || '—' }],
+          toggle: () => this.setState({ openLead: open ? null : l.id }),
+          setStatus: e => { const v = e.target.value; this.saveLeads(L => L.map(x => x.id === l.id ? { ...x, status: v } : x)); },
+          remove: () => this.saveLeads(L => L.filter(x => x.id !== l.id)) }; }),
+      hero: { kicker: bind('hero.kicker'), t1: bind('hero.t1'), t2: bind('hero.t2'), intro: bind('hero.intro') },
+      bands,
+      prRows: Object.keys(prNames).map(pk => ({ name: prNames[pk], cells: cfg.pr[pk].map((v, i) => ({ v: String(v), band: bands[i], on: e => { const n = Math.max(0, +e.target.value || 0); upd(c => { c.pr[pk][i] = n; }); } })) })),
+      rules: [['maison','Majoration maison','%'],['annexe','Supplément par annexe','€'],['packPct','Remise pack','%'],['packMin','Remise à partir de','diagnostics'],['d30','Déplacement 30 – 40 km','€'],['d40','Déplacement au-delà de 40 km','€']].map(([k, label, unit]) => ({ label, unit, v: String(cfg.rules[k]), on: bind('rules.' + k, true) })),
+      resetPrices: () => upd(c => { c.pr = JSON.parse(JSON.stringify(this.DEF.pr)); c.rules = { ...this.DEF.rules }; }),
+      contact: { phone: bind('phone'), email: bind('email'), hours: bind('hours'), adresse: bind('adresse'), siret: bind('siret'), certification: bind('certification'), assurance: bind('assurance') },
+      legalTabs: [['mentions','Mentions légales'],['cgv','CGV'],['confidentialite','Confidentialité']].map(([k, label]) => ({ label, bd: lt === k ? 'var(--color-accent)' : 'var(--color-divider)', bg: lt === k ? 'var(--color-accent-100)' : '#fff', fg: lt === k ? 'var(--color-accent-800)' : 'var(--color-text)', go: () => this.setState({ legalTab: k }) })),
+      legalCur: cfg.legal[lt], legalTitle: bind('legal.' + lt + '.title'), legalBody: bind('legal.' + lt + '.body'), viewLegal: this.lk('legal', { legal: lt })
+    } };
+  }
+
+  get D() {
+    if (this._d) return this._d;
+    this._d = {
+      dpe: { name:'DPE', long:'Diagnostic de performance énergétique', icon:'ph-lightning', price:100, valid:'10 ans', when:'Vente et location de tout logement', local:true,
+        lead:'Le DPE classe le logement de A à G selon sa consommation d’énergie et ses émissions de gaz à effet de serre. Opposable depuis 2021, il conditionne désormais la mise en location. Depuis le 1er janvier 2026, le calcul valorise mieux l’électricité (coefficient 1,9 au lieu de 2,3).',
+        blocks:[['Quand est-il obligatoire ?','Dès la mise en vente ou en location d’un logement, le DPE doit figurer dans l’annonce. Depuis le 1er janvier 2025, les logements classés G ne peuvent plus être proposés à la location ; les F suivront en 2028, les E en 2034.'],
+          ['Comment se déroule la visite ?','Relevé des surfaces, des parois, des menuiseries, du chauffage, de l’eau chaude et de la ventilation. Comptez 1 h 30 à 2 h pour un appartement. Préparez vos factures d’énergie et les justificatifs de travaux d’isolation.'],
+          ['Le DPE en climat méditerranéen','Marseille est en zone climatique H3 : l’hiver pèse moins qu’ailleurs, mais le confort d’été entre dans le calcul. Volets, isolation de toiture et inertie des murs anciens comptent réellement dans la note.']],
+        faq:[['Combien de temps le DPE est-il valable ?','10 ans. Les DPE réalisés entre 2013 et 2017 ne sont plus valides, ceux de 2018 à juin 2021 ont expiré au 31 décembre 2024.'],['Mon logement est classé G, que faire ?','Le rapport liste des travaux par priorité. Un audit énergétique chiffre ensuite un parcours de rénovation et les aides mobilisables.']] },
+      amiante: { name:'Amiante', long:'Constat de repérage amiante', icon:'ph-warning-diamond', price:85, valid:'Illimitée si absence', when:'Permis de construire avant le 1er juillet 1997', local:true,
+        lead:'Interdit depuis 1997, l’amiante reste présent dans de nombreux bâtiments : dalles de sol, conduits en fibrociment, flocages, enduits. Le repérage protège l’acheteur, les occupants et les artisans.',
+        blocks:[['Quand est-il obligatoire ?','À la vente de tout bien dont le permis de construire a été délivré avant le 1er juillet 1997. En copropriété, le dossier amiante des parties privatives (DAPP) est exigé pour la location. Avant travaux ou démolition, un repérage spécifique s’impose au donneur d’ordre.'],
+          ['Comment se déroule le repérage ?','Inspection des matériaux des listes A et B, sondages non destructifs et, si nécessaire, prélèvements analysés par un laboratoire accrédité. Le rapport localise chaque matériau et son état de conservation.'],
+          ['Les matériaux fréquents à Marseille','Les résidences des années 1960-1970 des quartiers nord et est concentrent dalles vinyle-amiante, conduits de vide-ordures et toitures en fibrociment. Les maisons des années 1980 gardent souvent des plaques ondulées sur les annexes.']],
+        faq:[['Le constat amiante a-t-il une durée de validité ?','Illimitée lorsqu’il ne révèle pas d’amiante et qu’il a été réalisé après le 1er avril 2013. En présence d’amiante, une évaluation périodique peut être exigée.'],['Faut-il un diagnostic amiante avant travaux ?','Oui : le repérage avant travaux est obligatoire pour tout chantier touchant les matériaux d’un bâtiment construit avant juillet 1997, y compris chez un particulier qui fait appel à une entreprise.']] },
+      plomb: { name:'Plomb', long:'Constat de risque d’exposition au plomb (CREP)', icon:'ph-paint-roller', price:100, valid:'1 an vente · 6 ans location', when:'Logement construit avant le 1er janvier 1949', local:true,
+        lead:'Le CREP mesure la concentration en plomb des peintures et revêtements. Il concerne tous les logements construits avant 1949, très nombreux dans le centre de Marseille et les vieux villages de Provence.',
+        blocks:[['Quand est-il obligatoire ?','À la vente et à la location de tout logement construit avant le 1er janvier 1949, ainsi que pour les parties communes des immeubles de cette époque. Sans plomb détecté, le constat n’a pas à être renouvelé.'],
+          ['Comment se déroule la mesure ?','Les revêtements sont mesurés à l’appareil à fluorescence X, pièce par pièce : portes, fenêtres, plinthes, garde-corps, murs. La mesure est instantanée et ne laisse aucune trace.'],
+          ['Le plomb dans le bâti marseillais','Le trois-fenêtres marseillais et les immeubles du Panier, de Noailles ou de la Belle de Mai conservent souvent menuiseries et ferronneries d’origine, sous plusieurs couches de peinture au plomb.']],
+        faq:[['Combien de temps le CREP est-il valable ?','Un an pour une vente et six ans pour une location lorsqu’il révèle du plomb au-delà du seuil ; illimité si aucun revêtement ne dépasse 1 mg/cm².'],['Que se passe-t-il si du plomb est détecté ?','Le rapport indique l’état des revêtements. Au-delà du seuil avec dégradation, le propriétaire doit réaliser des travaux et en informer les occupants.']] },
+      electricite: { name:'Électricité', long:'Diagnostic électricité', icon:'ph-plug', price:80, valid:'3 ans vente · 6 ans location', when:'Installation de plus de 15 ans',
+        lead:'Contrôle visuel et fonctionnel de l’installation intérieure : tableau, prise de terre, dispositifs différentiels, liaisons équipotentielles, pièces d’eau.',
+        blocks:[['Quand est-il obligatoire ?','Pour la vente et la location d’un logement dont l’installation électrique a plus de 15 ans.'],['Déroulé','Environ une heure. Le courant est brièvement coupé pour tester les différentiels. Le rapport signale les anomalies et leur niveau de risque.'],['Après le diagnostic','Les anomalies ne vous obligent pas à faire des travaux pour vendre, mais elles engagent la responsabilité du bailleur en location.']],
+        faq:[['Le diagnostic électricité impose-t-il des travaux ?','Non, il informe. Mais les anomalies graves engagent la responsabilité du bailleur en location.']] },
+      gaz: { name:'Gaz', long:'Diagnostic gaz', icon:'ph-fire', price:80, valid:'3 ans vente · 6 ans location', when:'Installation de plus de 15 ans',
+        lead:'Vérification de l’installation intérieure de gaz : tuyauteries, raccordements, ventilation, appareils et évacuation des produits de combustion.',
+        blocks:[['Quand est-il obligatoire ?','Pour la vente et la location d’un logement dont l’installation gaz a plus de 15 ans.'],['Déroulé','45 minutes environ. Les appareils doivent être accessibles et alimentés.'],['Danger grave immédiat','En cas de danger grave, l’alimentation est coupée et le distributeur prévenu, pour votre sécurité.']],
+        faq:[['Et si le compteur est coupé ?','Le diagnostic reste possible, mais certains contrôles de fonctionnement ne pourront pas être réalisés.']] },
+      carrez: { name:'Carrez / Boutin', long:'Mesurage loi Carrez ou Boutin', icon:'ph-ruler', price:45, valid:'Sans limite hors travaux', when:'Vente en copropriété · location',
+        lead:'Mesure de la superficie privative (Carrez, pour une vente en copropriété) ou de la surface habitable (Boutin, pour une location).',
+        blocks:[['Quand est-il obligatoire ?','Carrez pour tout lot de copropriété vendu ; Boutin pour tout logement loué vide ou meublé.'],['Pourquoi le confier à un pro ?','Une erreur de plus de 5 % permet à l’acheteur de demander une diminution du prix.'],['Ce qui est exclu','Surfaces de moins de 1,80 m de hauteur, murs, cloisons, marches, gaines, embrasures.']],
+        faq:[['Carrez et Boutin, quelle différence ?','Boutin exclut en plus les combles non aménagés, caves, garages, balcons et vérandas.']] },
+      termites: { name:'Termites', long:'État relatif à la présence de termites', icon:'ph-bug', price:70, valid:'6 mois', when:'Vente : tout le 13 et l’ouest du Var',
+        lead:'Recherche des indices d’infestation par les termites dans le bâti et ses abords.',
+        blocks:[['Quand est-il obligatoire ?','Pour toute vente dans les Bouches-du-Rhône, déclarées zone termites sur tout le département par arrêté du 19 juillet 2001, et dans les communes varoises desservies (Bandol, Sanary, Saint-Cyr, Le Castellet…).'],['Déroulé','Examen visuel et sondage des bois, dans le logement et les dépendances.'],['En cas de présence','Le propriétaire doit déclarer l’infestation en mairie et engager un traitement.']],
+        faq:[['Ma commune est-elle concernée ?','Oui : tout le département des Bouches-du-Rhône est classé zone termites, ainsi que les communes varoises de notre zone. Le diagnostic est obligatoire à chaque vente.']] },
+      erp: { name:'ERP', long:'État des risques et pollutions', icon:'ph-map-trifold', price:0, valid:'6 mois', when:'Vente et location, partout',
+        lead:'Informe l’acquéreur ou le locataire des risques naturels, miniers, technologiques, sismiques, du radon et du recul du trait de côte.',
+        blocks:[['Quand est-il obligatoire ?','Pour toute vente et toute location, daté de moins de 6 mois. Il intègre l’information bruit (ENSA) près de l’aéroport Marseille-Provence.'],['Offert','L’ERP est inclus gratuitement dans tous les packs GTS Diagnostic.'],['Risques locaux','Incendie de forêt, inondation, submersion marine et séisme concernent de nombreuses communes du secteur.']],
+        faq:[['Le littoral est-il concerné ?','Oui : incendie de forêt, submersion marine et séisme concernent de nombreuses communes du secteur.']] },
+      audit: { name:'Audit énergétique', long:'Audit énergétique réglementaire', icon:'ph-chart-line-up', price:450, valid:'5 ans', when:'Vente d’une maison classée E, F ou G',
+        lead:'Scénarios de travaux chiffrés pour atteindre une meilleure classe énergétique, obligatoires pour vendre une maison ou un immeuble en monopropriété mal classé.',
+        blocks:[['Quand est-il obligatoire ?','Pour la vente d’une maison ou d’un immeuble en monopropriété classé F ou G depuis 2023, E depuis 2025.'],['Déroulé','Visite approfondie, puis rapport avec deux parcours de travaux, gains et coûts.'],['À quoi il sert','Il donne à l’acheteur une base chiffrée pour négocier et planifier ses travaux.']],
+        faq:[['L’audit remplace-t-il le DPE ?','Non, il le complète. Les deux sont remis à l’acquéreur.']] }
+    };
+    return this._d;
+  }
+
+  get C() {
+    if (this._c) return this._c;
+    const raw = `Allauch|13190|10|est|mixte;Plan-de-Cuques|13380|10|est|recent;La Penne-sur-Huveaune|13821|13|est|mixte;Aubagne|13400|17|est|mixte;Gémenos|13420|22|est|recent;Peypin|13124|24|est|recent;Roquevaire|13360|25|est|ancien;La Destrousse|13112|25|est|recent;La Bouilladisse|13720|27|est|mixte;Belcodène|13720|28|est|recent;Cuges-les-Pins|13780|28|est|recent;Auriol|13390|30|est|mixte;Saint-Zacharie|83640|35|est|ancien;Septèmes-les-Vallons|13240|12|nord|mixte;Les Pennes-Mirabeau|13170|15|nord|recent;Simiane-Collongue|13109|20|nord|recent;Mimet|13105|20|nord|recent;Bouc-Bel-Air|13320|20|nord|recent;Cadolive|13950|22|nord|recent;Saint-Savournin|13119|22|nord|ancien;Cabriès|13480|22|nord|recent;Gréasque|13850|24|nord|mixte;Gardanne|13120|25|nord|mixte;Meyreuil|13590|26|aix|recent;Aix-en-Provence|13100|30|aix|ancien;Fuveau|13710|30|aix|recent;Le Tholonet|13100|32|aix|recent;Ventabren|13122|32|aix|recent;Rousset|13790|35|aix|recent;Peynier|13790|35|aix|recent;Éguilles|13510|35|aix|recent;Saint-Marc-Jaumegarde|13100|36|aix|recent;Venelles|13770|37|aix|recent;Trets|13530|38|aix|ancien;Rognes|13840|45|aix|ancien;Pélissanne|13330|48|aix|ancien;Carnoux-en-Provence|13470|18|sud|recent;Cassis|13260|22|sud|littoral;Roquefort-la-Bédoule|13830|24|sud|recent;La Ciotat|13600|32|sud|littoral;Ceyreste|13600|33|sud|recent;Le Rove|13740|17|ouest|recent;Saint-Victoret|13730|20|ouest|recent;Gignac-la-Nerthe|13180|20|ouest|recent;Marignane|13700|22|ouest|mixte;Vitrolles|13127|22|ouest|recent;Ensuès-la-Redonne|13820|22|ouest|littoral;Châteauneuf-les-Martigues|13220|25|ouest|mixte;Carry-le-Rouet|13620|27|ouest|littoral;Rognac|13340|28|ouest|mixte;Velaux|13880|28|ouest|recent;Sausset-les-Pins|13960|30|ouest|littoral;Berre-l’Étang|13130|30|ouest|mixte;Coudoux|13111|33|ouest|recent;Martigues|13500|35|ouest|mixte;La Fare-les-Oliviers|13580|36|ouest|recent;Port-de-Bouc|13110|40|ouest|mixte;Saint-Chamas|13250|40|ouest|ancien;Saint-Mitre-les-Remparts|13920|42|ouest|ancien;Istres|13800|45|ouest|mixte;Fos-sur-Mer|13270|48|ouest|mixte;Miramas|13140|48|ouest|mixte;Saint-Cyr-sur-Mer|83270|38|var|littoral;La Cadière-d’Azur|83740|42|var|ancien;Le Castellet|83330|42|var|ancien;Bandol|83150|45|var|littoral;Le Beausset|83330|45|var|mixte;Sanary-sur-Mer|83110|50|var|littoral`;
+    const slug = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+    const out = [];
+    for (let i = 1; i <= 16; i++) {
+      const name = 'Marseille ' + (i === 1 ? '1er' : i + 'e');
+      out.push({ name, cp: '130' + String(i).padStart(2,'0'), km: 0, sect: 'mrs', bati: i <= 7 ? 'haussmann' : i <= 12 ? 'mrsmixte' : 'grandsens' });
+    }
+    raw.split(';').forEach(r => { const [name,cp,km,sect,bati] = r.split('|'); out.push({ name, cp, km: +km, sect, bati }); });
+    out.forEach(c => { c.slug = slug(c.name); c.label = `${c.name} (${c.cp})`; c.norm = slug(c.name + ' ' + c.cp); });
+    const PEB = ['marignane','vitrolles','saint-victoret','gignac-la-nerthe','chateauneuf-les-martigues','berre-l-etang','rognac','cabries','les-pennes-mirabeau','istres','miramas','aix-en-provence','velaux','marseille-13e','marseille-14e','marseille-15e','marseille-16e'];
+    out.forEach(c => { c.peb = PEB.includes(c.slug); });
+    return (this._c = out);
+  }
+
+  get SECT() { return [['mrs','Marseille'],['est','Huveaune & Garlaban'],['nord','Étoile & bassin minier'],['aix','Pays d’Aix'],['sud','Calanques & littoral sud'],['ouest','Côte Bleue & Étang de Berre'],['var','Ouest Var']]; }
+
+  route(page, x = {}) {
+    return page === 'home' ? '/' : page === 'diag' ? `/diagnostic-${x.diag}-marseille` : page === 'city' ? `/diagnostic-${x.diag}/${x.city}` : page === 'zones' ? '/zones-intervention' : page === 'devis' ? '/devis' : page === 'admin' ? '/admin' : page === 'legal' ? '/' + ({ mentions:'mentions-legales', cgv:'cgv', confidentialite:'confidentialite' }[x.legal] || 'mentions-legales') : '/architecture-seo';
+  }
+  scrollTop() { try { window.scrollTo(0, 0); } catch (_) {} }
+  lk(page, x = {}) { return { href: this.fileHref(page, x), go: undefined }; }
+  fileHref(page, x = {}) {
+    const L = { mentions:'Mentions-legales', cgv:'CGV', confidentialite:'Confidentialite' };
+    const f = { home:'Accueil', diag:'Diagnostic', city:'Diagnostic-Ville', zones:'Zones', devis:'Devis', seo:'Architecture-SEO', admin:'Espace-proprietaire', articles:'Articles', article:'Article', legal: L[x.legal] || 'Mentions-legales' }[page] || 'Accueil';
+    return f + '.dc.html' + (page === 'diag' ? '?d=' + x.diag : page === 'city' ? '?d=' + x.diag + '&ville=' + x.city : page === 'article' ? '?a=' + encodeURIComponent(x.a) : '');
+  }
+  slugify(s) { return (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
+  paras(t) { return (t || '').split(/\n\s*\n/).map(b => b.trim()).filter(Boolean).flatMap(b => { if (!b.startsWith('## ')) return [{ h: false, notH: true, t: b }]; const i = b.indexOf('\n'), head = { h: true, notH: false, t: (i < 0 ? b : b.slice(0, i)).slice(3) }; return i < 0 ? [head] : [head, { h: false, notH: true, t: b.slice(i + 1) }]; }); }
+  get CAT_ICON() { return { 'DPE':'ph-lightning', 'Amiante':'ph-warning-diamond', 'Plomb':'ph-paint-roller', 'Réglementation':'ph-scales', 'Conseils vente':'ph-key', 'Conseils location':'ph-house-line' }; }
+  readImg(e, max, type, cb) {
+    const file = e.target.files && e.target.files[0]; e.target.value = ''; if (!file) return;
+    const rd = new FileReader(); rd.onload = () => { const im = new Image(); im.onload = () => {
+      const sc = Math.min(1, max / Math.max(im.width, im.height)), cv = document.createElement('canvas');
+      cv.width = Math.round(im.width * sc); cv.height = Math.round(im.height * sc); cv.getContext('2d').drawImage(im, 0, 0, cv.width, cv.height);
+      const d = cv.toDataURL(type, 0.8); if (d.length > 2500000) { this.setState({ photoErr: 'Image trop lourde, essayez une version plus légère.' }); return; }
+      this.setState({ photoErr: '' }); cb(d); };
+      im.onerror = () => this.setState({ photoErr: 'Ce fichier n’a pas pu être lu.' }); im.src = rd.result; }; rd.readAsDataURL(file);
+  }
+  articleVals(cfg) {
+    const s = this.state, all = cfg.articles || [], pub = all.filter(a => a.published).sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+    const fd = d => { const x = new Date((d || '') + 'T12:00:00'); return isNaN(x) ? '' : x.toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' }); };
+    const cover = src => src ? React.createElement('img', { src, alt: '', style: { display:'block', width:'100%', height:'100%', objectFit:'cover' } }) : null;
+    const card = a => ({ title: a.title, cat: a.cat, excerpt: a.excerpt, dateLabel: fd(a.date), icon: this.CAT_ICON[a.cat] || 'ph-newspaper', hasCover: !!a.cover, noCover: !a.cover, coverEl: cover(a.cover), ...this.lk('article', { a: a.slug }) });
+    const cur = all.find(a => a.slug === s.art) || pub[0];
+    return { articleCards: pub.map(card), noArts: !pub.length,
+      art: cur ? { title: cur.title, cat: cur.cat, excerpt: cur.excerpt, dateLabel: fd(cur.date), hasCover: !!cur.cover, coverEl: cover(cur.cover), paras: this.paras(cur.body), draft: !cur.published } : { title: 'Article introuvable', paras: [], draft: false },
+      otherArts: pub.filter(a => !cur || a.id !== cur.id).slice(0, 3).map(card), hasOther: pub.filter(a => !cur || a.id !== cur.id).length > 0, fmtDate: fd };
+  }
+  toDevis(commune) { return { href: 'Devis.dc.html' + (commune ? '?commune=' + encodeURIComponent(commune) : ''), go: undefined }; }
+  kmLabel(c) { return c.km ? `${c.km} km` : 'Marseille'; }
+
+  cityPage(c, id) {
+    const d = this.D[id], n = c.name, h = [...n].reduce((a, ch) => a + ch.charCodeAt(0), 0);
+    const ang = { haussmann:'ancien', mrsmixte:'mixte', grandsens:'mixte' }[c.bati] || c.bati;
+    const bati = { ancien:`${n} conserve un bâti ancien : maisons de village, immeubles en pierre et nombreux logements antérieurs à 1949.`,
+      mixte:`${n} mêle immeubles des années 1950-1970, résidences plus récentes et maisons individuelles.`,
+      recent:`${n} s’est surtout développée à partir des années 1970, avec un habitat pavillonnaire et de petites résidences.`,
+      littoral:`${n} associe villas de bord de mer, résidences de vacances et petit centre ancien, exposés au sel et au soleil.`,
+      haussmann:`${n} concentre immeubles de rapport du XIXe siècle, trois-fenêtres marseillais et copropriétés anciennes.`,
+      mrsmixte:`${n} alterne villas, noyaux villageois et résidences des années 1960 à 1990.`,
+      grandsens:`${n} compte de grands ensembles des années 1960-1970, des noyaux villageois et des zones pavillonnaires.` }[c.bati];
+    const A = {
+      dpe:{ ancien:`Murs épais en pierre, simple vitrage, toitures peu isolées : les biens anciens de ${n} peuvent perdre plusieurs classes, mais leur inertie joue en faveur du confort d’été, désormais pris en compte.`,
+        mixte:`Les immeubles des Trente Glorieuses, rarement isolés à l’origine, se situent souvent entre D et F à ${n} ; chauffage collectif et menuiseries remplacées font la différence.`,
+        recent:`Les maisons récentes de ${n} obtiennent en général C ou D ; pompe à chaleur, isolation des combles et orientation expliquent l’essentiel des écarts.`,
+        littoral:`Sur le littoral de ${n}, climatisation et eau chaude pèsent lourd ; les résidences chauffées à l’électricité doivent soigner l’isolation pour rester louables après 2028.` },
+      amiante:{ ancien:`Même dans le bâti ancien de ${n}, les rénovations des années 1960 à 1990 ont pu introduire de l’amiante : dalles de sol, conduits, colles de faïence.`,
+        mixte:`Les résidences construites avant 1997 à ${n} sont directement concernées : dalles vinyle, conduits de vide-ordures, toitures et bardages en fibrociment.`,
+        recent:`Une large part des maisons de ${n} a été bâtie entre 1970 et 1997 : le repérage cible surtout plaques ondulées des garages, conduits de cheminée et enduits.`,
+        littoral:`Les villas de ${n} construites avant 1997 cachent souvent conduits et plaques en fibrociment, notamment sur les pool houses et dépendances.` },
+      plomb:{ ancien:`Les logements d’avant 1949 sont nombreux à ${n} : volets, portes et ferronneries gardent fréquemment leurs peintures d’origine au plomb.`,
+        mixte:`À ${n}, le CREP concerne surtout le noyau ancien et les immeubles d’avant-guerre ; les constructions postérieures à 1949 en sont exemptées.`,
+        recent:`À ${n}, peu de logements datent d’avant 1949 : le CREP vise surtout les anciens mas, bastides et maisons du centre.`,
+        littoral:`Les maisons de pêcheurs et le cœur ancien de ${n} sont concernés ; l’air salin accélère la dégradation des peintures anciennes.` } };
+    const I = { dpe:[`Vous vendez ou louez à ${n} ? Le DPE doit figurer dès l’annonce.`,`Le DPE conditionne la vente et la location de votre logement à ${n}.`,`Obtenez votre DPE à ${n} sous 48 h, rapport livré le lendemain.`],
+      amiante:[`Votre bien à ${n} a été construit avant juillet 1997 ? Le constat amiante est obligatoire pour le vendre.`,`Vente, location ou travaux à ${n} : le repérage amiante protège acquéreur, occupants et artisans.`,`Repérage amiante à ${n} sous 48 h, prélèvements analysés en laboratoire accrédité.`],
+      plomb:[`Logement d’avant 1949 à ${n} ? Le CREP est exigé à la vente comme à la location.`,`Le constat plomb mesure les peintures anciennes de votre logement à ${n}, sans aucun dégât.`,`CREP à ${n} réalisé à l’appareil à fluorescence X, rapport sous 24 h.`] }[id];
+    const dist = !c.km ? 'au cœur de sa zone, sans frais de déplacement.' : c.km <= 20 ? `à ${c.km} km, sans frais de déplacement.` : c.km <= 35 ? `à ${c.km} km, déplacement inclus.` : `à ${c.km} km, en tournée plusieurs fois par semaine.`;
+    const sectLabel = this.SECT.find(s => s[0] === c.sect)[1];
+    const rdv = c.km > 35 ? 'Sous 72 h' : 'Sous 48 h';
+    return {
+      label: 'Page ville', icon: d.icon, dname: d.name, last: n,
+      crumbs: [{ name:'Accueil', ...this.lk('home') }, { name:`Diagnostic ${d.name}`, ...this.lk('diag', { diag:id }) }],
+      route: this.route('city', { diag: id, city: c.slug }),
+      h1a: `Diagnostic ${d.name}`, h1b: `à ${n} (${c.cp})`,
+      intro: `${I[h % 3]} Guillaume Tilliet, diagnostiqueur certifié basé à Marseille, intervient à ${n} ${dist}`,
+      cta: `Devis ${d.name} à ${n}`,
+      metaTitle: `Diagnostic ${d.name} ${n} (${c.cp}) dès ${d.price} € | GTS Diagnostic`,
+      metaDesc: `${d.long} à ${n} : rendez-vous ${rdv.toLowerCase()}, rapport sous 24 h, diagnostiqueur certifié indépendant. Devis gratuit en 2 minutes.`,
+      facts: [{ icon:'ph-map-pin', k:'Distance', v: c.km ? `${c.km} km de Marseille` : 'Marseille intra-muros' }, { icon:'ph-calendar-check', k:'Rendez-vous', v: rdv }, { icon:'ph-tag', k:'Tarif', v: `Dès ${d.price} € TTC` }, { icon:'ph-compass', k:'Secteur', v: sectLabel }],
+      blocks: [{ n:'01', t:`Le bâti à ${n}`, p: `${bati} ${A[id][ang]}` }, { n:'02', t:`Quand le diagnostic ${d.name} est-il exigé ?`, p: d.blocks[0][1] }, { n:'03', t:`Délais et tarif à ${n}`, p: `Rendez-vous ${rdv.toLowerCase()}, samedi matin compris. Rapport transmis sous 24 h par e-mail${id === 'dpe' ? ' et enregistré auprès de l’ADEME' : ''}. Tarif dès ${d.price} € pour un appartement, devis ferme avant intervention et remise dès trois diagnostics.` }],
+      faqTitle: `Questions fréquentes à ${n}`,
+      faq: [{ q:`Le diagnostic ${d.name} est-il obligatoire à ${n} ?`, a: `${d.when} : les règles sont nationales et s’appliquent à ${n} comme partout. ${d.faq[0][1]}` },
+        { q:`Quel délai pour un rendez-vous à ${n} ?`, a: `${rdv} en général. ${n} fait partie du secteur « ${sectLabel} » couvert chaque semaine.` },
+        { q: d.faq[1][0], a: d.faq[1][1] }],
+      relTitle: `Autres diagnostics à ${n}`,
+      related: ['dpe','amiante','plomb'].filter(k => k !== id).map(k => ({ name: `Diagnostic ${this.D[k].name} à ${n}`, icon: this.D[k].icon, ...this.lk('city', { diag: k, city: c.slug }) })),
+      hasNeighbors: true,
+      neighbors: this.C.filter(x => x.sect === c.sect && x.slug !== c.slug).sort((a, b) => Math.abs(a.km - c.km) - Math.abs(b.km - c.km)).slice(0, 8).map(x => ({ name: x.name, ...this.lk('city', { diag: id, city: x.slug }) })),
+      hasCommunes: false, communes: [], devis: this.toDevis(c.name)
+    };
+  }
+
+  diagPage(id) {
+    const d = this.D[id], ids = Object.keys(this.D);
+    return {
+      label: 'Diagnostic', icon: d.icon, dname: d.name, last: d.name,
+      crumbs: [{ name:'Accueil', ...this.lk('home') }],
+      route: this.route('diag', { diag: id }),
+      h1a: d.local ? `Diagnostic ${d.name}` : d.long, h1b: 'à Marseille',
+      intro: d.lead, cta: `Devis ${d.name} gratuit`,
+      metaTitle: `Diagnostic ${d.name} Marseille ${d.price ? 'dès ' + d.price + ' € ' : ''}| GTS Diagnostic`,
+      metaDesc: `${d.long} à Marseille et 50 km autour. ${d.when}. Diagnostiqueur certifié indépendant, rapport sous 24 h.`,
+      facts: [{ icon:'ph-scales', k:'Obligatoire', v: d.when }, { icon:'ph-hourglass', k:'Validité', v: d.valid }, { icon:'ph-tag', k:'Tarif', v: d.price ? `Dès ${d.price} € TTC` : 'Offert' }, { icon:'ph-file-text', k:'Rapport', v:'Sous 24 h' }],
+      blocks: d.blocks.map(([t, p], i) => ({ n: '0' + (i + 1), t, p })),
+      faqTitle: `Questions sur le diagnostic ${d.name}`, faq: d.faq.map(([q, a]) => ({ q, a })),
+      relTitle: 'Les autres diagnostics',
+      related: ids.filter(k => k !== id).map(k => ({ name: this.D[k].long, icon: this.D[k].icon, ...this.lk('diag', { diag: k }) })),
+      hasNeighbors: false, neighbors: [],
+      hasCommunes: !!d.local, communes: d.local ? this.C.map(c => ({ name: c.name, ...this.lk('city', { diag: id, city: c.slug }) })) : [],
+      devis: this.toDevis()
+    };
+  }
+
+  diagList(f) {
+    const p = f.projet, y = f.annee, t = f.type, hab = t !== 'local', vl = p === 'vente' || p === 'location', sais = p === 'location' && f.loc === 'saisonniere';
+    const unk = y === 'nsp' || !y, pre97 = y === 'avant1949' || y === '1949-1997', pre49 = y === 'avant1949', has = k => f.deja.includes(k), L = [];
+    const add = (id, level, reason, name, pk) => L.push({ id, level, reason, name, pk: pk || id });
+    const city = this.C.find(c => c.name === f.commune);
+    if (vl) {
+      const dn = t === 'local' ? 'DPE tertiaire' : null, pk = t === 'local' ? 'dpet' : 'dpe';
+      if (has('dpe')) add('dpe', 'Déjà valide', 'DPE réalisé après le 1er juillet 2021, valable 10 ans', dn, pk);
+      else add('dpe', 'Obligatoire', sais ? 'Exigé pour déclarer un meublé de tourisme' : t === 'local' ? 'Vente ou location d’un local professionnel' : 'Vente ou location d’un logement', dn, pk);
+    } else if (p === 'autre') add('dpe', 'Optionnel', 'Connaître la performance énergétique du bien');
+    if (p === 'travaux') { if (pre97 || unk) add('amiante', unk ? 'À vérifier' : 'Obligatoire', f.nature === 'demolition' ? 'Repérage avant démolition — permis antérieur à juillet 1997' : 'Repérage avant travaux (RAAT) — permis antérieur à juillet 1997', f.nature === 'demolition' ? 'Amiante avant démolition' : 'Amiante avant travaux', 'raat'); }
+    else if (p === 'vente' && (pre97 || unk)) add('amiante', has('amiante') ? 'Déjà valide' : unk ? 'À vérifier' : 'Obligatoire', has('amiante') ? 'Constat sans amiante réalisé après le 1er avril 2013' : 'Permis de construire antérieur au 1er juillet 1997');
+    else if (p === 'location' && !sais && hab && (pre97 || unk) && (f.copro === 'oui' || t === 'appartement')) add('amiante', has('amiante') ? 'Déjà valide' : unk ? 'À vérifier' : 'Obligatoire', 'Dossier amiante parties privatives (DAPP), à tenir à disposition du locataire', 'Amiante (DAPP)');
+    if (hab && vl && !sais && (pre49 || unk)) add('plomb', has('plomb') ? 'Déjà valide' : unk ? 'À vérifier' : 'Obligatoire', 'Logement construit avant le 1er janvier 1949');
+    if (hab && p === 'travaux' && (pre49 || unk)) add('plomb', 'Conseillé', 'Protège occupants et artisans sur les peintures anciennes', 'Plomb avant travaux');
+    if (hab && vl && !sais && f.elec !== 'moins15') add('electricite', has('elec') ? 'Déjà valide' : f.elec === 'plus15' ? 'Obligatoire' : 'À vérifier', 'Installation électrique de plus de 15 ans');
+    if (hab && vl && !sais && f.gaz === 'plus15') add('gaz', has('gaz') ? 'Déjà valide' : 'Obligatoire', 'Installation gaz de plus de 15 ans');
+    if (p === 'vente' && f.copro === 'oui') add('carrez', 'Obligatoire', 'Vente d’un lot de copropriété', 'Mesurage loi Carrez');
+    if (p === 'location' && hab && !sais) add('carrez', f.loc === 'meuble' ? 'Conseillé' : 'Obligatoire', f.loc === 'meuble' ? 'Surface habitable à mentionner au bail' : 'Surface habitable du logement loué vide', 'Mesurage loi Boutin');
+    if (p === 'vente' && f.copro === 'non' && hab) add('carrez', 'Optionnel', 'Surface habitable, utile pour l’annonce', 'Mesurage de surface');
+    if (p === 'vente') add('termites', 'Obligatoire', city && city.cp.startsWith('83') ? city.name + ' est classée zone termites par arrêté préfectoral' : 'Tout le département des Bouches-du-Rhône est classé zone termites');
+    if (vl && !sais) add('erp', 'Obligatoire', city && city.peb ? 'Inclut l’information bruit aéroport (ENSA) : commune couverte par un PEB' : 'État des risques et pollutions, daté de moins de 6 mois');
+    if (p === 'vente' && (t === 'maison' || t === 'immeuble') && f.copro !== 'oui') add('audit', f.classe === 'efg' ? 'Obligatoire' : f.classe === 'ad' ? 'Non requis' : 'À vérifier', 'Maison ou immeuble en monopropriété classé E, F ou G');
+    if (p === 'vente' && t === 'maison' && f.egout && f.egout !== 'oui') add('spanc', 'Info', 'Contrôle réalisé par le SPANC de la commune (moins de 3 ans)', 'Assainissement non collectif');
+    return L;
+  }
+
+  renderVals() {
+    const P = this.props, s = this.state, f = s.f, D = this.D, C = this.C, ids = Object.keys(D);
+    const showPrices = P.showPrices ?? true;
+    const cfg = s.cfg || this.DEF, R = cfg.rules;
+    Object.keys(D).forEach(k => { if (cfg.pr[k]) D[k].price = cfg.pr[k][0]; });
+    const upd = fn => this.setState(st => { const c = JSON.parse(JSON.stringify(st.cfg || this.DEF)); fn(c); try { localStorage.setItem('gts-cfg', JSON.stringify(c)); } catch (_) {} return { cfg: c, savedAt: Date.now() }; });
+    const bind = (path, num) => e => { const raw = e.target.value, v = num ? Math.max(0, +raw || 0) : raw; upd(c => { const ks = path.split('.'); let o = c; ks.slice(0, -1).forEach(k => { o = o[k]; }); o[ks[ks.length - 1]] = v; }); };
+    const setF = (k, v) => this.setState(st => ({ f: { ...st.f, [k]: v }, ov: ['nom','tel','email','message','adresse'].includes(k) ? st.ov : {} }));
+    const tile = on => ({ bd: on ? 'var(--color-accent)' : 'var(--color-divider)', bg: on ? 'var(--color-accent-100)' : '#fff', fg: on ? 'var(--color-accent-800)' : 'var(--color-text)' });
+    const opts = (k, list, multi) => list.map(([v, label, icon, hint, short]) => {
+      const on = multi ? f[k].includes(v) : f[k] === v;
+      return { label, short: short || label, icon: icon || '', hint: hint || '', ...tile(on),
+        pick: () => setF(k, multi ? (on ? f[k].filter(x => x !== v) : [...f[k], v]) : v) };
+    });
+    const nav = { home: this.lk('home'), zones: this.lk('zones'), devis: this.toDevis(), seo: this.lk('seo'), admin: this.lk('admin'), articles: this.lk('articles') };
+    ids.forEach(k => { nav[k] = this.lk('diag', { diag: k }); });
+
+    const pg = s.page === 'city' ? this.cityPage(C.find(c => c.slug === s.city) || C[0], D[s.diag] && D[s.diag].local ? s.diag : 'dpe') : this.diagPage(D[s.diag] ? s.diag : 'dpe');
+
+    // devis
+    const PR = cfg.pr;
+    const si = Math.max(0, ['<30','30-60','60-100','100-150','150+'].indexOf(f.surface));
+    const nAnn = f.annexes.filter(a => a !== 'piscine').length;
+    const priceOf = pk => { if (pk === 'erp') return 0; if (!(pk in PR)) return null; if (f.type === 'immeuble' && pk !== 'erp') return null; let v = PR[pk][si]; if (f.type === 'maison' && ['dpe','amiante','plomb','electricite','termites'].includes(pk)) v *= 1 + R.maison / 100; if (['amiante','termites','raat'].includes(pk)) v += R.annexe * nAnn; return Math.round(v / 5) * 5; };
+    const rows = this.diagList(f).map(r => {
+      const info = r.id === 'spanc', price = info ? null : priceOf(r.pk);
+      const on = info ? false : (r.id in s.ov ? s.ov[r.id] : ['Obligatoire','À vérifier'].includes(r.level)), ob = r.level === 'Obligatoire', ok = r.level === 'Déjà valide';
+      return { ...r, on, name: r.name || D[r.id].long, icon: info ? 'ph-drop' : D[r.id].icon, price,
+        priceLabel: info ? 'Par le SPANC' : price === null ? 'Sur devis' : price === 0 ? 'Offert' : price + ' €',
+        bd: on ? 'var(--color-accent)' : 'var(--color-divider)', bg: on ? 'var(--color-accent-100)' : '#fff',
+        boxBg: on ? 'var(--color-accent)' : '#fff', boxBd: on ? 'var(--color-accent)' : 'var(--color-divider)',
+        tagBg: ob ? 'var(--color-accent-900)' : ok ? '#e3f4ea' : 'var(--color-surface)', tagFg: ob ? '#fff' : ok ? '#146c3a' : 'var(--color-text)',
+        toggle: () => { if (!info) this.setState(st => ({ ov: { ...st.ov, [r.id]: !on } })); } };
+    });
+    const cityF = C.find(c => c.name === f.commune);
+    const paid = rows.filter(r => r.on && r.price > 0), devisOnly = rows.some(r => r.on && r.price === null);
+    const sub = paid.reduce((a, r) => a + r.price, 0), pack = paid.length >= R.packMin, remise = pack ? Math.round(sub * R.packPct / 100 / 5) * 5 : 0;
+    const depl = !cityF ? 0 : cityF.km > 40 ? R.d40 : cityF.km > 30 ? R.d30 : 0;
+    const est = { sub: sub + ' €', remise: '− ' + remise + ' €', pack, depl: depl ? depl + ' €' : 'Inclus', total: (sub - remise + depl) + ' €', devisOnly, n: String(paid.length) };
+    const valid = [!!f.projet && (f.projet !== 'location' || !!f.loc) && (f.projet !== 'travaux' || !!f.nature), !!(f.type && f.commune && f.surface), !!f.annee, true, !!f.delai, !!(f.nom && f.tel && f.consent)];
+    const labels = ['Projet','Le bien','Construction','Diagnostics','Rendez-vous','Coordonnées'];
+    const steps = labels.map((label, i) => {
+      const locked = !valid.slice(0, i).every(Boolean), cur = i === s.step, done = valid[i] && i < s.step;
+      return { label, num: String(i + 1), locked, aria: cur ? 'step' : 'false',
+        bar: cur || done ? 'var(--color-accent)' : 'var(--color-accent-200)',
+        dotBg: cur ? 'var(--color-accent)' : done ? 'var(--color-accent-900)' : '#fff', dotFg: cur || done ? '#fff' : 'color-mix(in srgb, var(--color-text) 55%, transparent)',
+        color: cur ? 'var(--color-accent-900)' : locked ? 'color-mix(in srgb, var(--color-text) 50%, transparent)' : 'var(--color-text)', weight: cur ? 800 : 600,
+        go: () => { if (!locked) this.setState({ step: i }); } };
+    });
+    const L = {
+      projet: [['vente','Je vends mon bien','ph-key','Maison, appartement, local','Je vends'],['location','Je mets en location','ph-house-line','Bail vide ou meublé','Je loue'],['travaux','Travaux ou démolition','ph-hammer','Repérage avant chantier','Travaux'],['autre','Autre besoin','ph-question','Audit, conseil, contrôle','Autre']],
+      type: [['appartement','Appartement','ph-buildings'],['maison','Maison','ph-house'],['local','Local pro','ph-storefront'],['immeuble','Immeuble','ph-building-office']],
+      surface: [['<30','< 30 m²'],['30-60','30 – 60 m²'],['60-100','60 – 100 m²'],['100-150','100 – 150 m²'],['150+','> 150 m²']],
+      pieces: [['1','1'],['2','2'],['3','3'],['4','4'],['5','5'],['6+','6+']],
+      copro: [['oui','Oui'],['non','Non']],
+      annee: [['avant1949','Avant 1949','','Amiante + plomb'],['1949-1997','1949 – juin 1997','','Amiante'],['1997-2012','Juil. 1997 – 2012','','Ni amiante ni plomb'],['apres2012','Après 2012','','Bâti récent'],['nsp','Je ne sais pas','','On vérifie ensemble']],
+      gaz: [['aucun','Pas de gaz'],['moins15','Moins de 15 ans'],['plus15','Plus de 15 ans']],
+      elec: [['moins15','Moins de 15 ans'],['plus15','Plus de 15 ans'],['nsp','Je ne sais pas']],
+      chauffage: [['elec','Électrique','ph-lightning'],['gaz','Gaz','ph-fire'],['pac','Pompe à chaleur','ph-fan'],['fioul','Fioul','ph-drop'],['bois','Bois','ph-tree'],['collectif','Collectif','ph-buildings']],
+      annexes: [['cave','Cave','ph-stairs'],['garage','Garage','ph-garage'],['parking','Parking','ph-car'],['jardin','Jardin','ph-plant'],['combles','Combles','ph-house-simple'],['piscine','Piscine','ph-swimming-pool']],
+      delai: [['48h','Au plus vite','ph-lightning'],['semaine','Cette semaine','ph-calendar'],['15j','Sous 15 jours','ph-calendar-blank'],['flexible','Flexible','ph-clock']],
+      creneau: [['matin','Matin'],['apresmidi','Après-midi'],['samedi','Samedi matin']],
+      acces: [['present','Je serai présent','ph-user'],['cles','Clés en agence / notaire','ph-key'],['locataire','Locataire en place','ph-users']],
+      loc: [['vide','Location vide'],['meuble','Meublée'],['saisonniere','Saisonnière / tourisme']],
+      nature: [['travaux','Travaux / rénovation'],['demolition','Démolition']],
+      egout: [['oui','Oui'],['non','Non, fosse septique'],['nsp','Je ne sais pas']],
+      classe: [['ad','Classé A à D'],['efg','Classé E, F ou G'],['aucun','Pas de DPE récent'],['nsp','Je ne sais pas']],
+      deja: [['dpe','DPE après juil. 2021','ph-lightning'],['amiante','Amiante négatif après 2013','ph-warning-diamond'],['plomb','CREP sans plomb','ph-paint-roller'],['elec','Électricité encore valide','ph-plug'],['gaz','Gaz encore valide','ph-fire']],
+      profil: [['particulier','Particulier'],['agence','Agence immobilière'],['notaire','Notaire'],['pro','Syndic / pro']]
+    };
+    const o = {}; Object.keys(L).forEach(k => { o[k] = opts(k, L[k], ['annexes','deja'].includes(k)); });
+    const lab = (k) => (L[k].find(x => x[0] === f[k]) || [])[1];
+    const recap = [lab('projet'), [lab('type'), lab('surface')].filter(Boolean).join(' · '), f.commune, lab('annee') && `Permis : ${lab('annee').toLowerCase()}`].filter(Boolean);
+    const inp = {}; ['adresse','nom','tel','email','message','commune'].forEach(k => { inp[k] = e => setF(k, e.target.value); });
+    inp.consent = e => setF('consent', e.target.checked);
+    const chosenRows = rows.filter(r => r.on);
+
+    // zones
+    const cityLinks = c => ({ name: c.name, cp: c.cp, kmLabel: this.kmLabel(c), dpe: this.lk('city', { diag:'dpe', city: c.slug }), amiante: this.lk('city', { diag:'amiante', city: c.slug }), plomb: this.lk('city', { diag:'plomb', city: c.slug }) });
+    const qn = s.q.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+    const qResults = qn.length >= 2 ? C.filter(c => c.norm.includes(qn)).slice(0, 9).map(cityLinks) : [];
+    const sectors = this.SECT.map(([k, label]) => { const cs = C.filter(c => c.sect === k); return { label, count: String(cs.length), hasMore: cs.length > 8, more: `+ ${cs.length - 8} communes`, cities: cs.slice(0, 8).map(c => ({ name: c.name, ...this.lk('city', { diag:'dpe', city: c.slug }) })) }; });
+    const zoneSectors = this.SECT.map(([k, label]) => ({ label, cities: C.filter(c => c.sect === k).map(cityLinks) }));
+    const top = ['aix-en-provence','aubagne','la-ciotat','martigues','vitrolles','marignane','cassis','gardanne','allauch','les-pennes-mirabeau'].map(sl => C.find(c => c.slug === sl));
+    const footerCols = [
+      { title:'Diagnostics', links: ids.map(k => ({ name: D[k].long, ...this.lk('diag', { diag: k }) })) },
+      ...['dpe','amiante','plomb'].map(k => ({ title: `${D[k].name} par ville`, links: top.map(c => ({ name: `${D[k].name} ${c.name}`, ...this.lk('city', { diag: k, city: c.slug }) })) }))
+    ];
+    const nCity = C.length * 3, seoCount = nCity + ids.length + 4;
+    const phone = cfg.phone || P.phone || '06 12 34 56 78', email = cfg.email || '';
+    const nCommunes = String(C.filter(c => c.sect !== 'mrs').length + 1);
+    const lg = cfg.legal[s.legal] || cfg.legal.mentions, fill = t => [['{telephone}', phone], ['{email}', email], ['{siret}', cfg.siret || '[à compléter]'], ['{adresse}', cfg.adresse || '[à compléter]'], ['{certification}', cfg.certification || '[à compléter]'], ['{assurance}', cfg.assurance || '[à compléter]']].reduce((x, [k, v]) => x.split(k).join(v), t);
+    const siretLabel = cfg.siret || 'à compléter';
+    const legalNav = { mentions: this.lk('legal', { legal:'mentions' }), cgv: this.lk('legal', { legal:'cgv' }), confidentialite: this.lk('legal', { legal:'confidentialite' }) };
+    const jsonLd = JSON.stringify({ '@context':'https://schema.org', '@type':'ProfessionalService', name:'GTS Diagnostic', founder:{ '@type':'Person', name:'Guillaume Tilliet' },
+      telephone: phone, address:{ '@type':'PostalAddress', addressLocality:'Marseille', postalCode:'13000', addressCountry:'FR' },
+      areaServed:{ '@type':'City', name:'Aubagne' }, makesOffer:{ '@type':'Offer', itemOffered:{ '@type':'Service', name:'Diagnostic DPE à Aubagne' }, priceSpecification:{ '@type':'PriceSpecification', minPrice:110, priceCurrency:'EUR' } } }, null, 2);
+    const scale = [['A','≤ 70','#009c6d','#fff','—'],['B','71 – 110','#52b153','#fff','—'],['C','111 – 180','#a5cc74','#0d1733','—'],['D','181 – 250','#f4e70f','#0d1733','—'],['E','251 – 330','#f0b40f','#0d1733','Interdit en 2034'],['F','331 – 420','#eb8235','#fff','Interdit en 2028'],['G','> 420','#d7221f','#fff','Interdit depuis 2025']];
+
+    return {
+      phone, email, hours: cfg.hours, cfg, siretLabel,
+      img: { portrait: cfg.photos.portrait, portraitAlt: cfg.photos.portraitAlt, hasPortrait: !!cfg.photos.portrait, noPortrait: !cfg.photos.portrait, logoNavy: cfg.photos.logoNavy || 'assets/gts-logo-navy.png', logoWhite: cfg.photos.logoWhite || 'assets/gts-logo-white.png',
+        portraitEl: cfg.photos.portrait ? React.createElement('img', { src: cfg.photos.portrait, alt: cfg.photos.portraitAlt, style: { display:'block', width:'100%', height:'100%', objectFit:'cover' } }) : null,
+        logoNavyEl: React.createElement('img', { src: cfg.photos.logoNavy || 'assets/gts-logo-navy.png', alt:'GTS Diagnostic', width:84, height:53, style: { display:'block', height:52, width:'auto' } }),
+        logoWhiteSm: React.createElement('img', { src: cfg.photos.logoWhite || 'assets/gts-logo-white.png', alt:'GTS Diagnostic', width:96, height:60, style: { display:'block', width:96, height:'auto' } }),
+        logoWhiteLg: React.createElement('img', { src: cfg.photos.logoWhite || 'assets/gts-logo-white.png', alt:'GTS Diagnostic', width:130, height:82, style: { display:'block', width:130, height:'auto' } }) }, packPctLabel: '−' + R.packPct + ' %', packMinLabel: String(R.packMin), heroIntro: cfg.hero.intro.split('{communes}').join(nCommunes), legalNav,
+      legalPage: { title: lg.title, paras: fill(lg.body).split(/\n\s*\n/).map(b => b.trim()).filter(Boolean).flatMap(b => { if (!b.startsWith('## ')) return [{ h: false, notH: true, t: b }]; const i = b.indexOf('\n'), head = { h: true, notH: false, t: (i < 0 ? b : b.slice(0, i)).slice(3) }; return i < 0 ? [head] : [head, { h: false, notH: true, t: b.slice(i + 1) }]; }) },
+      ...this.adminVals(cfg, upd, bind), ...this.articleVals(cfg),
+      isArticles: s.page === 'articles', isArticle: s.page === 'article',
+      notAdmin: s.page !== 'admin', isAdmin: s.page === 'admin', isLegal: s.page === 'legal',
+      showPromo: (P.showPromo ?? true) && s.page !== 'admin', showSeo: P.showSeoPreview ?? true, showPrices,
+      nav, isHome: s.page === 'home', isContent: s.page === 'diag' || s.page === 'city', isZones: s.page === 'zones', isDevis: s.page === 'devis', isSeo: s.page === 'seo', showCta: s.page !== 'devis' && s.page !== 'admin' && s.page !== 'legal',
+      pg, communeCount: String(C.filter(c => c.sect !== 'mrs').length + 1),
+      heroStats: [{ v:'24 h', k:'pour recevoir\nle rapport' }, { v:'48 h', k:'pour un\nrendez-vous' }, { v:'−' + R.packPct + ' %', k:'dès ' + R.packMin + '\ndiagnostics' }],
+      heroGo: () => { try { sessionStorage.setItem('gts-draft', JSON.stringify({ projet: f.projet, type: f.type, commune: f.commune })); } catch (_) {} location.href = 'Devis.dc.html'; },
+      heroDisabled: !f.projet,
+      trust: [{ icon:'ph-seal-check', t:'Certifié COFRAC', p:'Toutes mentions, à jour' }, { icon:'ph-shield-check', t:'Assuré RC Pro', p:'Rapports opposables' }, { icon:'ph-file-text', t:'Rapport sous 24 h', p:'Par e-mail, prêt pour le notaire' }, { icon:'ph-car-profile', t:'Déplacement inclus', p:'Jusqu’à 30 km de Marseille' }],
+      ...(() => { const pl = k => !showPrices ? 'Sur devis' : D[k].price ? `${D[k].price} €` : 'Offert';
+        const themes = [
+          { bg:'var(--color-accent-900)', fg:'#fff', chipBg:'color-mix(in srgb,#fff 12%,transparent)', chipFg:'#fff', line:'color-mix(in srgb,#fff 16%,transparent)', ic:'var(--color-accent-400)', arrowBg:'var(--color-accent)', arrowFg:'#fff' },
+          { bg:'var(--color-accent)', fg:'#fff', chipBg:'color-mix(in srgb,#fff 18%,transparent)', chipFg:'#fff', line:'color-mix(in srgb,#fff 24%,transparent)', ic:'#fff', arrowBg:'#fff', arrowFg:'var(--color-accent)' },
+          { bg:'var(--color-accent-100)', fg:'var(--color-accent-900)', chipBg:'#fff', chipFg:'var(--color-accent-700)', line:'var(--color-accent-200)', ic:'var(--color-accent)', arrowBg:'var(--color-accent-900)', arrowFg:'#fff' }];
+        return {
+          allCards: ids.map(k => ({ name: D[k].long, icon: D[k].icon, when: D[k].when, priceLabel: !showPrices ? 'Sur devis' : D[k].price ? `dès ${D[k].price} €` : 'Offert', ...this.lk('diag', { diag: k }) })),
+          featCards: ['dpe','amiante','plomb'].map((k, i) => ({ short: D[k].name, name: D[k].long, icon: D[k].icon, when: D[k].when, valid: D[k].valid, priceLabel: pl(k), ...themes[i], ...this.lk('diag', { diag: k }) })),
+          moreCards: ids.filter(k => !D[k].local).map(k => ({ short: D[k].name === 'ERP' ? 'État des risques (ERP)' : D[k].name, icon: D[k].icon, when: D[k].when, priceLabel: !showPrices ? 'Devis' : D[k].price ? `dès ${D[k].price} €` : 'Offert', ...this.lk('diag', { diag: k }) })) }; })(),
+      dpeScale: scale.map(([l, range, bg, fg, status], i) => ({ l, range, bg, fg, status, w: `${46 + i * 8}%`, stc: status === '—' ? 'color-mix(in srgb, var(--color-text) 35%, transparent)' : '#d7221f' })),
+      howSteps: [{ n:'1', icon:'ph-clipboard-text', t:'Devis en 2 minutes', p:'Six questions : les diagnostics obligatoires sont déterminés pour vous.' }, { n:'2', icon:'ph-calendar-check', t:'Rendez-vous sous 48 h', p:'Guillaume vous rappelle et fixe la visite, samedi matin compris.' }, { n:'3', icon:'ph-house-line', t:'Visite sur place', p:'De 1 h à 3 h selon la surface et les diagnostics.' }, { n:'4', icon:'ph-file-arrow-down', t:'Rapport sous 24 h', p:'Dossier complet par e-mail, prêt pour le notaire ou l’agence.' }],
+      certs: ['DPE avec mention','Amiante avec mention','Plomb (CREP)','Électricité','Gaz','Termites','Audit énergétique','Carrez / Boutin'],
+      q: s.q, onQ: e => this.setState({ q: e.target.value }), hasQ: qn.length >= 2, noQ: qn.length >= 2 && qResults.length === 0, qResults,
+      sectors, zoneSectors, footerCols,
+      homeFaq: [{ q:'Quels diagnostics pour vendre un appartement à Marseille ?', a:'Au minimum DPE, mesurage Carrez et ERP, puis selon l’âge du bien : amiante (permis avant juillet 1997), plomb (avant 1949), électricité et gaz (installations de plus de 15 ans). Le formulaire de devis fait le tri pour vous.' },
+        { q:'Combien coûte un pack de diagnostics ?', a:'Pour un appartement de 60 m² construit avant 1997, comptez généralement entre 250 et 400 € TTC. Remise de 15 % dès trois diagnostics, ERP offert.' },
+        { q:'Sous quel délai pouvez-vous intervenir ?', a:'Sous 48 h à Marseille et dans les communes à moins de 35 km, sous 72 h au-delà. Le rapport est livré sous 24 h après la visite.' },
+        { q:'Pourquoi choisir un diagnostiqueur indépendant ?', a:'Un seul interlocuteur du devis au rapport, aucune commission d’apporteur d’affaires, et un expert qui connaît le bâti local, du trois-fenêtres marseillais aux villas de la Côte Bleue.' }],
+      // devis
+      s0: s.step === 0, s1: s.step === 1, s2: s.step === 2, s3: s.step === 3, s4: s.step === 4, s5: s.step === 5,
+      sent: s.sent, notSent: !s.sent, steps, o, f, inp, recap, hasRecap: recap.length > 0, noRecap: recap.length === 0,
+      communeOpts: C.map(c => ({ name: c.name, label: c.label })),
+      diagRows: rows, noDiag: rows.length === 0, chosenRows, hasChosen: chosenRows.length > 0,
+      showEstimate: showPrices && (paid.length > 0 || devisOnly), est,
+      isLoc: f.projet === 'location', isTrav: f.projet === 'travaux', askEgout: f.projet === 'vente' && f.type === 'maison', askClasse: f.projet === 'vente' && (f.type === 'maison' || f.type === 'immeuble') && f.copro !== 'oui', chosen: chosenRows.map(r => r.name),
+      hasPrev: s.step > 0, prev: () => { this.setState(st => ({ step: Math.max(0, st.step - 1) })); },
+      nextDisabled: !valid[s.step], nextLabel: s.step === 5 ? 'Envoyer ma demande' : 'Continuer',
+      next: () => { if (!valid[s.step]) return; if (s.step === 5) { this.saveLeads(Lx => [{ id: 'L-' + String(Date.now()).slice(-4), date: new Date().toISOString(), nom: f.nom, tel: f.tel, email: f.email, profil: lab('profil') || '', commune: f.commune, adresse: f.adresse, projet: [lab('projet'), lab('loc'), lab('nature')].filter(Boolean).join(' · '), bien: [lab('type'), lab('surface')].filter(Boolean).join(' · '), annee: lab('annee') || '', delai: [lab('delai'), lab('creneau')].filter(Boolean).join(' · '), diags: chosenRows.map(r => r.name), total: devisOnly && !paid.length ? 0 : sub - remise + depl, status: 'Nouveau', message: f.message }, ...Lx]); this.setState({ sent: true }); } else this.setState({ step: s.step + 1 }); this.scrollTop(); },
+      // seo
+      seoCount: String(seoCount), jsonLd,
+      seoRoutes: [{ route:'/', mode:'SSG', count:'1', ex:'/' }, { route:'/diagnostic-[type]-marseille', mode:'SSG', count: String(ids.length), ex:'/diagnostic-amiante-marseille' },
+        { route:'/diagnostic-[type]/[commune]', mode:'SSG + ISR 30 j', count: String(nCity), ex:'/diagnostic-plomb/la-ciotat' }, { route:'/zones-intervention', mode:'SSG', count:'1', ex:'/zones-intervention' },
+        { route:'/devis', mode:'SSG + îlot client', count:'1', ex:'/devis' }, { route:'/conseils · /conseils/[slug]', mode:'SSG + ISR', count: String((cfg.articles || []).length + 1), ex:'/conseils/dpe-2026-ce-qui-change' }, { route:'/mentions-legales · /cgv · /confidentialite', mode:'SSG', count:'3', ex:'/cgv' }, { route:'/espace-proprietaire', mode:'SSR + authentification', count:'1', ex:'/espace-proprietaire' }, { route:'/sitemap.xml · /robots.txt', mode:'Route handlers', count:'2', ex:'app/sitemap.ts' }],
+      seoNotes: [{ icon:'ph-tree-structure', t:'Maillage interne', p:'Chaque page ville lie ses deux autres diagnostics et huit communes voisines du même secteur ; chaque page diagnostic lie toutes les communes. Fil d’Ariane en BreadcrumbList.' },
+        { icon:'ph-text-aa', t:'Contenu non dupliqué', p:'Texte généré depuis des attributs réels par commune (typologie du bâti, distance, secteur) et trois variantes d’accroche, pour éviter le contenu dupliqué.' },
+        { icon:'ph-code', t:'Metadata & schema', p:'generateMetadata par route : title ≤ 60 caractères, description ≤ 155, canonical absolu, Open Graph. JSON-LD ProfessionalService, Service, FAQPage, BreadcrumbList.' },
+        { icon:'ph-gauge', t:'Core Web Vitals', p:'Rendu serveur sans JavaScript hors devis, next/font avec Archivo sous-ensemble latin, next/image en AVIF, icônes importées une à une. Cible LCP < 1,8 s.' },
+        { icon:'ph-map-pin', t:'SEO local', p:'Fiche Google Business Profile liée, NAP identique partout, zone de service déclarée sur les communes, avis clients intégrés.' },
+        { icon:'ph-envelope-simple', t:'Devis', p:'Server Action avec validation zod, e-mail à Guillaume et au client, anti-spam par honeypot, événement de conversion analytics.' }]
+    };
+  }
+}
+</script>
+</body>
+</html>
