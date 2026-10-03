@@ -148,10 +148,7 @@ export const DIAGNOSTICS = {
         "Quand est-il obligatoire ?",
         "Pour la vente et la location d’un logement dont l’installation gaz a plus de 15 ans.",
       ],
-      [
-        "Déroulé",
-        "45 minutes environ. Les appareils doivent être accessibles et alimentés.",
-      ],
+      ["Déroulé", "45 minutes environ. Les appareils doivent être accessibles et alimentés."],
       [
         "Danger grave immédiat",
         "En cas de danger grave, l’alimentation est coupée et le distributeur prévenu, pour votre sécurité.",
@@ -208,10 +205,7 @@ export const DIAGNOSTICS = {
         "Quand est-il obligatoire ?",
         "Pour toute vente dans les Bouches-du-Rhône, déclarées zone termites sur tout le département par arrêté du 19 juillet 2001, et dans les communes varoises desservies (Bandol, Sanary, Saint-Cyr, Le Castellet…).",
       ],
-      [
-        "Déroulé",
-        "Examen visuel et sondage des bois, dans le logement et les dépendances.",
-      ],
+      ["Déroulé", "Examen visuel et sondage des bois, dans le logement et les dépendances."],
       [
         "En cas de présence",
         "Le propriétaire doit déclarer l’infestation en mairie et engager un traitement.",
@@ -238,10 +232,7 @@ export const DIAGNOSTICS = {
         "Quand est-il obligatoire ?",
         "Pour toute vente et toute location, daté de moins de 6 mois. Il intègre l’information bruit (ENSA) près de l’aéroport Marseille-Provence.",
       ],
-      [
-        "Offert",
-        "L’ERP est inclus gratuitement dans tous les packs GTS Diagnostic.",
-      ],
+      ["Offert", "L’ERP est inclus gratuitement dans tous les packs GTS Diagnostic."],
       [
         "Risques locaux",
         "Incendie de forêt, inondation, submersion marine et séisme concernent de nombreuses communes du secteur.",
@@ -278,10 +269,7 @@ export const DIAGNOSTICS = {
       ],
     ],
     faq: [
-      [
-        "L’audit remplace-t-il le DPE ?",
-        "Non, il le complète. Les deux sont remis à l’acquéreur.",
-      ],
+      ["L’audit remplace-t-il le DPE ?", "Non, il le complète. Les deux sont remis à l’acquéreur."],
     ],
     local: false,
   },

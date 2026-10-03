@@ -1,27 +1,15 @@
 import { COMMUNES, SECTEURS } from "./communes";
 import { DIAGNOSTICS } from "./diagnostics";
-import type {
-  Commune,
-  DiagnosticContent,
-  DiagnosticId,
-  SecteurId,
-} from "./types";
+import type { Commune, DiagnosticContent, DiagnosticId, SecteurId } from "./types";
 
-export type {
-  Commune,
-  DiagnosticContent,
-  DiagnosticId,
-  SecteurId,
-} from "./types";
+export type { Commune, DiagnosticContent, DiagnosticId, SecteurId } from "./types";
 export { COMMUNES, DIAGNOSTICS, SECTEURS };
 
 /** Ordre d’affichage des diagnostics (celui de la maquette). */
 export const DIAGNOSTIC_IDS = Object.keys(DIAGNOSTICS) as DiagnosticId[];
 
 /** Diagnostics déclinés en pages ville : DPE, amiante, plomb. */
-export const LOCAL_DIAGNOSTIC_IDS = DIAGNOSTIC_IDS.filter(
-  (id) => DIAGNOSTICS[id].local,
-);
+export const LOCAL_DIAGNOSTIC_IDS = DIAGNOSTIC_IDS.filter((id) => DIAGNOSTICS[id].local);
 
 export const SECTEUR_IDS = Object.keys(SECTEURS) as SecteurId[];
 
@@ -49,5 +37,4 @@ export function communeLabel(c: Commune): string {
 }
 
 /** Nombre de communes desservies hors Marseille, + Marseille (texte du hero). */
-export const COMMUNE_COUNT =
-  COMMUNES.filter((c) => c.secteur !== "mrs").length + 1;
+export const COMMUNE_COUNT = COMMUNES.filter((c) => c.secteur !== "mrs").length + 1;

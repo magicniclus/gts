@@ -202,8 +202,7 @@ export const DEVIS_OPTIONS = {
 } as const;
 
 export type DevisOptionKey = keyof typeof DEVIS_OPTIONS;
-export type OptionValue<K extends DevisOptionKey> =
-  (typeof DEVIS_OPTIONS)[K][number]["value"];
+export type OptionValue<K extends DevisOptionKey> = (typeof DEVIS_OPTIONS)[K][number]["value"];
 
 /** Libellé d’une valeur, ou undefined si la valeur est absente ou inconnue. */
 export function optionLabel<K extends DevisOptionKey>(

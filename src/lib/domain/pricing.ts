@@ -23,11 +23,7 @@ const MAISON_KEYS: ReadonlySet<string> = new Set([
   "electricite",
   "termites",
 ]);
-const ANNEXE_KEYS: ReadonlySet<string> = new Set([
-  "amiante",
-  "termites",
-  "raat",
-]);
+const ANNEXE_KEYS: ReadonlySet<string> = new Set(["amiante", "termites", "raat"]);
 
 /** Arrondi aux 5 € les plus proches (moitié vers le haut). */
 export function round5(value: number): number {
@@ -45,19 +41,14 @@ function isPriceKey(key: string, pricing: Pricing): key is PriceKey {
   return Object.hasOwn(pricing.grid, key);
 }
 
-export function priceOf(
-  key: Obligation["priceKey"],
-  a: Answers,
-  pricing: Pricing,
-): number | null {
+export function priceOf(key: Obligation["priceKey"], a: Answers, pricing: Pricing): number | null {
   if (key === "erp") return 0;
   if (!isPriceKey(key, pricing)) return null;
   if (a.type === "immeuble") return null;
   const base = pricing.grid[key][bandIndex(a)];
   const { maison, annexe } = pricing.rules;
   // Tout est exprimé en centièmes d’euro pour rester en entiers.
-  let cents =
-    base * (a.type === "maison" && MAISON_KEYS.has(key) ? 100 + maison : 100);
+  let cents = base * (a.type === "maison" && MAISON_KEYS.has(key) ? 100 + maison : 100);
   if (ANNEXE_KEYS.has(key)) {
     const n = (a.annexes ?? []).filter((x) => x !== "piscine").length;
     cents += annexe * n * 100;
@@ -77,9 +68,7 @@ export function buildRows(
 ): Row[] {
   return obligations.map((o) => {
     const selectable = isSelectable(o.level);
-    const on =
-      selectable &&
-      (checked ? checked.includes(o.id) : isDefaultChecked(o.level));
+    const on = selectable && (checked ? checked.includes(o.id) : isDefaultChecked(o.level));
     return {
       ...o,
       on,
@@ -88,10 +77,7 @@ export function buildRows(
   });
 }
 
-export function deplacementFor(
-  commune: CommuneInfo | undefined,
-  rules: PricingRules,
-): number {
+export function deplacementFor(commune: CommuneInfo | undefined, rules: PricingRules): number {
   if (!commune) return 0;
   if (commune.km > 40) return rules.d40;
   if (commune.km > 30) return rules.d30;

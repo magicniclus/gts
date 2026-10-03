@@ -21,10 +21,8 @@ export type PriceKey = (typeof PRICE_KEYS)[number];
 
 export type Projet = "vente" | "location" | "travaux" | "autre";
 export type TypeBien = "appartement" | "maison" | "local" | "immeuble";
-export type Annee =
-  "avant1949" | "1949-1997" | "1997-2012" | "apres2012" | "nsp";
-export type Annexe =
-  "cave" | "garage" | "parking" | "jardin" | "combles" | "piscine";
+export type Annee = "avant1949" | "1949-1997" | "1997-2012" | "apres2012" | "nsp";
+export type Annexe = "cave" | "garage" | "parking" | "jardin" | "combles" | "piscine";
 export type Deja = "dpe" | "amiante" | "plomb" | "elec" | "gaz";
 
 /**
@@ -87,10 +85,7 @@ export type Obligation = {
   readonly reason: string;
 };
 
-export type PriceGrid = Record<
-  PriceKey,
-  readonly [number, number, number, number, number]
->;
+export type PriceGrid = Record<PriceKey, readonly [number, number, number, number, number]>;
 
 export type PricingRules = {
   /** Majoration maison, en %. */

@@ -4,19 +4,9 @@
  * (voir docs/handoff/03-tarifs-et-obligations.md §2).
  */
 import { DIAGNOSTICS } from "../data/diagnostics";
-import type {
-  Answers,
-  CommuneInfo,
-  Level,
-  Obligation,
-  ObligationId,
-  PriceKey,
-} from "./types";
+import type { Answers, CommuneInfo, Level, Obligation, ObligationId, PriceKey } from "./types";
 
-const DEFAULT_CHECKED: ReadonlySet<Level> = new Set<Level>([
-  "Obligatoire",
-  "À vérifier",
-]);
+const DEFAULT_CHECKED: ReadonlySet<Level> = new Set<Level>(["Obligatoire", "À vérifier"]);
 
 /** Les lignes Obligatoire et À vérifier sont cochées par défaut. */
 export function isDefaultChecked(level: Level): boolean {
@@ -53,11 +43,7 @@ export function diagList(a: Answers, commune?: CommuneInfo): Obligation[] {
       id,
       level,
       reason,
-      name:
-        name ??
-        (id === "spanc"
-          ? "Assainissement non collectif"
-          : DIAGNOSTICS[id].long),
+      name: name ?? (id === "spanc" ? "Assainissement non collectif" : DIAGNOSTICS[id].long),
       priceKey: priceKey ?? (id as PriceKey | "erp" | "spanc"),
     });
   };
@@ -67,13 +53,7 @@ export function diagList(a: Answers, commune?: CommuneInfo): Obligation[] {
     const name = local ? "DPE tertiaire" : undefined;
     const pk = local ? "dpet" : "dpe";
     if (has("dpe"))
-      add(
-        "dpe",
-        "Déjà valide",
-        "DPE réalisé après le 1er juillet 2021, valable 10 ans",
-        name,
-        pk,
-      );
+      add("dpe", "Déjà valide", "DPE réalisé après le 1er juillet 2021, valable 10 ans", name, pk);
     else
       add(
         "dpe",
@@ -86,8 +66,7 @@ export function diagList(a: Answers, commune?: CommuneInfo): Obligation[] {
         name,
         pk,
       );
-  } else if (p === "autre")
-    add("dpe", "Optionnel", "Connaître la performance énergétique du bien");
+  } else if (p === "autre") add("dpe", "Optionnel", "Connaître la performance énergétique du bien");
 
   if (p === "travaux") {
     if (pre97 || unk) {
@@ -142,45 +121,25 @@ export function diagList(a: Answers, commune?: CommuneInfo): Obligation[] {
   if (hab && vl && !sais && a.elec !== "moins15")
     add(
       "electricite",
-      has("elec")
-        ? "Déjà valide"
-        : a.elec === "plus15"
-          ? "Obligatoire"
-          : "À vérifier",
+      has("elec") ? "Déjà valide" : a.elec === "plus15" ? "Obligatoire" : "À vérifier",
       "Installation électrique de plus de 15 ans",
     );
   if (hab && vl && !sais && a.gaz === "plus15")
-    add(
-      "gaz",
-      has("gaz") ? "Déjà valide" : "Obligatoire",
-      "Installation gaz de plus de 15 ans",
-    );
+    add("gaz", has("gaz") ? "Déjà valide" : "Obligatoire", "Installation gaz de plus de 15 ans");
 
   if (p === "vente" && a.copro === "oui")
-    add(
-      "carrez",
-      "Obligatoire",
-      "Vente d’un lot de copropriété",
-      "Mesurage loi Carrez",
-    );
+    add("carrez", "Obligatoire", "Vente d’un lot de copropriété", "Mesurage loi Carrez");
   if (p === "location" && hab && !sais) {
     const meuble = a.loc === "meuble";
     add(
       "carrez",
       meuble ? "Conseillé" : "Obligatoire",
-      meuble
-        ? "Surface habitable à mentionner au bail"
-        : "Surface habitable du logement loué vide",
+      meuble ? "Surface habitable à mentionner au bail" : "Surface habitable du logement loué vide",
       "Mesurage loi Boutin",
     );
   }
   if (p === "vente" && a.copro === "non" && hab)
-    add(
-      "carrez",
-      "Optionnel",
-      "Surface habitable, utile pour l’annonce",
-      "Mesurage de surface",
-    );
+    add("carrez", "Optionnel", "Surface habitable, utile pour l’annonce", "Mesurage de surface");
 
   if (p === "vente")
     add(
@@ -200,32 +159,15 @@ export function diagList(a: Answers, commune?: CommuneInfo): Obligation[] {
         : "État des risques et pollutions, daté de moins de 6 mois",
     );
 
-  if (
-    p === "vente" &&
-    (t === "maison" || t === "immeuble") &&
-    a.copro !== "oui"
-  )
+  if (p === "vente" && (t === "maison" || t === "immeuble") && a.copro !== "oui")
     add(
       "audit",
-      a.classe === "efg"
-        ? "Obligatoire"
-        : a.classe === "ad"
-          ? "Non requis"
-          : "À vérifier",
+      a.classe === "efg" ? "Obligatoire" : a.classe === "ad" ? "Non requis" : "À vérifier",
       "Maison ou immeuble en monopropriété classé E, F ou G",
     );
 
-  if (
-    p === "vente" &&
-    t === "maison" &&
-    a.egout !== undefined &&
-    a.egout !== "oui"
-  )
-    add(
-      "spanc",
-      "Info",
-      "Contrôle réalisé par le SPANC de la commune (moins de 3 ans)",
-    );
+  if (p === "vente" && t === "maison" && a.egout !== undefined && a.egout !== "oui")
+    add("spanc", "Info", "Contrôle réalisé par le SPANC de la commune (moins de 3 ans)");
 
   return list;
 }

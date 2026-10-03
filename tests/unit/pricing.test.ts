@@ -55,18 +55,11 @@ const F: Answers = {
   gaz: "aucun",
 };
 
-const run = (
-  a: Answers,
-  c: CommuneInfo | undefined,
-  pricing = P,
-  checked?: readonly string[],
-) => {
+const run = (a: Answers, c: CommuneInfo | undefined, pricing = P, checked?: readonly string[]) => {
   const rows = buildRows(diagList(a, c), a, pricing, checked);
   return {
     rows,
-    prices: Object.fromEntries(
-      rows.filter((r) => r.on).map((r) => [r.id, r.price]),
-    ),
+    prices: Object.fromEntries(rows.filter((r) => r.on).map((r) => [r.id, r.price])),
     est: estimate(rows, c, pricing),
   };
 };
@@ -255,11 +248,9 @@ describe("priceOf", () => {
   });
   it("utilise chaque tranche", () => {
     const bands = ["<30", "30-60", "60-100", "100-150", "150+"] as const;
-    expect(
-      bands.map((surface) =>
-        priceOf("gaz", { type: "appartement", surface }, P),
-      ),
-    ).toEqual([80, 85, 90, 95, 100]);
+    expect(bands.map((surface) => priceOf("gaz", { type: "appartement", surface }, P))).toEqual([
+      80, 85, 90, 95, 100,
+    ]);
   });
   it("majore la maison seulement pour DPE, amiante, plomb, électricité et termites", () => {
     const maison: Answers = { type: "maison", surface: "<30" };
@@ -290,23 +281,15 @@ describe("priceOf", () => {
   });
   it("calcule en entiers (pas d’erreur d’arrondi flottant)", () => {
     // 110 × 1,15 = 126,49999… en flottant ; 12650 / 500 = 25,3 exactement → 125
-    expect(
-      priceOf("electricite", { type: "maison", surface: "100-150" }, P),
-    ).toBe(125);
+    expect(priceOf("electricite", { type: "maison", surface: "100-150" }, P)).toBe(125);
     // 130 × 1,15 = 149,5 → 150 (moitié arrondie vers le haut)
     const grid = { ...P.grid, dpe: [130, 0, 0, 0, 0] as const };
-    expect(
-      priceOf("dpe", { type: "maison", surface: "<30" }, { ...P, grid }),
-    ).toBe(150);
+    expect(priceOf("dpe", { type: "maison", surface: "<30" }, { ...P, grid })).toBe(150);
   });
   it("majoration maison réglable (0 %)", () => {
-    expect(
-      priceOf(
-        "dpe",
-        { type: "maison", surface: "100-150" },
-        withRules({ maison: 0 }),
-      ),
-    ).toBe(155);
+    expect(priceOf("dpe", { type: "maison", surface: "100-150" }, withRules({ maison: 0 }))).toBe(
+      155,
+    );
   });
   it("supplément annexe réglable", () => {
     expect(
@@ -344,15 +327,8 @@ describe("buildRows", () => {
   });
 
   it("applique la sélection du client (liste des id cochés)", () => {
-    const rows = buildRows(diagList(B, aubagne), B, P, [
-      "dpe",
-      "carrez",
-      "spanc",
-    ]);
-    expect(rows.filter((r) => r.on).map((r) => r.id)).toEqual([
-      "dpe",
-      "carrez",
-    ]);
+    const rows = buildRows(diagList(B, aubagne), B, P, ["dpe", "carrez", "spanc"]);
+    expect(rows.filter((r) => r.on).map((r) => r.id)).toEqual(["dpe", "carrez"]);
   });
 
   it("ne coche jamais la ligne Info (SPANC)", () => {

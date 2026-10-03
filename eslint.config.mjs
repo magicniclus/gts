@@ -8,14 +8,8 @@ const eslintConfig = defineConfig([
   {
     rules: {
       "@typescript-eslint/no-explicit-any": "error",
-      "@typescript-eslint/ban-ts-comment": [
-        "error",
-        { "ts-ignore": true, "ts-nocheck": true },
-      ],
-      "@typescript-eslint/no-unused-vars": [
-        "error",
-        { argsIgnorePattern: "^_" },
-      ],
+      "@typescript-eslint/ban-ts-comment": ["error", { "ts-ignore": true, "ts-nocheck": true }],
+      "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
     },
   },
   {
@@ -32,12 +26,7 @@ const eslintConfig = defineConfig([
             },
             { group: ["next", "next/*"], message: "lib/domain est pur." },
             {
-              group: [
-                "firebase",
-                "firebase/*",
-                "firebase-admin",
-                "firebase-admin/*",
-              ],
+              group: ["firebase", "firebase/*", "firebase-admin", "firebase-admin/*"],
               message: "lib/domain est pur.",
             },
           ],
@@ -54,13 +43,11 @@ const eslintConfig = defineConfig([
         "error",
         {
           selector: "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
-          message:
-            "Couleur en dur interdite : utilisez un token (globals.css).",
+          message: "Couleur en dur interdite : utilisez un token (globals.css).",
         },
         {
           selector: "TemplateElement[value.raw=/#[0-9a-fA-F]{3,8}\\b/]",
-          message:
-            "Couleur en dur interdite : utilisez un token (globals.css).",
+          message: "Couleur en dur interdite : utilisez un token (globals.css).",
         },
       ],
     },

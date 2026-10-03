@@ -8,8 +8,7 @@ import { resolve } from "node:path";
 import { execFileSync } from "node:child_process";
 
 const root = resolve(import.meta.dirname, "..");
-const read = (p: string): unknown =>
-  JSON.parse(readFileSync(resolve(root, p), "utf8"));
+const read = (p: string): unknown => JSON.parse(readFileSync(resolve(root, p), "utf8"));
 
 type RawCommune = {
   name: string;
@@ -26,10 +25,7 @@ const rawCommunes = read("docs/handoff/data/communes.json") as {
   secteurs: Record<string, string>;
   communes: RawCommune[];
 };
-const rawDiags = read("docs/handoff/data/diagnostics.json") as Record<
-  string,
-  RawDiag
->;
+const rawDiags = read("docs/handoff/data/diagnostics.json") as Record<string, RawDiag>;
 
 const header =
   "// Fichier généré par scripts/generate-data.ts depuis docs/handoff/data. Ne pas modifier à la main.\n";
@@ -59,8 +55,7 @@ const out = {
   "src/lib/data/communes.ts": communes,
   "src/lib/data/diagnostics.ts": diagnostics,
 };
-for (const [path, content] of Object.entries(out))
-  writeFileSync(resolve(root, path), content);
+for (const [path, content] of Object.entries(out)) writeFileSync(resolve(root, path), content);
 execFileSync("npx", ["prettier", "--write", ...Object.keys(out)], {
   cwd: root,
   stdio: "inherit",

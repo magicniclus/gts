@@ -1,14 +1,7 @@
-export type SecteurId =
-  "mrs" | "est" | "nord" | "aix" | "sud" | "ouest" | "var";
+export type SecteurId = "mrs" | "est" | "nord" | "aix" | "sud" | "ouest" | "var";
 
 export type Bati =
-  | "ancien"
-  | "mixte"
-  | "recent"
-  | "littoral"
-  | "haussmann"
-  | "mrsmixte"
-  | "grandsens";
+  "ancien" | "mixte" | "recent" | "littoral" | "haussmann" | "mrsmixte" | "grandsens";
 
 export type Commune = {
   readonly name: string;
@@ -23,15 +16,7 @@ export type Commune = {
 };
 
 export type DiagnosticId =
-  | "dpe"
-  | "amiante"
-  | "plomb"
-  | "electricite"
-  | "gaz"
-  | "carrez"
-  | "termites"
-  | "erp"
-  | "audit";
+  "dpe" | "amiante" | "plomb" | "electricite" | "gaz" | "carrez" | "termites" | "erp" | "audit";
 
 /** Nom d’icône Phosphor en kebab-case, sans préfixe « ph- ». */
 export type IconName = string;

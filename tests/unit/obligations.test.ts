@@ -1,15 +1,6 @@
 import { describe, expect, it } from "vitest";
-import {
-  diagList,
-  isDefaultChecked,
-  isSelectable,
-} from "@/lib/domain/obligations";
-import type {
-  Answers,
-  CommuneInfo,
-  Level,
-  Obligation,
-} from "@/lib/domain/types";
+import { diagList, isDefaultChecked, isSelectable } from "@/lib/domain/obligations";
+import type { Answers, CommuneInfo, Level, Obligation } from "@/lib/domain/types";
 
 const marseille8: CommuneInfo = {
   name: "Marseille 8e",
@@ -30,10 +21,8 @@ const venteAppart: Answers = {
   gaz: "plus15",
 };
 
-const byId = (list: Obligation[]) =>
-  Object.fromEntries(list.map((o) => [o.id, o]));
-const levels = (list: Obligation[]) =>
-  Object.fromEntries(list.map((o) => [o.id, o.level]));
+const byId = (list: Obligation[]) => Object.fromEntries(list.map((o) => [o.id, o]));
+const levels = (list: Obligation[]) => Object.fromEntries(list.map((o) => [o.id, o.level]));
 
 describe("diagList : une ligne par règle du tableau §2", () => {
   type Case = {
@@ -627,9 +616,7 @@ describe("diagList : cas A à J", () => {
       "termites",
       "erp",
     ]);
-    expect(Object.values(levels(l)).every((lv) => lv === "Obligatoire")).toBe(
-      true,
-    );
+    expect(Object.values(levels(l)).every((lv) => lv === "Obligatoire")).toBe(true);
   });
 
   it("B : vente d’une maison 1949–1997, classée EFG, au tout-à-l’égout", () => {
@@ -658,9 +645,7 @@ describe("diagList : cas A à J", () => {
   });
 
   it("D : Istres, motif ERP « bruit aéroport »", () => {
-    expect(byId(diagList(venteAppart, istres)).erp?.reason).toMatch(
-      /bruit aéroport/,
-    );
+    expect(byId(diagList(venteAppart, istres)).erp?.reason).toMatch(/bruit aéroport/);
   });
 
   it("E : immeuble entier d’avant 1949", () => {
@@ -720,9 +705,7 @@ describe("diagList : cas A à J", () => {
   });
 
   it("H : DPE déjà valide", () => {
-    expect(levels(diagList({ ...venteAppart, deja: ["dpe"] })).dpe).toBe(
-      "Déjà valide",
-    );
+    expect(levels(diagList({ ...venteAppart, deja: ["dpe"] })).dpe).toBe("Déjà valide");
   });
 
   it("I : année inconnue → amiante, plomb et électricité à vérifier", () => {

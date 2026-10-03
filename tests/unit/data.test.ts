@@ -15,17 +15,11 @@ import {
   getDiagnostic,
   isDiagnosticId,
 } from "@/lib/data/lookup";
-import {
-  DEVIS_OPTIONS,
-  DEVIS_STEPS,
-  optionLabel,
-} from "@/lib/data/devis-options";
+import { DEVIS_OPTIONS, DEVIS_STEPS, optionLabel } from "@/lib/data/devis-options";
 import { slugify } from "@/lib/domain/slug";
 
 const json = (p: string) =>
-  JSON.parse(
-    readFileSync(resolve(__dirname, "../../docs/handoff/data", p), "utf8"),
-  );
+  JSON.parse(readFileSync(resolve(__dirname, "../../docs/handoff/data", p), "utf8"));
 
 describe("communes", () => {
   it("reprend exactement docs/handoff/data/communes.json", () => {
@@ -42,10 +36,7 @@ describe("communes", () => {
 
   it("rattache chaque commune à un secteur connu", () => {
     for (const c of COMMUNES) expect(SECTEUR_IDS).toContain(c.secteur);
-    const total = SECTEUR_IDS.reduce(
-      (n, s) => n + communesOfSecteur(s).length,
-      0,
-    );
+    const total = SECTEUR_IDS.reduce((n, s) => n + communesOfSecteur(s).length, 0);
     expect(total).toBe(84);
   });
 
