@@ -10,7 +10,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "next typegen && tsc --noEmit",
-    "test": "vitest run && npm run test:rules",
+    "test": "vitest run && npm run test:emu",
     "test:watch": "vitest",
     "coverage": "vitest run --coverage",
     "e2e": "firebase emulators:exec --project demo-gts --only auth,firestore,storage \"npm run seed && next build && playwright test\"",
@@ -19,10 +19,10 @@
     "emulators": "firebase emulators:start --project demo-gts --only auth,firestore,storage --import=.emulator-data --export-on-exit",
     "seed": "tsx scripts/seed.ts",
     "test:unit": "vitest run",
-    "test:rules": "firebase emulators:exec --project demo-gts --only firestore,storage \"vitest run --config vitest.rules.config.mts\"",
     "emu": "firebase emulators:exec --project demo-gts --only auth,firestore,storage",
     "build:emu": "firebase emulators:exec --project demo-gts --only auth,firestore,storage \"npm run seed && next build\"",
-    "e2e:run": "playwright test"
+    "e2e:run": "playwright test",
+    "test:emu": "firebase emulators:exec --project demo-gts --only auth,firestore,storage \"vitest run --config vitest.emulator.config.mts\""
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",

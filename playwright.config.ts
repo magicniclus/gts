@@ -11,7 +11,7 @@ export default defineConfig({
   reporter: process.env.CI ? [["github"], ["html", { open: "never" }]] : "list",
   use: { baseURL, trace: "retain-on-failure" },
   projects: [
-    { name: "desktop", use: { ...devices["Desktop Chrome"] } },
+    { name: "desktop", use: { ...devices["Desktop Chrome"] }, grepInvert: /@mobile/ },
     {
       name: "mobile",
       use: { ...devices["iPhone 13"], browserName: "chromium" },

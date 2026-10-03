@@ -5,7 +5,7 @@ import { getFirestore } from "firebase-admin/firestore";
 import { getStorage } from "firebase-admin/storage";
 import { EMULATORS, PROJECT_ID, STORAGE_BUCKET, USE_EMULATORS } from "./config";
 
-function app(): App {
+export function adminApp(): App {
   const existing = getApps()[0];
   if (existing) return existing;
   if (USE_EMULATORS) {
@@ -26,6 +26,6 @@ function app(): App {
   });
 }
 
-export const adminDb = () => getFirestore(app());
-export const adminAuth = () => getAuth(app());
-export const adminStorage = () => getStorage(app());
+export const adminDb = () => getFirestore(adminApp());
+export const adminAuth = () => getAuth(adminApp());
+export const adminStorage = () => getStorage(adminApp());
