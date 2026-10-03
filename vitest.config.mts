@@ -6,7 +6,12 @@ const src = fileURLToPath(new URL("./src", import.meta.url));
 
 export default defineConfig({
   plugins: [react()],
-  resolve: { alias: { "@": src } },
+  resolve: {
+    alias: {
+      "@": src,
+      "server-only": fileURLToPath(new URL("./tests/stubs/empty.ts", import.meta.url)),
+    },
+  },
   test: {
     projects: [
       {

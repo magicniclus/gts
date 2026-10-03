@@ -22,12 +22,20 @@ jobs:
         with:
           node-version: 22
           cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/firebase/emulators
+          key: firebase-emulators-${{ hashFiles('package-lock.json') }}
       - run: npm ci
       - name: Lint
         run: npm run lint && npm run format:check
       - name: Typecheck
         run: npm run typecheck
-      - name: Tests
+      - name: Tests (unitaires, composants, règles)
         run: npm test
       - name: Build
         run: npm run build
