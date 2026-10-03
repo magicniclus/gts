@@ -5,10 +5,12 @@ describe("identifiants du compte de service", () => {
   it("e-mail + clé privée, retours à la ligne échappés", () => {
     expect(
       serviceAccountFromEnv({
+        NEXT_PUBLIC_FIREBASE_PROJECT_ID: "p",
         FIREBASE_CLIENT_EMAIL: "sa@p.iam",
         FIREBASE_PRIVATE_KEY: '"-----BEGIN\\nABC\\n-----END"',
       }),
     ).toEqual({
+      projectId: "p",
       clientEmail: "sa@p.iam",
       privateKey: "-----BEGIN\nABC\n-----END",
     });

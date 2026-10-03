@@ -14,11 +14,17 @@ export type ServiceAccountCredential = {
 export function serviceAccountFromEnv(
   env: Record<string, string | undefined> = process.env,
 ): ServiceAccountCredential | null {
+  // Le SDK exige un identifiant de projet avec un compte de service.
+  const projectId = env.NEXT_PUBLIC_FIREBASE_PROJECT_ID?.trim() || undefined;
   const email = env.FIREBASE_CLIENT_EMAIL?.trim();
   const key = env.FIREBASE_PRIVATE_KEY?.trim();
   if (email && key) {
     // Les interfaces web enregistrent souvent les retours à la ligne sous la forme « \n ».
-    return { clientEmail: email, privateKey: key.replace(/^"|"$/g, "").replace(/\\n/g, "\n") };
+    return {
+      projectId,
+      clientEmail: email,
+      privateKey: key.replace(/^"|"$/g, "").replace(/\\n/g, "\n"),
+    };
   }
   const json = env.FIREBASE_SERVICE_ACCOUNT?.trim();
   if (json) {
@@ -28,7 +34,11 @@ export function serviceAccountFromEnv(
       private_key?: string;
     };
     if (!sa.client_email || !sa.private_key) throw new Error("FIREBASE_SERVICE_ACCOUNT incomplet.");
-    return { projectId: sa.project_id, clientEmail: sa.client_email, privateKey: sa.private_key };
+    return {
+      projectId: sa.project_id ?? projectId,
+      clientEmail: sa.client_email,
+      privateKey: sa.private_key,
+    };
   }
   return null;
 }
