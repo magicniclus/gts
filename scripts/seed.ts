@@ -2,7 +2,8 @@
  * Remplit Firestore avec docs/handoff/data/settings-defaults.json.
  * Usage : npm run seed [-- --force] [-- --exemples]
  *   --force     écrase les documents existants (sinon, seuls les absents sont créés) ;
- *   --exemples  ajoute les leads de démonstration (émulateur uniquement).
+ *   --exemples  ajoute les leads de démonstration (émulateur uniquement) ;
+ *   --admin     crée le compte admin de développement (émulateur uniquement).
  */
 import { FieldValue, Timestamp } from "firebase-admin/firestore";
 import {
@@ -13,10 +14,14 @@ import {
 } from "../src/lib/defaults";
 import { LEGAL_DOCS } from "../src/lib/schemas/content";
 import { buildSeedLeads } from "./lib/seed-leads";
-import { db, PROJECT_ID, USE_EMULATORS } from "./lib/admin";
+import { auth, db, PROJECT_ID, USE_EMULATORS } from "./lib/admin";
 
 const force = process.argv.includes("--force");
 const exemples = process.argv.includes("--exemples");
+const withAdmin = process.argv.includes("--admin");
+
+/** Compte administrateur de l’émulateur (jamais en production). */
+export const DEV_ADMIN = { email: "admin@gts-diagnostic.test", password: "gts-admin-2026" };
 
 async function put(path: string, data: Record<string, unknown>) {
   const ref = db.doc(path);
@@ -63,6 +68,14 @@ async function main() {
   if (exemples) {
     if (!USE_EMULATORS) throw new Error("--exemples est réservé à l’émulateur.");
     for (const [id, lead] of buildSeedLeads()) await put(`leads/${id}`, lead);
+  }
+  if (withAdmin) {
+    if (!USE_EMULATORS) throw new Error("--admin est réservé à l’émulateur.");
+    const user =
+      (await auth.getUserByEmail(DEV_ADMIN.email).catch(() => null)) ??
+      (await auth.createUser({ ...DEV_ADMIN, emailVerified: true }));
+    await auth.setCustomUserClaims(user.uid, { admin: true });
+    console.log(`  + compte admin ${DEV_ADMIN.email} / ${DEV_ADMIN.password}`);
   }
   console.log("Terminé.");
 }
