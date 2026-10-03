@@ -126,3 +126,8 @@ export function formatPrice(price: number | null): string {
 export function formatEuros(value: number): string {
   return `${euros.format(value)} €`;
 }
+
+/** Prix « dès » d’un diagnostic (fiche) : sa grille si elle existe, sinon 0 (ERP offert). */
+export function diagnosticFromPrice(id: string, pricing: Pricing): number {
+  return isPriceKey(id, pricing) ? fromPrice(id, pricing) : 0;
+}

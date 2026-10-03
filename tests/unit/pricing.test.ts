@@ -446,3 +446,12 @@ describe("affichage", () => {
     expect(fromPrice("amiante", P)).toBe(85);
   });
 });
+
+describe("diagnosticFromPrice", () => {
+  it("grille du diagnostic, ERP offert", async () => {
+    const { diagnosticFromPrice } = await import("@/lib/domain/pricing");
+    expect(diagnosticFromPrice("dpe", P)).toBe(100);
+    expect(diagnosticFromPrice("carrez", P)).toBe(45);
+    expect(diagnosticFromPrice("erp", P)).toBe(0);
+  });
+});
