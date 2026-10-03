@@ -22,11 +22,12 @@
     "build:emu": "firebase emulators:exec --project demo-gts --only auth,firestore,storage,functions \"npm run seed && next build\"",
     "e2e:run": "playwright test",
     "test:emu": "npm run functions:build && firebase emulators:exec --project demo-gts --only auth,firestore,storage,functions \"vitest run --project emulator\"",
-    "functions:build": "npm --prefix functions run build",
+    "functions:build": "node scripts/predev.mjs && npm --prefix functions run build",
     "set-admin": "tsx scripts/set-admin.ts",
     "check-seo": "tsx scripts/check-seo.ts",
     "quality": "npm run functions:build && firebase emulators:exec --project demo-gts --only auth,firestore,storage,functions \"bash scripts/quality.sh\"",
-    "icons:generate": "tsx scripts/generate-icons.ts"
+    "icons:generate": "tsx scripts/generate-icons.ts",
+    "predev": "node scripts/predev.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",
