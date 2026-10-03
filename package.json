@@ -13,7 +13,7 @@
     "test": "vitest run && npm run test:rules",
     "test:watch": "vitest",
     "coverage": "vitest run --coverage",
-    "e2e": "playwright test",
+    "e2e": "firebase emulators:exec --project demo-gts --only auth,firestore,storage \"npm run seed && next build && playwright test\"",
     "data:generate": "tsx scripts/generate-data.ts",
     "dev:next": "next dev",
     "emulators": "firebase emulators:start --project demo-gts --only auth,firestore,storage --import=.emulator-data --export-on-exit",
@@ -21,7 +21,8 @@
     "test:unit": "vitest run",
     "test:rules": "firebase emulators:exec --project demo-gts --only firestore,storage \"vitest run --config vitest.rules.config.mts\"",
     "emu": "firebase emulators:exec --project demo-gts --only auth,firestore,storage",
-    "build:emu": "firebase emulators:exec --project demo-gts --only auth,firestore,storage \"npm run seed && next build\""
+    "build:emu": "firebase emulators:exec --project demo-gts --only auth,firestore,storage \"npm run seed && next build\"",
+    "e2e:run": "playwright test"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
