@@ -3,6 +3,7 @@ import { Icon } from "@/components/ui/Icon";
 import { DIAGNOSTICS, DIAGNOSTIC_IDS, LOCAL_DIAGNOSTIC_IDS, findCommune } from "@/lib/data/lookup";
 import { routes } from "@/lib/domain/routes";
 import { Logo } from "./Logo";
+import { ConsentReset } from "./ConsentBanner";
 import { telHref } from "./PhoneLink";
 
 const TOP_COMMUNES = [
@@ -119,6 +120,7 @@ export function SiteFooter({
             <Link href={routes.legal("confidentialite")} className="text-inherit hover:text-white">
               Confidentialité
             </Link>
+            {process.env.NEXT_PUBLIC_GA_ID && <ConsentReset />}
             <Link href={routes.admin()} className="text-inherit hover:text-white" prefetch={false}>
               Espace propriétaire
             </Link>

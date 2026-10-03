@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { Icon } from "@/components/ui/Icon";
 import { Logo } from "@/components/site/Logo";
 import { AdminNav } from "./AdminNav";
+import { AdminSidebar } from "./AdminSidebar";
 import { LogoutButton } from "./LogoutButton";
 import { ToastProvider } from "./Toast";
 
@@ -20,13 +21,16 @@ export function AdminShell({
 }) {
   return (
     <div className="flex min-h-screen flex-wrap bg-surface">
-      <aside className="flex max-w-full flex-[0_0_250px] flex-col gap-7 bg-accent-900 px-4 py-7 text-white max-md:flex-[1_1_100%]">
-        <div className="grid gap-3.5 px-2.5">
-          <Logo tone="white" src={logoUrl} width={96} />
-          <span className="text-xs font-bold tracking-[0.16em] text-accent-400 uppercase">
-            Espace propriétaire
-          </span>
-        </div>
+      <AdminSidebar
+        brand={
+          <div className="grid gap-3.5 px-2.5 max-md:flex max-md:items-center max-md:gap-3">
+            <Logo tone="white" src={logoUrl} width={96} />
+            <span className="text-xs font-bold tracking-[0.16em] text-accent-400 uppercase">
+              Espace propriétaire
+            </span>
+          </div>
+        }
+      >
         <AdminNav newLeads={newLeads} />
         <span className="flex-1" />
         <div className="grid gap-1">
@@ -40,7 +44,7 @@ export function AdminShell({
             Retour au site
           </Link>
         </div>
-      </aside>
+      </AdminSidebar>
       <main id="contenu" className="min-w-0 flex-[1_1_560px] p-[clamp(24px,3.5vw,48px)]">
         <ToastProvider>{children}</ToastProvider>
       </main>

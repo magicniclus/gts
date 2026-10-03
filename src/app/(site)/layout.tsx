@@ -1,4 +1,5 @@
 import { JsonLd } from "@/components/ui/JsonLd";
+import { ConsentBanner } from "@/components/site/ConsentBanner";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { UtilityBar } from "@/components/site/UtilityBar";
@@ -31,6 +32,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
         logoUrl={site.photos.logoDarkUrl}
       />
       <JsonLd data={professionalService(site)} />
+      {process.env.NEXT_PUBLIC_GA_ID && <ConsentBanner gaId={process.env.NEXT_PUBLIC_GA_ID} />}
     </>
   );
 }

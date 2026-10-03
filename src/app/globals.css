@@ -103,6 +103,13 @@
     -webkit-font-smoothing: antialiased;
     text-wrap: pretty;
   }
+  /* Longs noms de communes (Châteauneuf-les-Martigues) : césure plutôt que débordement. */
+  h1,
+  h2,
+  h3 {
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
   a {
     color: var(--color-accent);
     text-decoration: none;

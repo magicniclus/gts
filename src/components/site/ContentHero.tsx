@@ -44,7 +44,7 @@ export function ContentHero({
             </h1>
             <p className="mt-5 mb-0 max-w-[56ch] text-lg leading-relaxed text-white/82">{intro}</p>
             <div className="mt-7 flex flex-wrap gap-3">
-              <Button href={devisHref} size="lg" icon="arrow-right">
+              <Button href={devisHref} size="lg" icon="arrow-right" className="max-w-full whitespace-normal">
                 {cta}
               </Button>
               <Button

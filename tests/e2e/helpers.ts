@@ -58,6 +58,7 @@ export async function login(page: Page, path = "/espace-proprietaire/demandes") 
   await page.getByLabel("E-mail").fill(ADMIN.email);
   await page.getByLabel("Mot de passe").fill(ADMIN.password);
   await page.getByRole("button", { name: "Se connecter" }).click();
-  await expect(page.getByRole("navigation", { name: "Espace propriétaire" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+  await expect(page).not.toHaveURL(/connexion/);
   await expect(page.getByRole("heading", { name: "Connexion" })).toHaveCount(0);
 }
