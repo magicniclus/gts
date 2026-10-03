@@ -18,6 +18,13 @@ if (!getApps().length) {
     process.env.FIREBASE_STORAGE_EMULATOR_HOST ??= `${EMULATORS.storage.host}:${EMULATORS.storage.port}`;
   }
   const sa = process.env.FIREBASE_SERVICE_ACCOUNT;
+  if (!USE_EMULATORS && !sa && !process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+    console.error(
+      "Identifiants manquants : ajoutez GOOGLE_APPLICATION_CREDENTIALS=<chemin du fichier JSON du compte de service> dans .env.local\n" +
+        "(console Firebase → Paramètres du projet → Comptes de service → Générer une nouvelle clé privée).",
+    );
+    process.exit(1);
+  }
   initializeApp({
     projectId: PROJECT_ID,
     storageBucket: STORAGE_BUCKET,

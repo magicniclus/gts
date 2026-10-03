@@ -7,7 +7,11 @@ import { auth, USE_EMULATORS } from "./lib/admin";
 async function main() {
   const [email, flag, password] = process.argv.slice(2);
   if (!email) throw new Error("Usage : npm run set-admin -- <email> [--create <mot-de-passe>]");
-  let user = await auth.getUserByEmail(email).catch(() => null);
+  let user = await auth.getUserByEmail(email).catch((e: unknown) => {
+    // Seul « compte introuvable » est attendu ; toute autre erreur (identifiants, projet…) est affichée.
+    if ((e as { code?: string }).code === "auth/user-not-found") return null;
+    throw e;
+  });
   if (!user) {
     if (flag !== "--create" || !password)
       throw new Error(`Aucun compte pour ${email}. Créez-le dans la console Firebase.`);
