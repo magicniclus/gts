@@ -1,0 +1,8 @@
+docs/
+.next/
+coverage/
+playwright-report/
+test-results/
+functions/lib/
+package-lock.json
+AGENTS.md

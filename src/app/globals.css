@@ -1,0 +1,158 @@
+@import "tailwindcss";
+
+/*
+ * Tokens de docs/handoff/04-design.md.
+ * Aucun composant n’utilise de couleur en dur : tout passe par ces variables
+ * (utilitaires Tailwind générés : bg-accent-900, text-text, rounded-card…).
+ */
+@theme {
+  --color-*: initial;
+  --color-white: #ffffff;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --color-bg: #ffffff;
+  --color-surface: #f2f5fb;
+  --color-text: #0d1733;
+  --color-divider: #dde3ef;
+
+  --color-accent: #2156e3;
+  --color-accent-100: #eaf0fe;
+  --color-accent-200: #d3e0fd;
+  --color-accent-300: #a9c2fb;
+  --color-accent-400: #7fa3f7;
+  --color-accent-500: #4d7df0;
+  --color-accent-600: #1b47c4;
+  --color-accent-700: #16389c;
+  --color-accent-800: #0f2766;
+  --color-accent-900: #0a1a48;
+  --color-accent-2: #f5b841;
+
+  --color-footer: #070f2c;
+  --color-success-bg: #e3f4ea;
+  --color-success-fg: #146c3a;
+  --color-warning-bg: #fdf0d3;
+  --color-warning-fg: #7a5200;
+  --color-danger-bg: #fdecea;
+  --color-danger-fg: #b42318;
+  --color-neutral-fg: #4a5370;
+
+  /* Échelle DPE */
+  --color-dpe-a: #009c6d;
+  --color-dpe-b: #52b153;
+  --color-dpe-c: #a5cc74;
+  --color-dpe-d: #f4e70f;
+  --color-dpe-e: #f0b40f;
+  --color-dpe-f: #eb8235;
+  --color-dpe-g: #d7221f;
+
+  /* Typographie : Archivo à largeur variable (next/font, voir layout.tsx) */
+  --font-sans: var(--font-archivo), system-ui, sans-serif;
+  --font-heading: var(--font-archivo), system-ui, sans-serif;
+
+  /* Rayons */
+  --radius-field: 10px;
+  --radius-tile: 12px;
+  --radius-card: 16px;
+  --radius-card-sm: 14px;
+  --radius-hero: 20px;
+  --radius-band: 24px;
+  --radius-pill: 999px;
+
+  /* Ombres : seulement la carte devis du hero (et la carte de connexion) */
+  --shadow-hero: 0 30px 80px -20px rgba(3, 10, 40, 0.55);
+  --shadow-login: 0 30px 80px -20px rgba(3, 10, 40, 0.25);
+
+  /* Mise en page */
+  --container-site: 1240px;
+  --container-article: 780px;
+  --container-legal: 820px;
+}
+
+:root {
+  /* Alias des noms utilisés dans la spécification */
+  --footer-bg: var(--color-footer);
+  --success-bg: var(--color-success-bg);
+  --success-fg: var(--color-success-fg);
+  --warning-bg: var(--color-warning-bg);
+  --warning-fg: var(--color-warning-fg);
+  --danger-bg: var(--color-danger-bg);
+  --danger-fg: var(--color-danger-fg);
+  --neutral-fg: var(--color-neutral-fg);
+
+  /* Espacements fluides */
+  --gutter: clamp(20px, 4vw, 48px);
+  --section-y: clamp(64px, 8vw, 112px);
+
+  /* Texte atténué */
+  --text-muted: color-mix(in srgb, var(--color-text) 72%, transparent);
+  --text-soft: color-mix(in srgb, var(--color-text) 65%, transparent);
+  --on-dark-muted: color-mix(in srgb, #fff 78%, transparent);
+  --on-dark-soft: color-mix(in srgb, #fff 72%, transparent);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    margin: 0;
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-wrap: pretty;
+  }
+  a {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+  a:hover {
+    color: var(--color-accent-600);
+  }
+  :where(
+    a,
+    button,
+    input,
+    select,
+    textarea,
+    summary,
+    [tabindex]
+  ):focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+  details > summary {
+    list-style: none;
+    cursor: pointer;
+  }
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+}
+
+@utility container-site {
+  max-width: var(--container-site);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+@utility section-y {
+  padding-block: var(--section-y);
+}
+
+@utility stretch-108 {
+  font-stretch: 108%;
+}
+@utility stretch-112 {
+  font-stretch: 112%;
+}
+@utility stretch-115 {
+  font-stretch: 115%;
+}
+@utility stretch-118 {
+  font-stretch: 118%;
+}
+@utility stretch-120 {
+  font-stretch: 120%;
+}
