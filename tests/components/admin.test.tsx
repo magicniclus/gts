@@ -77,3 +77,58 @@ describe("PriceGrid", () => {
     expect(await axe(container)).toHaveNoViolations();
   });
 });
+
+describe("ImageUploader", () => {
+  it("refuse un fichier non image et un fichier de plus de 5 Mo", async () => {
+    const { ImageUploader } = await import("@/components/admin/ImageUploader");
+    const upload = vi.fn(async (_f: FormData): Promise<ActionResult<string>> => ({
+      ok: true,
+      savedAt: "",
+      data: "u",
+    }));
+    wrap(
+      <ImageUploader
+        label="Remplacer"
+        maxDim={800}
+        fields={{ slot: "portrait" }}
+        upload={upload}
+        onUploaded={() => {}}
+      />,
+    );
+    const input = screen.getByLabelText("Remplacer");
+    const pdf = new File(["%PDF"], "doc.pdf", { type: "application/pdf" });
+    await userEvent.upload(input, pdf, { applyAccept: false });
+    expect(screen.getByRole("alert")).toHaveTextContent("Ce fichier n’est pas une image.");
+    const big = new File([new Uint8Array(5 * 1024 * 1024 + 1)], "big.jpg", { type: "image/jpeg" });
+    await userEvent.upload(input, big);
+    expect(screen.getByRole("alert")).toHaveTextContent("Image trop lourde : 5 Mo au maximum.");
+    expect(upload).not.toHaveBeenCalled();
+  });
+
+  it("envoie une image valide avec les champs demandés", async () => {
+    const { ImageUploader } = await import("@/components/admin/ImageUploader");
+    const upload = vi.fn(async (_f: FormData): Promise<ActionResult<string>> => ({
+      ok: true,
+      savedAt: "",
+      data: "https://x/p.jpg",
+    }));
+    const onUploaded = vi.fn();
+    wrap(
+      <ImageUploader
+        label="Remplacer"
+        maxDim={800}
+        fields={{ slot: "portrait" }}
+        upload={upload}
+        onUploaded={onUploaded}
+      />,
+    );
+    await userEvent.upload(
+      screen.getByLabelText("Remplacer"),
+      new File([new Uint8Array(10)], "p.jpg", { type: "image/jpeg" }),
+    );
+    await vi.waitFor(() => expect(onUploaded).toHaveBeenCalledWith("https://x/p.jpg"));
+    const form = upload.mock.calls[0]?.[0];
+    expect(form?.get("slot")).toBe("portrait");
+    expect(form?.get("file")).toBeInstanceOf(File);
+  });
+});
