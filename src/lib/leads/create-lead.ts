@@ -1,5 +1,6 @@
 import "server-only";
 import { FieldValue, Timestamp, type Firestore } from "firebase-admin/firestore";
+import { findCommune } from "@/lib/data/lookup";
 import { adminDb } from "@/lib/firebase/admin";
 import { readPricing } from "@/lib/repos/pricing";
 import { CONSENT_TEXT, submitLeadSchema } from "@/lib/schemas/lead";
@@ -88,7 +89,7 @@ export async function createLead(input: unknown, ctx: LeadContext): Promise<Subm
       createdAt: Timestamp.fromDate(now),
       status: "nouveau",
       contact: data.contact,
-      bien: stripUndefined(bien),
+      bien: stripUndefined({ ...bien, communeNom: findCommune(bien.commune)?.name }),
       rdv: stripUndefined({ delai, creneau, acces }),
       message,
       diagnostics: selected.map((r) => ({

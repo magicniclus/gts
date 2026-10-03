@@ -15,6 +15,6 @@ export default defineConfig({
     include: ["tests/rules/**/*.test.ts", "tests/integration/**/*.test.ts"],
     fileParallelism: false,
     testTimeout: 30_000,
-    env: { NEXT_PUBLIC_FIREBASE_PROJECT_ID: "demo-gts-int", IP_HASH_SALT: "sel-de-test" },
+    env: { NEXT_PUBLIC_FIREBASE_PROJECT_ID: "demo-gts", IP_HASH_SALT: "sel-de-test" },
   },
 });

@@ -59,7 +59,7 @@ Index composite : `published ASC, publishedAt DESC`. L’unicité du slug est v�
   contact: { nom: string; tel: string; email: string | null; profil: "particulier"|"agence"|"notaire"|"pro" }
   bien: {
     projet: "vente"|"location"|"travaux"|"autre"; loc?: "vide"|"meuble"|"saisonniere"; nature?: "travaux"|"demolition"
-    type: "appartement"|"maison"|"local"|"immeuble"; commune: string /* slug */; adresse?: string
+    type: "appartement"|"maison"|"local"|"immeuble"; commune: string /* slug */; communeNom: string /* pour les e-mails */; adresse?: string
     surface: Band; pieces?: string; copro?: "oui"|"non"; annee: "avant1949"|"1949-1997"|"1997-2012"|"apres2012"|"nsp"
     gaz?: string; elec?: string; chauffage?: string; annexes: string[]; egout?: string; classe?: string; deja: string[]
   }
@@ -129,6 +129,7 @@ Toutes les écritures admin passent par des **Server Actions** qui vérifient le
   - e-mail à Guillaume, à l’adresse `settings/site.email` (modifiable dans son espace) : objet `Nouvelle demande L-1001 · Aubagne · 925 €`, récapitulatif complet, bouton vers `${NEXT_PUBLIC_SITE_URL}/espace-proprietaire/demandes?id=…` ;
   - accusé de réception au client si un e-mail a été saisi.
 - (Optionnel) `onLeadCreated` → SMS à Guillaume via Twilio.
+- Dans l’émulateur, sans `RESEND_API_KEY`, les e-mails sont écrits dans la collection `_outbox` (fournisseur simulé, utilisé par les tests).
 - Secret dans Secret Manager : `RESEND_API_KEY`. Pas d’e-mail de destination en dur : il est lu dans `settings/site`.
 - Expéditeur : tant que le domaine n’est pas choisi, l’adresse de test de Resend `onboarding@resend.dev` (variable `RESEND_FROM`). À remplacer par une adresse du domaine vérifié à la mise en ligne.
 
