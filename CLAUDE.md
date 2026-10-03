@@ -21,9 +21,14 @@ Site Next.js 16 + Firebase d’un diagnostiqueur immobilier à Marseille. Toute 
 
 ## Commandes
 
-- `npm run dev` : Next + émulateurs Firebase (`firebase emulators:start --import=.emulator-data`)
-- `npm test` : unitaires + composants + règles · `npm run e2e` : Playwright
-- `npm run seed` : remplit l’émulateur avec `docs/handoff/data/settings-defaults.json`
+- `npm run dev` : émulateurs Firebase + seed (exemples et compte admin `admin@gts-diagnostic.test` / `gts-admin-2026`) + `next dev`
+- `npm test` : unitaires et composants, puis règles et intégration dans les émulateurs (`npm run test:emu`)
+- `npm run coverage` : tous les tests avec la couverture (80 % global, 100 % sur `lib/domain`)
+- `npm run e2e` : Playwright sur le build de production, dans les émulateurs
+- `npm run quality` : check-seo, linkinator, poids du JS et Lighthouse CI
+- `npm run seed` : remplit Firestore avec `docs/handoff/data/settings-defaults.json` (`-- --force`, `-- --exemples`, `-- --admin`)
+- `npm run set-admin -- <email>` : pose le claim admin
+- `npm run data:generate` · `npm run icons:generate` : régénèrent les données et les icônes
 - `npm run lint` · `npm run typecheck` · `npm run format`
 
 @AGENTS.md

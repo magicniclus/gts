@@ -118,3 +118,5 @@ Chaque composant expose des **props de variante** plutôt que des copies. Les no
 
 ## Performance (budgets)
 LCP < 1,8 s en 4G, CLS < 0,05, JS < 90 ko gzip sur l’accueil (hors formulaire, chargé en îlot), images en AVIF/WebP via `next/image`, aucune police tierce en plus d’Archivo.
+
+> Mesures de l’étape 10 (Lighthouse mobile, 4G simulée) : performance 96 à 99, CLS 0, LCP 2,3 à 2,8 s (texte du H1 repeint au chargement d’Archivo, 88 ko). Le socle Next 16 + React 19 pèse à lui seul environ 195 ko gzip : le budget de 90 ko n’est pas atteignable avec l’App Router ; notre code ajoute 6 ko sur l’accueil et 17 ko sur `/devis`. `scripts/quality.sh` bloque toute page au-delà de 215 ko gzip.
