@@ -1,0 +1,35 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAdmin() { return request.auth != null && request.auth.token.admin == true; }
+
+    match /settings/{doc} {
+      allow read: if doc in ['site', 'pricing'];
+      allow write: if isAdmin();
+    }
+    match /settings/counters { allow read, write: if isAdmin(); }
+
+    match /legalPages/{doc} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /articles/{id} {
+      allow read: if resource.data.published == true || isAdmin();
+      allow create, delete: if isAdmin();
+      allow update: if isAdmin();
+    }
+
+    // Les leads sont créés uniquement par le serveur (admin SDK, qui contourne ces règles).
+    match /leads/{id} {
+      allow read: if isAdmin();
+      allow update: if isAdmin()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'notes'])
+        && request.resource.data.status in ['nouveau', 'rappele', 'devis_envoye', 'gagne', 'perdu'];
+      allow delete: if isAdmin();
+      allow create: if false;
+    }
+
+    match /{document=**} { allow read, write: if false; }
+  }
+}
