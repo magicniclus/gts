@@ -67,6 +67,8 @@ export const RULE_FIELDS = [
 
 /** Copie modifiable du barème pour un formulaire. */
 export function toPricingInput(p: { grid: PriceGrid; rules: PricingRules }): PricingInput {
-  const grid = Object.fromEntries(PRICE_KEYS.map((k) => [k, [...p.grid[k]]])) as PricingInput["grid"];
+  const grid = Object.fromEntries(
+    PRICE_KEYS.map((k) => [k, [...p.grid[k]]]),
+  ) as PricingInput["grid"];
   return { grid, rules: { ...p.rules } };
 }
