@@ -2,7 +2,9 @@ import type { NextConfig } from "next";
 
 /** Développement et tests : images servies par l’émulateur Storage (127.0.0.1). */
 const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || "demo-gts";
-const emulators = process.env.NEXT_PUBLIC_USE_EMULATORS === "true" || projectId.startsWith("demo-");
+const emulators =
+  process.env.NEXT_PUBLIC_USE_EMULATORS === "true" ||
+  (projectId.startsWith("demo-") && process.env.NEXT_PUBLIC_USE_EMULATORS !== "false");
 
 const nextConfig: NextConfig = {
   cacheComponents: true,

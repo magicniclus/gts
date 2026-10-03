@@ -4,12 +4,20 @@ import { getAuth } from "firebase-admin/auth";
 import { getFirestore } from "firebase-admin/firestore";
 import { getStorage } from "firebase-admin/storage";
 import { EMULATORS, PROJECT_ID, STORAGE_BUCKET, USE_EMULATORS } from "./config";
+import { serviceAccountFromEnv } from "./credentials";
 
 export function adminApp(): App {
   const existing = getApps()[0];
   if (existing) return existing;
   if (USE_EMULATORS) {
     const e = EMULATORS;
+    if (!process.env.FIRESTORE_EMULATOR_HOST && !process.env.FIREBASE_EMULATOR_HUB) {
+      console.warn(
+        `Firebase : mode émulateurs (projet « ${PROJECT_ID} ») mais aucun émulateur lancé.\n` +
+          "Pour utiliser votre vrai projet, vérifiez que .env.local (à la racine) contient " +
+          "NEXT_PUBLIC_FIREBASE_PROJECT_ID=<votre projet> et NEXT_PUBLIC_USE_EMULATORS=false, puis relancez « npx next dev ».",
+      );
+    }
     // Évite la recherche (lente) du serveur de métadonnées Google Cloud.
     process.env.METADATA_SERVER_DETECTION ??= "none";
     process.env.FIRESTORE_EMULATOR_HOST ??= `${e.firestore.host}:${e.firestore.port}`;
@@ -17,12 +25,12 @@ export function adminApp(): App {
     process.env.FIREBASE_STORAGE_EMULATOR_HOST ??= `${e.storage.host}:${e.storage.port}`;
     return initializeApp({ projectId: PROJECT_ID, storageBucket: STORAGE_BUCKET });
   }
-  const sa = process.env.FIREBASE_SERVICE_ACCOUNT;
+  const sa = serviceAccountFromEnv();
   return initializeApp({
     projectId: PROJECT_ID,
     storageBucket: STORAGE_BUCKET,
-    // Sur App Hosting, les identifiants par défaut suffisent ; ailleurs, compte de service JSON.
-    ...(sa ? { credential: cert(JSON.parse(sa)) } : {}),
+    // Netlify : compte de service dans les variables ; sinon identifiants par défaut de Google.
+    ...(sa ? { credential: cert(sa) } : {}),
   });
 }
 
