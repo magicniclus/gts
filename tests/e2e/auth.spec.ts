@@ -1,6 +1,5 @@
 import { expect, test } from "@playwright/test";
-
-export const ADMIN = { email: "admin@gts-diagnostic.test", password: "gts-admin-2026" };
+import { ADMIN } from "./helpers";
 
 test.describe("connexion à l’espace propriétaire", () => {
   test("accès direct sans session → page de connexion", async ({ page }) => {

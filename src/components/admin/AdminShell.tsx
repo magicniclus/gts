@@ -4,6 +4,7 @@ import { Icon } from "@/components/ui/Icon";
 import { Logo } from "@/components/site/Logo";
 import { AdminNav } from "./AdminNav";
 import { LogoutButton } from "./LogoutButton";
+import { ToastProvider } from "./Toast";
 
 /** Barre latérale navy de 250 px + contenu sur fond surface. */
 export function AdminShell({
@@ -41,7 +42,7 @@ export function AdminShell({
         </div>
       </aside>
       <main id="contenu" className="min-w-0 flex-[1_1_560px] p-[clamp(24px,3.5vw,48px)]">
-        {children}
+        <ToastProvider>{children}</ToastProvider>
       </main>
     </div>
   );
