@@ -21,12 +21,12 @@
 ## 3. Règles de sécurité (`@firebase/rules-unit-testing`, émulateur), `tests/rules/`
 - Anonyme : lit `settings/site` et les articles publiés ; **ne lit pas** les brouillons ; aucun accès à `leads` (ni lecture ni écriture) ; ne peut pas écrire `settings`.
 - Utilisateur connecté **sans** claim admin : mêmes droits qu’un anonyme.
-- Admin : lit et écrit tout ; sur `leads`, ne peut modifier que `status` et `notes`.
+- Admin : lit et écrit `settings`, `legalPages` et `articles` ; sur `leads`, lit, supprime, et ne peut modifier que `status` et `notes`. **Personne ne crée de lead depuis le client, pas même l’admin** : seul le serveur (admin SDK) en crée. `rateLimits` : aucun accès client.
 - Storage : un anonyme ne peut pas envoyer de fichier ; un admin est limité à 5 Mo et à `image/*`.
 
 ## 4. Intégration serveur (Vitest + émulateurs)
-- `submitLead` : crée un lead avec `ref` séquentielle, **recalcule** le total (un total falsifié envoyé par le client est ignoré), écrit `pricingSnapshot`, déclenche la fonction e-mail (fournisseur d’e-mail simulé).
-- Actions admin : refusées sans cookie de session ; `revalidateTag` appelé avec le bon tag.
+- `submitLead` : crée un lead avec `ref` séquentielle (première : `L-1001`), refuse le 6ᵉ devis d’une même IP dans l’heure, **recalcule** le total (un total falsifié envoyé par le client est ignoré), écrit `pricingSnapshot`, déclenche la fonction e-mail (fournisseur d’e-mail simulé).
+- Actions admin : refusées sans cookie de session ; `updateTag` appelé avec le bon tag.
 
 ## 5. End-to-end (Playwright, émulateurs + `next start`), `tests/e2e/`
 1. **Parcours devis** : accueil → « Je vends » + Appartement + Marseille 8e → 6 étapes → envoi → confirmation avec référence → le lead apparaît dans l’admin.

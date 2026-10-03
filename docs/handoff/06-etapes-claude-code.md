@@ -7,7 +7,7 @@ Une **session Claude Code par étape** (ou `/clear` entre deux étapes). Chaque 
 ## Étape 0 : préparation (vous, sans Claude)
 1. Créez un dépôt GitHub vide `gts-diagnostic`, clonez-le, ouvrez un terminal dedans.
 2. Copiez ce dossier dans `docs/handoff/` et `docs/handoff/CLAUDE.md` à la racine du dépôt.
-3. Console Firebase : créez `gts-diagnostic-staging` (offre Blaze), activez Authentication (e-mail/mot de passe), Firestore (europe-west1), Storage et App Check.
+3. Console Firebase : créez `gts-diagnostic-staging` (offre Blaze), activez Authentication (e-mail/mot de passe), Firestore (europe-west4), Storage et App Check.
 4. Installez les outils : Node 20+, `npm i -g firebase-tools`, puis `firebase login`.
 5. Rien à récupérer avant le développement : Guillaume saisira lui-même, depuis son espace, ses tarifs, son portrait, ses coordonnées (e-mail de réception des demandes compris), son SIRET, son adresse, sa certification, son assurance et le médiateur (onglet Pages légales, CGV).
 6. Lancez `claude` à la racine.
@@ -20,7 +20,7 @@ Lis CLAUDE.md et tout docs/handoff/ (README puis 01 à 05). Ne code rien encore 
 ```
 Répondez aux questions, puis :
 ```
-Initialise le projet selon docs/handoff/01-architecture.md : Next.js 15 App Router, TypeScript strict, Tailwind v4, ESLint, Prettier, Vitest + Testing Library, Playwright, next/font Archivo (axes wdth et wght). Crée l’arborescence vide de src/, déclare les tokens de 04-design.md dans globals.css (@theme), ajoute les scripts npm de CLAUDE.md, et une CI GitHub Actions (lint, typecheck, test, build). Commit.
+Initialise le projet selon docs/handoff/01-architecture.md : Next.js 16 App Router, TypeScript strict, Tailwind v4, ESLint, Prettier, Vitest + Testing Library, Playwright, next/font Archivo (axes wdth et wght). Crée l’arborescence vide de src/, déclare les tokens de 04-design.md dans globals.css (@theme), ajoute les scripts npm de CLAUDE.md, et une CI GitHub Actions (lint, typecheck, test, build). Commit.
 ```
 
 ## Étape 2 : données statiques
@@ -44,12 +44,12 @@ Vérifiez visuellement `/dev/composants` en comparant avec les maquettes avant d
 
 ## Étape 5 : Firebase, émulateurs et règles
 ```
-Configure Firebase selon docs/handoff/02-firebase.md : firebase.json (émulateurs Auth, Firestore, Storage, Functions), firestore.rules et storage.rules (copiés depuis docs/handoff), firestore.indexes.json, src/lib/firebase/{client,admin}.ts, les repos typés de src/lib/repos avec unstable_cache et des tags, et scripts/seed.ts qui écrit settings-defaults.json (renomme hero.t1 → title, hero.t2 → highlight). Écris les tests de règles de 05-tests.md §3. Commit.
+Configure Firebase selon docs/handoff/02-firebase.md : firebase.json (émulateurs Auth, Firestore, Storage, Functions), firestore.rules et storage.rules (copiés depuis docs/handoff), firestore.indexes.json, src/lib/firebase/{client,admin}.ts, les repos typés de src/lib/repos avec "use cache", cacheLife et cacheTag, et scripts/seed.ts qui écrit settings-defaults.json (renomme hero.t1 → title, hero.t2 → highlight). Écris les tests de règles de 05-tests.md §3. Commit.
 ```
 
 ## Étape 6 : pages publiques
 ```
-Construis le layout (site) et les pages publiques : /, /diagnostic-[type]-marseille, /diagnostic-[type]/[commune] (generateStaticParams sur les 252 combinaisons), /zones-intervention, /conseils, /conseils/[slug], et /mentions-legales, /cgv, /confidentialite. Fidélité pixel aux maquettes design/*.dc.html. Données réglables lues dans Firestore via les repos. generateMetadata, JSON-LD (ProfessionalService, Service, FAQPage, BreadcrumbList, Article), sitemap.ts et robots.ts. Commit page par page.
+Construis le layout (site) et les pages publiques : /, /diagnostic-[type]-marseille, /diagnostic-[type]/[commune] (rewrites vers /diagnostic/[type] et /diagnostic/[type]/[commune], generateStaticParams sur les 252 combinaisons), /zones-intervention, /conseils, /conseils/[slug], et /mentions-legales, /cgv, /confidentialite. Fidélité pixel aux maquettes design/*.dc.html. Données réglables lues dans Firestore via les repos. generateMetadata, JSON-LD (ProfessionalService, Service, FAQPage, BreadcrumbList, Article), sitemap.ts et robots.ts. Commit page par page.
 ```
 
 ## Étape 7 : formulaire de devis
@@ -62,13 +62,13 @@ Ajoute la Cloud Function onLeadCreated (functions/) : e-mail à Guillaume et acc
 
 ## Étape 8 : authentification admin
 ```
-Implémente l’authentification de 02-firebase.md : page /espace-proprietaire/connexion (maquette décrite dans 02), POST/DELETE /api/session (cookie de session), middleware.ts, garde dans le layout (protege) avec verifySessionCookie(checkRevoked) et le claim admin, scripts/set-admin.ts, mot de passe oublié, noindex. Tests e2e : connexion, refus, redirection, déconnexion. Commit.
+Implémente l’authentification de 02-firebase.md : page /espace-proprietaire/connexion (maquette décrite dans 02), POST/DELETE /api/session (cookie de session), proxy.ts, garde dans le layout (protege) avec verifySessionCookie(checkRevoked) et le claim admin, scripts/set-admin.ts, mot de passe oublié, noindex. Tests e2e : connexion, refus, redirection, déconnexion. Commit.
 ```
 
 ## Étape 9 : espace propriétaire (un onglet par session)
 Utilisez ce prompt **7 fois**, en remplaçant `<ONGLET>` par, dans l’ordre : **Demandes, Tarifs, Page d’accueil, Coordonnées, Photos & logos, Articles, Pages légales**.
 ```
-Construis l’onglet <ONGLET> de l’espace propriétaire, fidèle à design/Espace-proprietaire.dc.html et 04-design.md. Formulaire react-hook-form + zod, bouton Enregistrer explicite, toast, Server Action protégée, puis revalidateTag sur les pages concernées. Images : envoi vers Storage selon 02-firebase.md. Ajoute le test e2e correspondant de 05-tests.md §5. Commit.
+Construis l’onglet <ONGLET> de l’espace propriétaire, fidèle à design/Espace-proprietaire.dc.html et 04-design.md. Formulaire react-hook-form + zod, bouton Enregistrer explicite, toast, Server Action protégée, puis updateTag sur les pages concernées. Images : envoi vers Storage selon 02-firebase.md. Ajoute le test e2e correspondant de 05-tests.md §5. Commit.
 ```
 
 ## Étape 10 : qualité

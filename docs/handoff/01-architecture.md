@@ -3,7 +3,7 @@
 ## Stack
 | Rôle | Choix | Pourquoi |
 |---|---|---|
-| Framework | **Next.js 15, App Router**, TypeScript strict | SSG/ISR pour les 270 pages SEO, Server Actions pour le devis |
+| Framework | **Next.js 16, App Router**, `cacheComponents: true`, TypeScript strict | Pages SEO pré-rendues (`"use cache"` + `cacheTag`), Server Actions pour le devis |
 | Style | **Tailwind CSS v4** avec les tokens de `04-design.md` déclarés en variables CSS (`@theme`) | Composants personnalisables par props, aucune feuille de style par page |
 | Police | `next/font/google` : **Archivo** (axes `wdth` 62–125, `wght` 300–900), sous-ensemble latin, `display: swap` | Une seule police, à largeur variable (`font-stretch` 108–120 % sur les titres) |
 | Icônes | `@phosphor-icons/react`, graisse **duotone**, importées une par une | Arbre JS minimal |
@@ -12,12 +12,12 @@
 | Authentification | **Firebase Auth** (e-mail + mot de passe) + *custom claim* `admin` + cookie de session | Un seul compte propriétaire |
 | Back-end | Server Actions Next.js avec `firebase-admin` ; **Cloud Functions v2** pour les e-mails | La création d’un lead ne passe jamais par le client Firestore |
 | E-mails | **Resend** (ou extension Firebase *Trigger Email*) | Notification à Guillaume et accusé de réception au client |
-| Anti-spam | Honeypot + **Firebase App Check** (reCAPTCHA Enterprise) + limite de débit par IP | Formulaire public |
+| Anti-spam | Honeypot + **Firebase App Check** (reCAPTCHA Enterprise) + limite de débit par IP (5 devis / heure, collection `rateLimits`) | Formulaire public |
 | Validation | **zod** (schémas partagés client/serveur) | |
 | Formulaires admin | `react-hook-form` + zod | |
 | Tests | **Vitest**, **Testing Library**, `@firebase/rules-unit-testing`, **Playwright**, Lighthouse CI | Voir `05-tests.md` |
-| Hébergement | **Firebase App Hosting** (Next.js natif) ; Vercel possible | Tout dans le même projet Google. Mettre à jour l’hébergeur dans les mentions légales. |
-| Analytics | GA4 via `@next/third-parties`, après consentement | Événement `generate_lead` à l’envoi du devis |
+| Hébergement | **Firebase App Hosting** (Next.js natif), région `europe-west4` | Tout dans le même projet Google. Mettre à jour l’hébergeur dans les mentions légales. |
+| Analytics | GA4 via `@next/third-parties`, après consentement (bandeau maison Accepter / Refuser + Google Consent Mode v2) | Événement `generate_lead` à l’envoi du devis |
 
 ## Arborescence
 ```
@@ -31,8 +31,8 @@
 │  ├─ app/
 │  │  ├─ (site)/                  ← layout public : barre utilitaire + header + footer
 │  │  │  ├─ page.tsx                                   /
-│  │  │  ├─ diagnostic-[type]-marseille/page.tsx       9 pages
-│  │  │  ├─ diagnostic-[type]/[commune]/page.tsx       252 pages
+│  │  │  ├─ diagnostic/[type]/page.tsx                 9 pages   ← servies en /diagnostic-{type}-marseille (rewrite)
+│  │  │  ├─ diagnostic/[type]/[commune]/page.tsx       252 pages ← servies en /diagnostic-{type}/{commune} (rewrite)
 │  │  │  ├─ zones-intervention/page.tsx
 │  │  │  ├─ devis/page.tsx  devis/actions.ts           Server Action submitLead
 │  │  │  ├─ conseils/page.tsx  conseils/[slug]/page.tsx
@@ -65,7 +65,7 @@
 │  │  ├─ repos/       ← settings.ts, pricing.ts, articles.ts, legal.ts, leads.ts (lecture/écriture typées + cache)
 │  │  ├─ schemas/     ← schémas zod partagés
 │  │  └─ seo/         ← metadata.ts, jsonld.ts
-│  └─ middleware.ts   ← protège /espace-proprietaire (hors /connexion)
+│  └─ proxy.ts        ← (ex-middleware, renommé en Next 16) protège /espace-proprietaire (hors /connexion)
 ├─ tests/
 │  ├─ unit/  rules/  e2e/
 └─ scripts/seed.ts    ← remplit l’émulateur et la prod avec settings-defaults.json
@@ -75,8 +75,10 @@
 1. **Le domaine est pur.** `lib/domain/*` ne connaît ni React ni Firebase. Les tarifs arrivent en paramètre. C’est ce qui rend l’algorithme testable et réutilisable côté serveur.
 2. **Le prix est recalculé côté serveur.** Le client affiche une estimation, mais `submitLead` recalcule obligations et prix à partir des réponses et des tarifs Firestore. On n’enregistre jamais un montant envoyé par le navigateur.
 3. **Les contenus SEO sont statiques.** Communes et fiches diagnostic sont dans le dépôt (`lib/data`). Seuls les réglages éditables par Guillaume vivent dans Firestore.
-4. **Revalidation à la demande.** Chaque écriture admin appelle `revalidateTag()` : `settings`, `pricing`, `articles`, `legal:{doc}`. Les pages publiques lisent via `unstable_cache(..., { tags })`.
+4. **Revalidation à la demande.** Les repos lisent Firestore dans des fonctions `"use cache"` avec `cacheLife('max')` et `cacheTag()` : `settings`, `pricing`, `articles`, `legal:{doc}`. Chaque écriture admin (Server Action) invalide ces tags avec `updateTag()` (lecture de ses propres écritures, l’équivalent Next 16 de `revalidateTag` dans une Server Action) ; hors Server Action (route handler, script), on utilise `revalidateTag(tag, 'max')`.
 5. **Server Components par défaut.** Seuls ces composants sont client : formulaire de devis, recherche de commune (zones), accordéons FAQ (ou `<details>` natif, préférable), et toute l’administration.
+6. **URL publiques et rewrites.** Next n’accepte pas de segment dynamique partiel (`diagnostic-[type]-marseille`). Les URL publiques restent `/diagnostic-{type}-marseille` et `/diagnostic-{type}/{commune}` ; `next.config.ts` les réécrit vers `/diagnostic/[type]` et `/diagnostic/[type]/[commune]`. Les chemins internes `/diagnostic/*` ne sont jamais liés et redirigent (301) vers l’URL publique.
+7. **URL du site.** Le domaine n’est pas encore choisi : toute URL absolue (canonical, sitemap, Open Graph, JSON-LD, e-mails) part de `NEXT_PUBLIC_SITE_URL`, jamais en dur.
 
 ## Composants réutilisables
 Chaque composant expose des **props de variante** plutôt que des copies. Les noms correspondent aux blocs visibles dans les maquettes.

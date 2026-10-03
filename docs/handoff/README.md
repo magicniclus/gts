@@ -28,8 +28,8 @@ Pour ouvrir les maquettes : servez le dossier `design/` en local (`npx serve des
 | Maquette | Route Next.js | Rendu |
 |---|---|---|
 | `Accueil.dc.html` | `/` | SSG + revalidation à la demande |
-| `Diagnostic.dc.html?d=dpe` | `/diagnostic-[type]-marseille` (9) | SSG |
-| `Diagnostic-Ville.dc.html?d=dpe&ville=aubagne` | `/diagnostic-[type]/[commune]` (3 × 84 = 252) | SSG + ISR |
+| `Diagnostic.dc.html?d=dpe` | `/diagnostic-[type]-marseille` (9), rewrite vers `/diagnostic/[type]` | SSG |
+| `Diagnostic-Ville.dc.html?d=dpe&ville=aubagne` | `/diagnostic-[type]/[commune]` (3 × 84 = 252), rewrite vers `/diagnostic/[type]/[commune]` | SSG + revalidation à la demande |
 | `Zones.dc.html` | `/zones-intervention` | SSG |
 | `Devis.dc.html` | `/devis` | SSG + composant client |
 | `Articles.dc.html` | `/conseils` | SSG + revalidation à la demande |

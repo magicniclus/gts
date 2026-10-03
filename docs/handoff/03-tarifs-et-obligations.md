@@ -14,7 +14,7 @@ type Answers = {
   egout?: "oui"|"non"|"nsp"; classe?: "ad"|"efg"|"aucun"|"nsp"; deja: ("dpe"|"amiante"|"plomb"|"elec"|"gaz")[]
 }
 ```
-Dérivés : `hab = type !== "local"` · `vl = projet ∈ {vente, location}` · `sais = projet === "location" && loc === "saisonniere"` · `unk = annee ∈ {nsp, vide}` · `pre97 = annee ∈ {avant1949, 1949-1997}` · `pre49 = annee === "avant1949"`.
+Dérivés : `hab = type !== "local"` · `vl = projet ∈ {vente, location}` · `sais = projet === "location" && loc === "saisonniere"` · `unk = annee === "nsp" ou annee non renseignée` · `pre97 = annee ∈ {avant1949, 1949-1997}` · `pre49 = annee === "avant1949"`.
 
 ## 2. Obligations : `diagList(answers) → { id, priceKey, name, level, reason }[]`
 `level` ∈ `Obligatoire | À vérifier | Conseillé | Optionnel | Déjà valide | Non requis | Info`.
@@ -28,8 +28,8 @@ Dérivés : `hab = type !== "local"` · `vl = projet ∈ {vente, location}` · `
 | **Amiante vente** (`amiante`) | `vente` et (`pre97` ou `unk`) | Obligatoire / À vérifier / Déjà valide (`deja ∋ amiante`) |
 | **Amiante DAPP** (`amiante`) | `location`, non `sais`, `hab`, (`pre97` ou `unk`), et (`copro = oui` ou appartement) | idem |
 | **Plomb CREP** (`plomb`) | `hab`, `vl`, non `sais`, (`pre49` ou `unk`) | Obligatoire / À vérifier / Déjà valide |
-| **Plomb avant travaux** | `hab`, `travaux`, (`pre49` ou `unk`) | Conseillé |
-| **Électricité** | `hab`, `vl`, non `sais`, `elec ≠ moins15` | Obligatoire si `plus15`, sinon À vérifier ; Déjà valide si `deja ∋ elec` |
+| **Plomb avant travaux** (`plomb`) | `hab`, `travaux`, (`pre49` ou `unk`) | Conseillé |
+| **Électricité** | `hab`, `vl`, non `sais`, `elec ≠ moins15` | Obligatoire si `plus15`, sinon À vérifier (y compris `nsp` ou non renseigné, coché par défaut) ; Déjà valide si `deja ∋ elec` |
 | **Gaz** | `hab`, `vl`, non `sais`, `gaz = plus15` | Obligatoire / Déjà valide |
 | **Carrez** (`carrez`) | `vente` et `copro = oui` | Obligatoire |
 | **Boutin** (`carrez`) | `location`, `hab`, non `sais` | Obligatoire si vide ; Conseillé si meublé |
