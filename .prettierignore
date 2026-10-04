@@ -6,3 +6,4 @@ test-results/
 functions/lib/
 package-lock.json
 AGENTS.md
+.netlify/

@@ -58,3 +58,6 @@ functions/node_modules/
 # clés de compte de service Firebase (jamais dans Git)
 *service-account*.json
 *-firebase-adminsdk-*.json
+
+# Local Netlify folder
+.netlify
