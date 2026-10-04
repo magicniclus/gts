@@ -27,6 +27,7 @@
     "check-seo": "tsx scripts/check-seo.ts",
     "quality": "node scripts/emulators.mjs \"bash scripts/quality.sh\"",
     "icons:generate": "tsx scripts/generate-icons.ts",
+    "favicon:generate": "node scripts/generate-favicon.mjs",
     "dev:firebase": "next dev",
     "seed:firebase": "node --env-file=.env.local --import tsx scripts/seed.ts",
     "set-admin:firebase": "node --env-file=.env.local --import tsx scripts/set-admin.ts"
