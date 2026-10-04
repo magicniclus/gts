@@ -36,7 +36,7 @@ export function HowItWorks() {
         title="Du devis au rapport en"
         highlight="4 étapes"
         after="."
-        className="max-w-[20ch]"
+        titleClassName="max-w-[20ch]"
       />
       <ol className="m-0 mt-12 grid list-none grid-cols-[repeat(auto-fit,minmax(min(100%,230px),1fr))] gap-8 p-0">
         {STEPS.map((s) => (

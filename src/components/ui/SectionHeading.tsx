@@ -13,6 +13,8 @@ type Props = {
   tone?: "onLight" | "onDark";
   size?: "section" | "page" | "block";
   className?: string;
+  /** Classes du titre lui-même (ex. largeur en « ch », relative à sa taille de police). */
+  titleClassName?: string;
 };
 
 const SIZES = {
@@ -30,6 +32,7 @@ export function SectionHeading({
   tone = "onLight",
   size = Tag === "h1" ? "page" : "section",
   className,
+  titleClassName,
 }: Props) {
   const dark = tone === "onDark";
   return (
@@ -41,6 +44,7 @@ export function SectionHeading({
           SIZES[size],
           kicker ? "mt-4" : undefined,
           dark ? "text-white" : "text-accent-900",
+          titleClassName,
         )}
       >
         {title}
