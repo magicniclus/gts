@@ -1,5 +1,6 @@
 "use client";
 
+import { FirebaseError } from "firebase/app";
 import { signInWithEmailAndPassword, sendPasswordResetEmail, signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -9,6 +10,28 @@ import { clientAuth } from "@/lib/firebase/client";
 import { safeNext } from "@/lib/safe-next";
 
 const GENERIC = "E-mail ou mot de passe incorrect.";
+
+/** Message lisible pour une erreur Firebase Auth (les codes de mauvais identifiants restent génériques). */
+function authMessage(error: unknown): string {
+  const code = error instanceof FirebaseError ? error.code : "";
+  switch (code) {
+    case "auth/too-many-requests":
+      return "Trop de tentatives. Patientez quelques minutes ou réinitialisez le mot de passe.";
+    case "auth/network-request-failed":
+      return "Connexion à Firebase impossible. Vérifiez votre réseau.";
+    case "auth/user-disabled":
+      return "Ce compte est désactivé.";
+    case "auth/operation-not-allowed":
+      return "La connexion par e-mail n’est pas activée dans Firebase Authentication.";
+    case "auth/invalid-api-key":
+    case "auth/api-key-not-valid.-please-pass-a-valid-api-key.":
+      return "Configuration Firebase invalide (clé d’API).";
+    default:
+      return GENERIC;
+  }
+}
+
+class SessionError extends Error {}
 
 export function LoginForm() {
   const router = useRouter();
@@ -34,11 +57,15 @@ export function LoginForm() {
       });
       // Le cookie de session suffit : on ne garde pas de session Firebase côté navigateur.
       await signOut(auth);
-      if (!res.ok) throw new Error("refusé");
+      if (!res.ok) {
+        const body = (await res.json().catch(() => ({}))) as { error?: unknown };
+        throw new SessionError(typeof body.error === "string" ? body.error : GENERIC);
+      }
       router.replace(safeNext(new URLSearchParams(window.location.search).get("next")));
       router.refresh();
-    } catch {
-      setError(GENERIC);
+    } catch (err) {
+      if (!(err instanceof SessionError)) console.error("Connexion Firebase :", err);
+      setError(err instanceof SessionError ? err.message : authMessage(err));
       setPending(false);
     }
   };

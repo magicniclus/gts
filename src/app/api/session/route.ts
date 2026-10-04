@@ -4,6 +4,11 @@ import { SESSION_COOKIE, SESSION_DAYS, verifyAdminSession } from "@/lib/firebase
 
 const MAX_AUTH_AGE_S = 5 * 60;
 const GENERIC = { error: "E-mail ou mot de passe incorrect." };
+const NOT_ADMIN = { error: "Ce compte n’a pas encore accès à l’espace propriétaire." };
+const EXPIRED = { error: "Connexion trop ancienne, veuillez réessayer." };
+const SERVER = {
+  error: "Le serveur ne parvient pas à vérifier la connexion. Réessayez plus tard.",
+};
 
 /** Refuse les requêtes venant d’un autre site (protection CSRF des route handlers). */
 function sameOrigin(req: NextRequest): boolean {
@@ -38,17 +43,27 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(GENERIC, { status: 400 });
   }
   if (typeof idToken !== "string" || !idToken) return NextResponse.json(GENERIC, { status: 400 });
+  let decoded;
   try {
-    const decoded = await adminAuth().verifyIdToken(idToken, true);
-    const recent = Date.now() / 1000 - decoded.auth_time < MAX_AUTH_AGE_S;
-    if (decoded.admin !== true || !recent) return NextResponse.json(GENERIC, { status: 401 });
+    decoded = await adminAuth().verifyIdToken(idToken, true);
+  } catch (error) {
+    console.error("Connexion : jeton refusé par Firebase Admin.", error);
+    return NextResponse.json(SERVER, { status: 500 });
+  }
+  // Le mot de passe est déjà validé ici : préciser la cause n’aide pas à deviner un compte.
+  if (decoded.admin !== true) return NextResponse.json(NOT_ADMIN, { status: 403 });
+  if (Date.now() / 1000 - decoded.auth_time >= MAX_AUTH_AGE_S) {
+    return NextResponse.json(EXPIRED, { status: 401 });
+  }
+  try {
     const expiresIn = SESSION_DAYS * 24 * 60 * 60 * 1000;
     const cookie = await adminAuth().createSessionCookie(idToken, { expiresIn });
     const res = NextResponse.json({ ok: true });
     res.cookies.set(SESSION_COOKIE, cookie, cookieOptions(req, expiresIn / 1000));
     return res;
-  } catch {
-    return NextResponse.json(GENERIC, { status: 401 });
+  } catch (error) {
+    console.error("Connexion : création du cookie de session impossible.", error);
+    return NextResponse.json(SERVER, { status: 500 });
   }
 }
 

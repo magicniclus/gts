@@ -1,4 +1,5 @@
-import { render, screen, within } from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
+import { FirebaseError } from "firebase/app";
 import userEvent from "@testing-library/user-event";
 import type { ReactNode } from "react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -127,6 +128,31 @@ describe("LoginForm", () => {
     auth.reset.mockRejectedValue(new Error("auth/user-not-found"));
     await user.click(screen.getByRole("button", { name: "Mot de passe oublié ?" }));
     expect(screen.getByRole("status")).toHaveTextContent("Si un compte existe");
+  });
+
+  it("erreurs précises : trop de tentatives, compte sans accès", async () => {
+    const quiet = vi.spyOn(console, "error").mockImplementation(() => {});
+    auth.signIn.mockRejectedValueOnce(new FirebaseError("auth/too-many-requests", "bloqué"));
+    render(<LoginForm />);
+    await user.type(screen.getByLabelText("E-mail"), "admin@exemple.fr");
+    await user.type(screen.getByLabelText("Mot de passe"), "x");
+    await user.click(screen.getByRole("button", { name: "Se connecter" }));
+    expect(await screen.findByRole("alert")).toHaveTextContent("Trop de tentatives");
+
+    auth.signIn.mockResolvedValue({ user: { getIdToken: async () => "jeton" } });
+    const body = JSON.stringify({
+      error: "Ce compte n’a pas encore accès à l’espace propriétaire.",
+    });
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => new Response(body, { status: 403 })),
+    );
+    await user.click(screen.getByRole("button", { name: "Se connecter" }));
+    await waitFor(() =>
+      expect(screen.getByRole("alert")).toHaveTextContent("n’a pas encore accès"),
+    );
+    vi.unstubAllGlobals();
+    quiet.mockRestore();
   });
 });
 
