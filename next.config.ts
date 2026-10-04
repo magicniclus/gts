@@ -6,6 +6,24 @@ const emulators =
   process.env.NEXT_PUBLIC_USE_EMULATORS === "true" ||
   (projectId.startsWith("demo-") && process.env.NEXT_PUBLIC_USE_EMULATORS !== "false");
 
+// Sur Netlify, un build sans les variables Firebase partirait vers les émulateurs (127.0.0.1) :
+// on s’arrête tout de suite avec un message clair.
+if (process.env.NETLIFY === "true") {
+  const missing = [
+    "NEXT_PUBLIC_SITE_URL",
+    "NEXT_PUBLIC_FIREBASE_PROJECT_ID",
+    "FIREBASE_CLIENT_EMAIL",
+    "FIREBASE_PRIVATE_KEY",
+  ].filter((name) => !process.env[name]);
+  if (missing.length) {
+    throw new Error(
+      `Variables d’environnement absentes sur Netlify : ${missing.join(", ")}.\n` +
+        "Les ajouter dans Site configuration → Environment variables (portée « Builds » comprise), " +
+        "puis relancer le déploiement. Voir docs/deploiement-netlify.md.",
+    );
+  }
+}
+
 const nextConfig: NextConfig = {
   cacheComponents: true,
   typedRoutes: false,
