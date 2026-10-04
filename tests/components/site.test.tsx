@@ -1,15 +1,16 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { axe } from "vitest-axe";
 
 const push = vi.fn();
-vi.mock("next/navigation", () => ({ useRouter: () => ({ push }) }));
+vi.mock("next/navigation", () => ({ useRouter: () => ({ push }), usePathname: () => "/" }));
 
 import { AboutOwner } from "@/components/site/AboutOwner";
 import { ArticleGrid } from "@/components/site/ArticleCard";
 import { CityLinkGrid } from "@/components/site/CityLinkGrid";
 import { CommuneColumns } from "@/components/site/CommuneColumns";
+import { FloatingCall } from "@/components/site/FloatingCall";
 import { CommuneSearch, searchCommunes } from "@/components/site/CommuneSearch";
 import { ContentHero } from "@/components/site/ContentHero";
 import { CtaBand } from "@/components/site/CtaBand";
@@ -47,15 +48,44 @@ describe("structure du site", () => {
     await noViolations(container);
   });
 
-  it("SiteHeader : pas de menu, téléphone et devis", async () => {
+  it("SiteHeader : téléphone, devis et menu mobile", async () => {
+    const user = userEvent.setup();
     const { container } = render(<SiteHeader phone={PHONE} />);
     expect(screen.getByRole("link", { name: /Appel direct/ })).toHaveAttribute(
       "href",
       "tel:+33612345678",
     );
-    expect(screen.getByRole("link", { name: /Devis gratuit/ })).toHaveAttribute("href", "/devis");
-    expect(screen.queryByRole("navigation")).toBeNull();
+    // Le panneau fermé est « inert » : absent de l’arbre d’accessibilité des navigateurs, pas de jsdom.
+    const header = container.querySelector("header");
+    if (!header) throw new Error("en-tête absent");
+    expect(within(header).getByRole("link", { name: /^Devis gratuit$/ })).toHaveAttribute(
+      "href",
+      "/devis",
+    );
     await noViolations(container);
+
+    const burger = screen.getByRole("button", { name: "Ouvrir le menu" });
+    expect(burger).toHaveAttribute("aria-expanded", "false");
+    await user.click(burger);
+    expect(burger).toHaveAttribute("aria-expanded", "true");
+    expect(document.body.style.overflow).toBe("hidden");
+    const menu = screen.getByRole("dialog", { name: "Menu" });
+    expect(screen.getByRole("button", { name: "Fermer le menu" })).toHaveFocus();
+    expect(menu.querySelector('a[href="/diagnostic-dpe-marseille"]')).not.toBeNull();
+    expect(menu.querySelector('a[href="tel:+33612345678"]')).not.toBeNull();
+
+    await user.keyboard("{Escape}");
+    expect(burger).toHaveAttribute("aria-expanded", "false");
+    expect(document.body.style.overflow).toBe("");
+    expect(burger).toHaveFocus();
+  });
+
+  it("FloatingCall : bouton d’appel", () => {
+    render(<FloatingCall phone={PHONE} />);
+    expect(screen.getByRole("link", { name: `Appeler le ${PHONE}` })).toHaveAttribute(
+      "href",
+      "tel:+33612345678",
+    );
   });
 
   it("SiteFooter : colonnes SEO et liens légaux", async () => {

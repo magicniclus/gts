@@ -55,7 +55,7 @@ export function SiteFooter({
   const year = 2026;
   return (
     <footer className="bg-footer text-white/78">
-      <div className="container-site pt-[clamp(48px,6vw,80px)] pb-8">
+      <div className="container-site pt-[clamp(48px,6vw,80px)] pb-8 max-md:pb-28">
         <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,200px),1fr))] gap-x-8 gap-y-10">
           <div>
             <Logo tone="white" src={logoUrl} width={130} />

@@ -59,9 +59,11 @@
   --radius-band: 24px;
   --radius-pill: 999px;
 
-  /* Ombres : seulement la carte devis du hero (et la carte de connexion) */
+  /* Ombres : carte devis du hero, carte de connexion, bouton d’appel flottant */
   --shadow-hero: 0 30px 80px -20px rgba(3, 10, 40, 0.55);
   --shadow-login: 0 30px 80px -20px rgba(3, 10, 40, 0.25);
+  /* Bouton d’appel flottant (mobile) */
+  --shadow-float: 0 12px 30px -8px rgba(10, 26, 72, 0.55);
 
   /* Mise en page */
   --container-site: 1240px;
