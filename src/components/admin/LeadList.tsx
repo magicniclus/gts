@@ -24,7 +24,7 @@ export function LeadList({
     .reduce((a, l) => a + l.total, 0);
   return (
     <>
-      <div className="mt-7 grid grid-cols-[repeat(auto-fit,minmax(min(100%,200px),1fr))] gap-3">
+      <div className="mt-7 grid grid-cols-3 gap-2 sm:grid-cols-[repeat(auto-fit,minmax(200px,1fr))] sm:gap-3">
         <StatCard value={String(nNew)} label="Nouvelles demandes" />
         <StatCard value={String(leads.length)} label="Demandes au total" />
         <StatCard value={formatEuros(pipe)} label="Estimé en cours (hors gagnés)" />

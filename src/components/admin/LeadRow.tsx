@@ -76,13 +76,13 @@ export function LeadRow({
         open ? "border-accent" : "border-transparent",
       )}
     >
-      <div className="flex flex-wrap items-center gap-3 py-2 pr-3.5 pl-2">
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 py-2 pr-3.5 pl-2 max-sm:pb-3.5">
         <button
           type="button"
           onClick={onToggle}
           aria-expanded={open}
           aria-controls={panel}
-          className="grid min-w-0 flex-[1_1_360px] cursor-pointer grid-cols-[minmax(0,1.3fr)_minmax(0,1.2fr)_auto] items-center gap-x-5 gap-y-1 rounded-field px-3 py-2.5 text-left hover:bg-surface"
+          className="grid min-w-0 flex-[1_1_360px] cursor-pointer grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 gap-y-1.5 rounded-field px-3 py-2.5 text-left hover:bg-surface sm:grid-cols-[minmax(0,1.3fr)_minmax(0,1.2fr)_auto] sm:gap-x-5"
         >
           <span className="grid min-w-0 gap-0.5">
             <strong className="truncate text-base font-bold">{lead.nom}</strong>
@@ -91,20 +91,26 @@ export function LeadRow({
               · {lead.ref}
             </span>
           </span>
-          <span className="grid min-w-0 gap-0.5">
+          <span className="order-3 col-span-2 grid min-w-0 gap-0.5 sm:order-none sm:col-span-1">
             <span className="truncate text-[15px] font-semibold">{lead.commune}</span>
             <span className="truncate text-[13px] text-text/65">
               {lead.projet} · {lead.diagnostics.length} diag.
             </span>
           </span>
-          <span className="text-lg font-extrabold whitespace-nowrap text-accent-900 stretch-112">
+          <span className="order-2 text-lg font-extrabold whitespace-nowrap text-accent-900 stretch-112 sm:order-none">
             {lead.total ? formatEuros(lead.total) : "Sur devis"}
           </span>
         </button>
-        <StatusSelect value={lead.status} onChange={changeStatus} label={`Statut de ${lead.ref}`} />
+        <span className="max-sm:pl-3">
+          <StatusSelect
+            value={lead.status}
+            onChange={changeStatus}
+            label={`Statut de ${lead.ref}`}
+          />
+        </span>
       </div>
       {open && (
-        <div id={panel} className="grid gap-[18px] px-[22px] pt-1 pb-[22px]">
+        <div id={panel} className="grid gap-[18px] px-[22px] pt-1 pb-[22px] max-sm:px-4">
           <dl className="m-0 grid grid-cols-[repeat(auto-fill,minmax(min(100%,220px),1fr))] gap-x-6 gap-y-3.5">
             {facts.map(([k, v]) => (
               <div key={k}>

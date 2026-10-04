@@ -52,7 +52,7 @@ export function PriceGrid({ initial, defaults, updatedAt, save }: Props) {
             <tr>
               <th
                 scope="col"
-                className="px-3.5 py-3.5 text-left text-[13px] font-bold text-text/65"
+                className="sticky left-0 z-1 bg-white px-3.5 py-3.5 text-left text-[13px] font-bold text-text/65 max-sm:px-2"
               >
                 Diagnostic · € TTC
               </th>
@@ -70,7 +70,10 @@ export function PriceGrid({ initial, defaults, updatedAt, save }: Props) {
           <tbody>
             {PRICE_KEYS.map((k) => (
               <tr key={k} className="border-t border-divider">
-                <th scope="row" className="px-3.5 py-2 text-left font-semibold whitespace-nowrap">
+                <th
+                  scope="row"
+                  className="sticky left-0 z-1 bg-white px-3.5 py-2 text-left font-semibold whitespace-nowrap max-sm:max-w-[130px] max-sm:px-2 max-sm:text-sm max-sm:whitespace-normal"
+                >
                   {PRICE_ROW_LABELS[k]}
                 </th>
                 {BAND_LABELS.map((b, i) => {
