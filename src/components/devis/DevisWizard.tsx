@@ -68,14 +68,17 @@ export function DevisWizard({ pricing, phone, submit }: Props) {
     if (draft?.projet) setStep(1);
   }, []);
 
-  // Focus sur le titre de l’étape à chaque changement (lecteurs d’écran).
+  const done = result?.ok === true;
+  // À chaque changement d’étape : retour en haut de page, puis focus sur le titre de l’étape
+  // (lecteurs d’écran) sans faire défiler la page jusqu’à lui.
   useEffect(() => {
     if (firstRender.current) {
       firstRender.current = false;
       return;
     }
-    card.current?.querySelector<HTMLElement>("[data-step-title]")?.focus();
-  }, [step, result]);
+    window.scrollTo({ top: 0, behavior: "instant" });
+    card.current?.querySelector<HTMLElement>("[data-step-title]")?.focus({ preventScroll: true });
+  }, [step, done]);
 
   const set: SetField = (key, value) => {
     setF((prev) => ({ ...prev, [key]: value }));
@@ -117,7 +120,6 @@ export function DevisWizard({ pricing, phone, submit }: Props) {
           value: res.total,
           lead_ref: res.ref,
         });
-        window.scrollTo({ top: 0 });
       }
     });
   };
@@ -127,7 +129,6 @@ export function DevisWizard({ pricing, phone, submit }: Props) {
     if (last) send();
     else {
       setStep(step + 1);
-      window.scrollTo({ top: 0 });
     }
   };
 
