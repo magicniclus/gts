@@ -207,7 +207,7 @@ export function DevisWizard({ pricing, phone, submit }: Props) {
             </p>
           )}
 
-          <div className="mt-9 flex items-center justify-between gap-3 border-t border-divider pt-6">
+          <div className="mt-9 flex items-center justify-between gap-3 border-t border-divider pt-6 max-sm:gap-2">
             {step > 0 && (
               <Button
                 variant="ghost"
@@ -215,12 +215,19 @@ export function DevisWizard({ pricing, phone, submit }: Props) {
                 icon="arrow-left"
                 iconPosition="start"
                 onClick={() => setStep(step - 1)}
+                className="max-sm:px-2.5"
               >
                 Retour
               </Button>
             )}
-            <span className="flex-1" />
-            <Button type="submit" size="xl" icon="arrow-right" disabled={!valid[step] || pending}>
+            <span className="flex-1 max-sm:hidden" />
+            <Button
+              type="submit"
+              size="xl"
+              icon="arrow-right"
+              disabled={!valid[step] || pending}
+              className="max-sm:min-w-0 max-sm:flex-1 max-sm:px-4"
+            >
               {last ? (pending ? "Envoi…" : "Envoyer ma demande") : "Continuer"}
             </Button>
           </div>

@@ -2,8 +2,8 @@ import { expect, type Page } from "@playwright/test";
 
 export const ADMIN = { email: "admin@gts-diagnostic.test", password: "gts-admin-2026" };
 
-/** Accueil → carte du hero → 6 étapes → confirmation ; renvoie la référence. */
-export async function parcoursDevis(page: Page, nom: string) {
+/** Accueil → carte devis → étapes 2 à 5 : s’arrête sur l’étape « Coordonnées ». */
+export async function jusquauxCoordonnees(page: Page) {
   await page.goto("/");
   const carte = page
     .locator("section")
@@ -40,7 +40,11 @@ export async function parcoursDevis(page: Page, nom: string) {
 
   await page.getByRole("button", { name: /Cette semaine/ }).click();
   await page.getByRole("button", { name: "Continuer" }).click();
+}
 
+/** Accueil → carte du hero → 6 étapes → confirmation ; renvoie la référence. */
+export async function parcoursDevis(page: Page, nom: string) {
+  await jusquauxCoordonnees(page);
   await page.getByLabel("Nom et prénom").fill(nom);
   await page.getByLabel("Téléphone").fill("06 21 44 87 10");
   await page.getByLabel("E-mail").fill("e2e@exemple.fr");

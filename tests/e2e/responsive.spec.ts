@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { login } from "./helpers";
+import { jusquauxCoordonnees, login } from "./helpers";
 
 const PAGES = [
   "/",
@@ -23,6 +23,25 @@ for (const width of [360, 768, 1280]) {
       );
       expect(overflow, `${path} déborde de ${overflow} px`).toBeLessThanOrEqual(0);
     }
+  });
+}
+
+for (const width of [320, 360]) {
+  test(`devis à ${width} px : boutons de la dernière étape dans l’écran`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 800 });
+    await jusquauxCoordonnees(page);
+    const envoyer = page.getByRole("button", { name: "Envoyer ma demande" });
+    const retour = page.getByRole("button", { name: "Retour" });
+    for (const bouton of [envoyer, retour]) {
+      const box = await bouton.boundingBox();
+      expect(box).not.toBeNull();
+      expect(box!.x).toBeGreaterThanOrEqual(0);
+      expect(box!.x + box!.width).toBeLessThanOrEqual(width);
+    }
+    const overflow = await page.evaluate(
+      () => document.documentElement.scrollWidth - window.innerWidth,
+    );
+    expect(overflow).toBeLessThanOrEqual(0);
   });
 }
 
